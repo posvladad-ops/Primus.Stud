@@ -1,4 +1,4 @@
-// PRIMUS.STUD — service worker: кэширует приложение целиком,
+// PRIMUS. — service worker: кэширует приложение целиком,
 // чтобы оно открывалось и работало без интернета после первого захода.
 const CACHE_NAME = "primus-stud-v1";
 const CORE_ASSETS = [
