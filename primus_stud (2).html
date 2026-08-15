@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PRIMUS.STUD</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#10141C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PRIMUS.STUD">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===================== ТОКЕНЫ ТЕМЫ ===================== */
+:root{
+  --font-display:'Onest',sans-serif;
+  --font-body:'Onest',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius-s:8px; --radius-m:12px; --radius-l:18px;
+}
+html[data-theme="dark"]{
+  --bg:#10141C;
+  --bg-soft:#151A23;
+  --surface:#1A2029;
+  --surface-hover:#212836;
+  --border:#2A3140;
+  --text:#EDEAE0;
+  --text-dim:#A39C89;
+  --text-faint:#6C7080;
+  --accent:#9A6B3E;
+  --accent-strong:#C08F5C;
+  --accent-soft:rgba(154,107,62,.16);
+  --khaki:#B4AA85;
+  --khaki-soft:rgba(180,170,133,.14);
+  --khaki-ring:#8A7A4A;
+  --good:#7C9473;
+  --bad:#B5675A;
+  --shadow:0 10px 30px rgba(0,0,0,.38);
+}
+html[data-theme="light"]{
+  --bg:#EDEBE6;
+  --bg-soft:#E6E3DC;
+  --surface:#FBFAF7;
+  --surface-hover:#F1EEE7;
+  --border:#D9D5CB;
+  --text:#28251F;
+  --text-dim:#6C6759;
+  --text-faint:#98917F;
+  --accent:#7A4E28;
+  --accent-strong:#5E3A1C;
+  --accent-soft:rgba(122,78,40,.09);
+  --khaki:#8C7F52;
+  --khaki-soft:rgba(140,127,82,.13);
+  --khaki-ring:#7A6E44;
+  --good:#5C7A52;
+  --bad:#A24E42;
+  --shadow:0 10px 26px rgba(50,45,35,.08);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;margin:0 0 .4em;letter-spacing:-.2px;}
+a{color:inherit;}
+button{font-family:var(--font-body);cursor:pointer;border-radius:var(--radius-s);}
+textarea,input,select{border-radius:var(--radius-s);}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+/* ===================== LAYOUT ===================== */
+#app{display:grid;grid-template-columns:256px 1fr;min-height:100vh;}
+.sidebar{
+  background:var(--bg-soft);
+  border-right:1px solid var(--border);
+  padding:20px 14px;
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.brand{padding:4px 8px 6px;}
+.brand h1{font-size:22px;letter-spacing:1px;transform:scaleX(1.22) scaleY(0.92);transform-origin:left center;font-weight:800;display:inline-block;}
+.brand .sub{font-size:11.5px;color:var(--text-dim);margin-top:3px;letter-spacing:.2px;}
+.aura-badge{margin:10px 8px 16px;padding:8px 12px;border-radius:var(--radius-s);background:var(--accent-soft);color:var(--accent-strong);font-family:var(--font-mono);font-size:11.5px;font-weight:600;text-align:center;}
+
+.nav-group{margin-bottom:6px;}
+.nav-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-faint);padding:14px 10px 6px;}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 10px;border-radius:var(--radius-s);
+  font-size:13.5px;color:var(--text-dim);
+  cursor:pointer;transition:background .12s,color .12s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.nav-item:hover{background:var(--surface-hover);color:var(--text);}
+.nav-item.active{background:var(--accent-soft);color:var(--accent-strong);font-weight:600;}
+.mono-badge{
+  width:20px;height:20px;border-radius:6px;background:var(--khaki-soft);color:var(--khaki);
+  font-family:var(--font-mono);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.nav-item.active .mono-badge{background:var(--accent);color:#fff;}
+.nav-item .count{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint);}
+.nav-add{margin:8px 6px 2px;padding:7px 10px;border-radius:var(--radius-s);border:1px dashed var(--border);background:transparent;color:var(--text-faint);font-size:12.5px;text-align:left;}
+.nav-add:hover{border-color:var(--accent);color:var(--accent-strong);}
+
+.theme-toggle{
+  margin-top:auto;display:flex;align-items:center;justify-content:space-between;
+  padding:10px;border-radius:var(--radius-s);background:var(--surface);
+  border:1px solid var(--border);font-size:12.5px;color:var(--text-dim);
+}
+.switch{position:relative;width:36px;height:20px;background:var(--border);border-radius:20px;border:none;flex-shrink:0;}
+.switch::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--accent);border-radius:50%;transition:transform .18s;}
+html[data-theme="light"] .switch::after{transform:translateX(16px);}
+.switch.on::after{transform:translateX(16px);background:var(--accent-strong);}
+
+.main{padding:26px 34px 60px;max-width:1180px;}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:16px;flex-wrap:wrap;}
+.topbar h2{font-size:25px;}
+.topbar .desc{color:var(--text-dim);font-size:13.5px;margin-top:2px;max-width:560px;}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:var(--radius-s);border:1px solid var(--border);
+  background:var(--surface);color:var(--text);font-size:13px;font-weight:500;
+  transition:border-color .12s,background .12s;
+}
+.btn:hover{border-color:var(--accent);background:var(--surface-hover);}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-strong);border-color:var(--accent-strong);}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* Aura hero */
+.aura-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);padding:24px 28px;box-shadow:var(--shadow);}
+.aura-num{font-family:var(--font-display);font-size:44px;font-weight:800;color:var(--accent-strong);}
+.aura-unit{font-size:16px;font-weight:600;color:var(--text-dim);margin-left:8px;}
+.aura-level{font-size:13px;color:var(--text-dim);margin-top:4px;}
+.aura-bar{height:8px;border-radius:8px;background:var(--bg-soft);margin-top:12px;overflow:hidden;}
+.aura-bar-fill{height:100%;background:var(--accent);border-radius:8px;transition:width .3s;}
+.streak-row{margin-top:10px;font-size:12.5px;color:var(--text-dim);}
+
+.checklist{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
+.check-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.check-item.done{border-color:var(--good);}
+.check-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;}
+.check-item.done .check-box{background:var(--good);border-color:var(--good);color:#fff;}
+.check-body{flex:1;}
+.check-top{display:flex;justify-content:space-between;font-size:13px;font-weight:500;margin-bottom:8px;}
+.check-bar{height:6px;border-radius:6px;background:var(--bg-soft);overflow:hidden;}
+.check-bar-fill{height:100%;background:var(--accent);border-radius:6px;}
+.check-item.done .check-bar-fill{background:var(--good);}
+.bonus-banner{margin-top:14px;padding:12px 16px;border-radius:var(--radius-s);background:rgba(124,148,115,.15);border:1px solid var(--good);color:var(--good);font-size:13px;font-weight:600;}
+.bonus-hint{margin-top:14px;padding:12px 16px;border-radius:var(--radius-s);background:var(--bg-soft);border:1px dashed var(--border);color:var(--text-dim);font-size:12.5px;}
+
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:22px;}
+.home-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:18px;cursor:pointer;transition:border-color .12s;}
+.home-card:hover{border-color:var(--accent);}
+.home-card-num{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--accent-strong);}
+.home-card-label{font-size:12.5px;color:var(--text-dim);margin-top:4px;}
+.home-card.rno-card{border-color:var(--bad);}
+.home-card.rno-card .home-card-num{color:var(--bad);}
+
+.week-row{display:flex;gap:8px;margin-top:16px;}
+.week-day{flex:1;text-align:center;padding:10px 4px;border-radius:var(--radius-s);background:var(--surface);border:1px solid var(--border);}
+.week-day.today{border-color:var(--accent);}
+.week-day .wd-label{font-size:10.5px;color:var(--text-faint);font-family:var(--font-mono);}
+.week-day .wd-dot{width:10px;height:10px;border-radius:50%;background:var(--border);margin:6px auto 0;}
+.week-day.done .wd-dot{background:var(--good);}
+
+/* Cards grid */
+.filters{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap;}
+.chip{padding:6px 12px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--text-dim);background:var(--surface);cursor:pointer;}
+.chip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-strong);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;}
+.flashcard{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);
+  padding:16px;transition:border-color .12s;position:relative;
+}
+.flashcard:hover{border-color:var(--accent);}
+.fc-topic{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--text-faint);margin-bottom:6px;}
+.flashcard .fc-top{font-family:var(--font-display);font-size:16.5px;font-weight:700;margin-bottom:4px;}
+.flashcard .fc-sub{font-size:12.5px;color:var(--accent-strong);font-weight:500;margin-bottom:8px;}
+.flashcard .fc-body{font-size:12.8px;color:var(--text-dim);line-height:1.55;}
+.flashcard .fc-usage{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:11.8px;color:var(--khaki);}
+.level-badge{position:absolute;top:12px;right:12px;font-family:var(--font-mono);font-size:10px;padding:2px 7px;border-radius:20px;background:var(--khaki-soft);color:var(--khaki);}
+.level-badge.mastered{background:rgba(124,148,115,.18);color:var(--good);}
+.fc-actions{display:flex;gap:6px;margin-top:10px;}
+.icon-btn{border:1px solid var(--border);background:var(--surface);border-radius:6px;padding:4px 8px;color:var(--text-faint);font-size:11px;}
+.icon-btn:hover{color:var(--bad);border-color:var(--bad);}
+.icon-btn.edit:hover{color:var(--accent);border-color:var(--accent);}
+
+/* Practice */
+.practice-wrap{max-width:700px;margin-top:4px;}
+.mode-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.mode-tab{padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:12.5px;color:var(--text-dim);}
+.mode-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+.mode-count{font-family:var(--font-mono);font-size:10px;opacity:.75;}
+.stat-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:12px 16px;min-width:110px;}
+.stat-box .num{font-family:var(--font-display);font-size:22px;font-weight:800;}
+.stat-box .lbl{font-size:11px;color:var(--text-faint);margin-top:2px;}
+.task-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);padding:26px;box-shadow:var(--shadow);}
+.task-type{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.task-prompt{font-family:var(--font-display);font-size:18px;font-weight:600;line-height:1.4;margin-bottom:16px;}
+.opt-list{display:flex;flex-direction:column;gap:8px;margin:14px 0;}
+.opt{padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-s);font-size:13.5px;background:var(--bg-soft);transition:border-color .1s,background .1s;}
+.opt:hover{border-color:var(--accent);}
+.opt.correct{border-color:var(--good);background:rgba(124,148,115,.14);}
+.opt.wrong{border-color:var(--bad);background:rgba(181,103,90,.14);}
+.open-answer{width:100%;min-height:90px;padding:12px;border-radius:var(--radius-s);border:1px solid var(--border);background:var(--bg-soft);color:var(--text);font-family:var(--font-body);font-size:13.5px;margin-bottom:12px;resize:vertical;}
+.answer-box{margin-top:14px;padding:14px;border-radius:var(--radius-s);background:var(--bg-soft);border:1px solid var(--border);font-size:13.5px;display:none;}
+.answer-box.show{display:block;}
+.answer-box .a-label{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.grade-row{display:flex;gap:8px;margin-top:14px;}
+.btn-good{background:var(--good);border-color:var(--good);color:#fff;}
+.btn-bad{background:var(--bad);border-color:var(--bad);color:#fff;}
+.task-footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;}
+.olympiad-tag{font-size:10.5px;padding:3px 8px;border-radius:10px;background:var(--accent-soft);color:var(--accent-strong);font-family:var(--font-mono);}
+.toggle-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim);margin:10px 0 16px;}
+
+/* Match mode */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:16px 0;}
+.match-col{display:flex;flex-direction:column;gap:8px;}
+.match-item{padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-s);font-size:13px;background:var(--bg-soft);cursor:pointer;}
+.match-item:hover{border-color:var(--accent);}
+.match-item.selected{border-color:var(--accent);background:var(--accent-soft);}
+.match-item.correct{border-color:var(--good);background:rgba(124,148,115,.14);cursor:default;opacity:.7;}
+.match-item.wrong{border-color:var(--bad);background:rgba(181,103,90,.14);}
+
+/* Review / RNO */
+.review-summary{font-family:var(--font-display);font-size:19px;font-weight:700;margin-bottom:14px;}
+.review-groups{display:flex;flex-direction:column;gap:8px;}
+.review-group{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-s);padding:12px 14px;cursor:pointer;font-size:13px;}
+.review-group.active{border-color:var(--accent);background:var(--accent-soft);}
+.rg-mark{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.rg-mark.rno-mark{background:var(--bad);}
+.rg-text{flex:1;}
+.rg-count{font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);}
+.rno-banner{padding:12px 16px;border-radius:var(--radius-s);background:rgba(181,103,90,.12);border:1px solid var(--bad);color:var(--bad);font-size:13px;font-weight:600;margin-bottom:18px;}
+
+/* Calendar — компактная, лаконичная */
+.cal-wrap{max-width:320px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px;}
+.cal-month-title{font-family:var(--font-display);font-size:13px;font-weight:700;margin:16px 0 6px;color:var(--text-dim);}
+.cal-cell{aspect-ratio:1;border-radius:5px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-dim);cursor:pointer;}
+.cal-cell.empty{border:none;background:transparent;cursor:default;}
+.cal-cell.filled{background:var(--khaki-ring);color:#fff;border-color:var(--khaki-ring);font-weight:600;}
+.cal-cell .n{font-size:10px;}
+.cal-dow{text-align:center;font-size:9px;color:var(--text-faint);font-family:var(--font-mono);}
+
+/* Progress */
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:16px;}
+.prog-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:18px;display:flex;align-items:center;gap:14px;}
+.prog-card .p-info{flex:1;}
+.prog-card h4{font-size:14px;margin-bottom:3px;}
+.prog-card .p-sub{font-size:11.5px;color:var(--text-faint);}
+
+/* Perfect Usage */
+.shine-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:14px 16px;margin-bottom:10px;}
+.shine-item .s-top{display:flex;justify-content:space-between;font-size:13px;font-weight:600;}
+.shine-item .s-cat{font-family:var(--font-mono);font-size:10px;color:var(--accent);text-transform:uppercase;}
+.shine-item .s-usage{margin-top:6px;font-size:12.8px;color:var(--khaki);border-left:2px solid var(--accent);padding-left:9px;}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(10,10,10,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+.overlay.show{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);padding:24px;width:100%;max-width:460px;max-height:86vh;overflow-y:auto;box-shadow:var(--shadow);}
+.modal.modal-lg{max-width:640px;}
+.modal h3{font-size:18px;margin-bottom:14px;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:11.5px;color:var(--text-faint);margin-bottom:5px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.5px;}
+.field input,.field textarea,.field select{
+  width:100%;padding:9px 11px;border:1px solid var(--border);
+  background:var(--bg-soft);color:var(--text);font-family:var(--font-body);font-size:13px;
+}
+.field textarea{min-height:64px;resize:vertical;}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
+.topic-row,.manage-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.topic-name-input,.manage-name-input{flex:1;padding:8px 10px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);font-size:13px;border-radius:var(--radius-s);}
+.mini-btn{border:1px solid var(--border);background:var(--surface);border-radius:6px;padding:4px 7px;color:var(--text-faint);font-size:11px;}
+.mini-btn:hover{color:var(--accent);border-color:var(--accent);}
+.mini-btn.pin-on{color:var(--accent-strong);border-color:var(--accent-strong);background:var(--accent-soft);}
+
+/* Study / flip mode (Quizlet-style) */
+.study-card-wrap{perspective:1200px;margin:10px 0 18px;}
+.study-card{
+  min-height:230px;border-radius:var(--radius-l);border:1px solid var(--border);background:var(--surface);
+  box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:30px;cursor:pointer;position:relative;
+}
+.study-card .sc-hint{position:absolute;bottom:12px;left:0;right:0;font-size:10.5px;color:var(--text-faint);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.6px;}
+.study-card .sc-topic{position:absolute;top:12px;left:16px;font-size:10px;color:var(--text-faint);font-family:var(--font-mono);text-transform:uppercase;}
+.study-card .sc-main{font-family:var(--font-display);font-size:21px;font-weight:700;}
+.study-card .sc-sub{font-size:13px;color:var(--text-dim);margin-top:10px;line-height:1.5;}
+.study-progress{font-size:12px;color:var(--text-faint);text-align:center;margin-bottom:6px;}
+.study-actions{display:flex;gap:8px;justify-content:center;}
+.study-actions .btn{flex:1;max-width:170px;}
+.btn-know{background:var(--good);border-color:var(--good);color:#fff;}
+.btn-dontknow{background:var(--bad);border-color:var(--bad);color:#fff;}
+.btn-again{background:var(--khaki);border-color:var(--khaki);color:#fff;}
+
+/* Theory / Feynman materials */
+.theory-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;}
+.theory-topic{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;}
+.theory-title{font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:10px;}
+.theory-block{margin-bottom:10px;}
+.theory-block .tb-label{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:3px;}
+.theory-block .tb-body{font-size:13px;color:var(--text-dim);line-height:1.6;}
+.theory-actions{display:flex;gap:8px;margin-top:12px;}
+
+.empty-state{padding:50px 20px;text-align:center;color:var(--text-faint);}
+
+@media (max-width:820px){
+  #app{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;flex-direction:row;flex-wrap:wrap;top:auto;}
+  .main{padding:18px;}
+  .match-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>PRIMUS.STUD</h1>
+      <div class="sub">The best platform for successful studying</div>
+    </div>
+    <div class="aura-badge" id="auraBadge">0 Aura · ур. 1</div>
+    <div id="navCategories"></div>
+    <button class="nav-add" id="btnAddCategory">Добавить категорию</button>
+    <button class="nav-add" id="btnManageCategories">Управление категориями</button>
+    <div class="nav-group">
+      <div class="nav-label">Progress</div>
+      <div class="nav-item" data-view="progress"><span class="mono-badge">PG</span>Progress</div>
+      <div class="nav-item" data-view="review"><span class="mono-badge">ПВ</span>Повторение<span class="count" id="cntReview"></span></div>
+      <div class="nav-item" data-view="rno"><span class="mono-badge">РН</span>РНО<span class="count" id="cntRno"></span></div>
+      <div class="nav-item" data-view="perfect"><span class="mono-badge">PU</span>Perfect Usage</div>
+    </div>
+    <div class="theme-toggle">
+      <span id="themeLabel">Тёмная тема</span>
+      <button class="switch" id="themeSwitch"></button>
+    </div>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+
+<div class="overlay" id="overlay"><div class="modal" id="modalBody"></div></div>
+
+<script>
+/* ==========================================================================
+   ДАННЫЕ ПРИЛОЖЕНИЯ «Кругозор»
+   Все факты проверены и соответствуют общеизвестным источникам
+   (международное право, история, культура). Формат — компактные массивы,
+   которые строитель карточек (builder в app.js) превращает в объекты.
+   ========================================================================== */
+
+/* ---------- 1. ГЕОГРАФИЯ (страна | столица | факт1 | факт2 | где блеснуть) ---------- */
+const RAW_GEO = [
+["Франция","Париж","Постоянный член Совбеза ООН","Пятая республика существует с 1958 года","Пример полупрезидентской системы правления"],
+["Германия","Берлин","Крупнейшая экономика ЕС","Федеративная парламентская республика (16 земель)","Пример кооперативного федерализма"],
+["Великобритания","Лондон","Постоянный член Совбеза ООН","Не имеет единой писаной конституции","Пример системы общего права (common law)"],
+["США","Вашингтон","Постоянный член Совбеза ООН","Федеративная президентская республика","Пример жёсткого разделения властей"],
+["Китай","Пекин","Постоянный член Совбеза ООН","Одна из древнейших непрерывных цивилизаций","Пример социалистической правовой системы"],
+["Россия","Москва","Постоянный член Совбеза ООН","Крупнейшая по территории страна мира","Федерация из 89 субъектов"],
+["Индия","Нью-Дели","Крупнейшая демократия мира по числу избирателей","Федеративная парламентская республика","Пример смешанной правовой системы"],
+["Япония","Токио","Конституционная монархия","Пацифистская статья 9 конституции 1947 года","Пример романо-германской системы с элементами common law"],
+["Бразилия","Бразилиа","Крупнейшая страна Латинской Америки","Федеративная президентская республика","Член БРИКС и G20"],
+["ЮАР","Претория (адм.), Кейптаун (закон.), Блумфонтейн (суд.)","Три столицы — уникальный случай","Одна из самых прогрессивных конституций мира (1996)","Пример переходного правосудия после апартеида"],
+["Италия","Рим","Штаб-квартира ФАО ООН","Парламентская республика с 1946 года","Пример многопартийной коалиционной системы"],
+["Испания","Мадрид","Конституционная монархия","17 автономных сообществ","Пример регионального автономизма"],
+["Швейцария","Берн","Постоянный нейтралитет с 1815 года","Прямая демократия с частыми референдумами","Штаб-квартира множества международных организаций (Женева)"],
+["Бельгия","Брюссель","Штаб-квартира НАТО и институтов ЕС","Федерация трёх регионов и трёх языковых сообществ","Пример лингвистического федерализма"],
+["Нидерланды","Амстердам (столица), Гаага (правительство)","Гаагу называют «мировой столицей права»","Место расположения Международного суда ООН и МУС","Резиденция ключевых международных судов"],
+["Австрия","Вена","Постоянный нейтралитет с 1955 года","Штаб-квартира ОБСЕ и МАГАТЭ","Пример федерализма в Центральной Европе"],
+["Швеция","Стокгольм","Конституционная монархия","Вручает большинство Нобелевских премий","Пример скандинавской правовой модели"],
+["Норвегия","Осло","Не входит в ЕС, но состоит в ЕЭЗ","Вручает Нобелевскую премию мира","Пример монархии с сильным парламентаризмом"],
+["Финляндия","Хельсинки","Вступила в НАТО в 2023 году","Имеет протяжённую границу с Россией","Пример малой северной демократии"],
+["Дания","Копенгаген","Включает автономии Гренландию и Фарерские острова","Член ЕС, но вне зоны евро","Пример государства с автономными территориями"],
+["Польша","Варшава","Крупная экономика Восточной Европы в составе ЕС","Член НАТО с 1999 года","Пример посткоммунистической правовой трансформации"],
+["Украина","Киев","Независимость провозглашена в 1991 году","Соглашение об ассоциации с ЕС с 2014 года","Часто в фокусе вопросов территориальной целостности"],
+["Турция","Анкара","Трансконтинентальное государство","Член НАТО с 1952 года","Пример светского государства с мусульманским большинством"],
+["Греция","Афины","Родина понятия «демократия»","Член ЕС и НАТО","Историческая основа западной политической мысли"],
+["Египет","Каир","Крупнейшее арабское государство по населению","Контролирует Суэцкий канал","Ключевой актор ближневосточной дипломатии"],
+["Саудовская Аравия","Эр-Рияд","Абсолютная монархия","Крупный экспортёр нефти","Хранитель двух главных святынь ислама"],
+["Иран","Тегеран","Исламская Республика с 1979 года","Теократическая президентская система","В фокусе режима ядерного нераспространения"],
+["Израиль","Иерусалим (заявлено)/Тель-Авив (де-факто дипломатия)","Провозглашён в 1948 году","Парламентская демократия","Постоянный предмет резолюций ООН"],
+["ОАЭ","Абу-Даби","Федерация семи эмиратов","Крупный финансовый хаб Персидского залива","Пример федерации абсолютных монархий"],
+["Индонезия","Джакарта","Крупнейшая по числу мусульман страна мира","Архипелаг из более 17 000 островов","Член G20 и АСЕАН"],
+["Австралия","Канберра","Федеративная парламентская монархия","Член Содружества наций","Пример вестминстерской модели в Океании"],
+["Канада","Оттава","Федеративная парламентская монархия","Билингвальное государство (англ./фр.)","Пример кооперативного федерализма и мультикультурализма"],
+["Мексика","Мехико","Федеративная президентская республика","Крупнейшая испаноязычная страна мира","Участник USMCA (бывшая НАФТА)"],
+["Аргентина","Буэнос-Айрес","Федеративная президентская республика","Территориальный спор о Фолклендских (Мальвинских) островах","Член G20 и МЕРКОСУР"],
+["Нигерия","Абуджа","Крупнейшая экономика Африки","Федерация из 36 штатов","Пример постколониального федерализма"],
+["Кения","Найроби","Штаб-квартира ЮНЕП и ООН-Хабитат","Парламентско-президентская республика","Ключевой дипломатический хаб Восточной Африки"],
+["Южная Корея","Сеул","Президентская республика","Демилитаризованная зона на границе с КНДР","Пример быстрой демократизации после 1987 года"],
+["КНДР","Пхеньян","Формально социалистическая республика","Изоляционистская внешняя политика","В фокусе режима ядерного нераспространения"],
+["Вьетнам","Ханой","Однопартийное социалистическое государство","Быстрый рост после реформ Đổi Mới","Член АСЕАН"],
+["Таиланд","Бангкок","Конституционная монархия","Никогда не была колонией европейской державы","Пример буддийской правовой культуры"],
+["Пакистан","Исламабад","Федеративная исламская республика","Обладает ядерным оружием","Территориальный спор о Кашмире с Индией"],
+["Афганистан","Кабул","Под контролем движения «Талибан» с 2021 года","Не признан большинством государств мира","Пример непризнанного де-факто режима"],
+["Ирак","Багдад","Федеративная парламентская республика","Автономия Иракского Курдистана","Пример постконфликтного государственного строительства"],
+["Сирия","Дамаск","Гражданская война с 2011 года","Многочисленные резолюции Совбеза ООН","Пример гуманитарного кризиса и вопросов интервенции"],
+["Ливия","Триполи","Разделена между конкурирующими правительствами","Классический пример «несостоявшегося государства» после 2011 года","В фокусе доктрины R2P (2011)"],
+["Куба","Гавана","Однопартийное социалистическое государство","Под экономическим эмбарго США с 1960-х годов","Пример долгого политического противостояния"],
+["Венесуэла","Каракас","Богатейшие в мире доказанные запасы нефти","Политический и экономический кризис 2010-х годов","Пример спора о легитимности власти"],
+["Чили","Сантьяго","Одна из старейших демократий Южной Америки","Конституционная реформа после 2019 года","Пример перехода от диктатуры к демократии"],
+["Новая Зеландия","Веллингтон","Парламентская монархия","Договор Вайтанги 1840 года с маори","Пример учёта прав коренных народов в праве"],
+["Ватикан","Ватикан","Наименьшее государство мира по площади","Суверенитет закреплён Латеранскими соглашениями 1929 года","Уникальный субъект международного права — Святой Престол"]
+];
+
+/* ---------- 2. ЛАТЫНЬ (выражение | перевод | значение/пояснение | где блеснуть) ---------- */
+const RAW_LATIN = [
+["Pacta sunt servanda","Договоры должны соблюдаться","Базовый принцип международного права — обязательность исполнения договоров","Ключевая формула при разговоре о договорном праве"],
+["Lex specialis derogat legi generali","Специальный закон отменяет действие общего","Принцип разрешения коллизии норм","Используй при анализе конкуренции норм права"],
+["Ad hoc","Для данного случая","Нечто созданное для конкретной специальной цели (напр. ad hoc трибунал)","Международные ad hoc трибуналы (МТБЮ, МУТР)"],
+["Bona fide","Добросовестно","Действие, совершённое честно, без намерения обмана","Принцип добросовестности в переговорах"],
+["De facto","Фактически","Существующее на практике, вне зависимости от юридического признания","Признание де-факто в дипломатии"],
+["De jure","Юридически, по праву","Существующее в силу закона, формально признанное","Признание де-юре в дипломатии"],
+["Habeas corpus","Ты должен иметь тело [в суде]","Право на судебную проверку законности задержания","Основа процессуальных гарантий личной свободы"],
+["In dubio pro reo","В случае сомнения — в пользу обвиняемого","Принцип толкования сомнений в уголовном процессе","Опора при разборе презумпции невиновности"],
+["Nullum crimen sine lege","Нет преступления без закона","Принцип законности в уголовном праве","Основа принципа nulla poena, ст.11 Всеобщей декларации прав человека"],
+["Nulla poena sine lege","Нет наказания без закона","Наказание должно быть предусмотрено законом заранее","Парный принцип к nullum crimen sine lege"],
+["Res judicata","Разрешённое дело","Принцип недопустимости повторного рассмотрения решённого спора","Аргумент о невозможности пересмотра дела"],
+["Erga omnes","В отношении всех","Обязательства государства перед всем международным сообществом","Обязательства erga omnes (запрет геноцида, рабства)"],
+["Opinio juris","Мнение права","Убеждённость государств в юридической обязательности практики — элемент обычая","Второй элемент образования международного обычая"],
+["Jus cogens","Императивное право","Императивные нормы международного права, отклонение от которых недопустимо","Пример: запрет агрессии, геноцида, рабства"],
+["Rebus sic stantibus","При неизменных обстоятельствах","Договор действует, пока сохраняются условия его заключения","Основание прекращения договора при коренном изменении обстоятельств"],
+["Casus belli","Повод к войне","Событие, используемое как формальное оправдание начала военных действий","Анализ легитимности начала конфликта"],
+["Casus foederis","Случай, предусмотренный союзным договором","Условие, при котором вступают в силу союзнические обязательства","Обсуждение оборонных союзов (напр. НАТО, ст.5)"],
+["Uti possidetis juris","Как вы владеете по праву","Принцип сохранения колониальных/административных границ при обретении независимости","Формирование границ новых государств после деколонизации"],
+["Ex aequo et bono","По справедливости и добру","Разрешение спора на основе справедливости, а не строгой нормы права","Ст.38(2) Статута Международного суда ООН"],
+["Pacta tertiis nec nocent nec prosunt","Договоры не создают обязательств для третьих лиц","Принцип относительного действия договоров","Венская конвенция о праве международных договоров, ст.34"],
+["Audiatur et altera pars","Пусть будет выслушана и другая сторона","Принцип состязательности и права на защиту","Основа справедливого судебного разбирательства"],
+["Onus probandi","Бремя доказывания","Обязанность стороны доказать заявленные факты","Распределение бремени доказывания в процессе"],
+["Actus reus","Виновное деяние","Объективная сторона преступления — само действие","Парный термин к mens rea в уголовном праве"],
+["Mens rea","Виновная воля","Субъективная сторона преступления — умысел или неосторожность","Ключевое понятие англосаксонского уголовного права"],
+["Ultra vires","За пределами полномочий","Действие, совершённое с превышением компетенции","Оспаривание актов международных организаций"],
+["Intra vires","В пределах полномочий","Действие, совершённое в рамках предоставленной компетенции","Противоположность ultra vires"],
+["Persona non grata","Нежелательное лицо","Дипломат, признанный государством пребывания нежелательным","Венская конвенция о дипломатических сношениях, ст.9"],
+["Persona grata","Желательное лицо","Дипломат, получивший согласие на аккредитацию","Стадия агремана при назначении посла"],
+["Modus operandi","Образ действия","Устоявшийся способ совершения действий","Анализ практики государства или организации"],
+["Modus vivendi","Образ жизни, временное соглашение","Временная договорённость до окончательного урегулирования","Промежуточные договорённости в дипломатии"],
+["Status quo","Существующее положение","Текущее фактическое состояние дел","Сохранение статус-кво в переговорах"],
+["Status quo ante bellum","Положение, существовавшее до войны","Возврат сторон к состоянию, предшествовавшему конфликту","Условие мирных договоров"],
+["Sine qua non","Без чего невозможно","Необходимое условие, без которого результат не наступит","Обозначение обязательного условия"],
+["Prima facie","На первый взгляд","Достаточное на первый взгляд без опровержения доказательство","Формирование первоначального обвинения"],
+["A priori","Из предшествующего","Знание, полученное до опыта, независимо от него","Дедуктивные рассуждения в аргументации"],
+["A posteriori","Из последующего","Знание, полученное на основе опыта","Индуктивные рассуждения, основанные на фактах"],
+["Ipso facto","В силу самого факта","Следствие, наступающее автоматически из самого факта","Автоматическое правовое последствие события"],
+["Ipso jure","В силу самого права","Правовое последствие, наступающее автоматически по закону","Отличие от последствий, требующих отдельного акта"],
+["Lex loci","Закон места","Право места совершения действия или нахождения вещи","Основа коллизионных норм МЧП"],
+["Lex fori","Закон суда","Право страны, где рассматривается дело","Применяется к процессуальным вопросам в МЧП"],
+["Lex loci delicti","Закон места правонарушения","Право страны, где было совершено правонарушение","Коллизионная привязка в деликтных обязательствах"],
+["Locus standi","Право на обращение в суд","Процессуальная правоспособность лица на иск","Вопрос допустимости жалобы в международный суд"],
+["Amicus curiae","Друг суда","Лицо, представляющее суду мнение по делу, не будучи стороной","Институт в международных и национальных судах"],
+["Corpus juris","Свод права","Систематизированное собрание правовых норм","Corpus Juris Civilis Юстиниана как основа романо-германского права"],
+["Ratio decidendi","Основание решения","Правовой принцип, положенный в основу судебного решения","Ключевое понятие прецедентного права"],
+["Obiter dictum","Попутно сказанное","Замечание судьи, не являющееся обязательной частью решения","Отличие от ratio decidendi в common law"],
+["Stare decisis","Стоять на решённом","Принцип обязательности судебного прецедента","Основа англосаксонской системы права"],
+["Pro bono publico","Ради общественного блага","Безвозмездная юридическая помощь в общественных интересах","Часто сокращается до «pro bono»"],
+["Quorum","Кворум","Минимальное число участников, необходимое для правомочности заседания","Условие легитимности голосования в органах ООН"],
+["Casus omissus","Упущенный случай","Ситуация, не предусмотренная законом","Пробел в праве, требующий толкования"]
+];
+
+/* ---------- 3. ЮРИДИЧЕСКИЙ АНГЛИЙСКИЙ (term | перевод | definition | example) ---------- */
+const RAW_LEGAL_EN = [
+["treaty","договор","A formally concluded and ratified agreement between states.","The treaty was ratified by all member states."],
+["ratification","ратификация","The formal act by which a state confirms its consent to be bound by a treaty.","Ratification requires approval by parliament."],
+["sovereignty","суверенитет","The supreme authority of a state within its territory.","State sovereignty is a core principle of the UN Charter."],
+["jurisdiction","юрисдикция","The official power to make legal decisions and judgments.","The court has jurisdiction over maritime disputes."],
+["extradition","экстрадиция","The surrender of an alleged offender to another state for trial.","The extradition request was denied on political grounds."],
+["arbitration","арбитраж","A method of dispute resolution outside the courts, with a binding decision.","The parties agreed to international arbitration."],
+["litigation","судебное разбирательство","The process of taking legal action through the courts.","Litigation can take years to resolve."],
+["plaintiff","истец","The party who brings a case against another in court.","The plaintiff filed a claim for damages."],
+["defendant","ответчик / подсудимый","The party being sued or accused in a court case.","The defendant pleaded not guilty."],
+["tort","деликт","A civil wrong causing harm, giving rise to legal liability.","Negligence is a common type of tort."],
+["statute","закон, статут","A written law passed by a legislative body.","The statute prohibits discrimination in employment."],
+["precedent","прецедент","A previous decision used as authority for deciding later cases.","The ruling set an important legal precedent."],
+["injunction","судебный запрет","A court order requiring a party to do or stop doing something.","The court issued an injunction to halt construction."],
+["tribunal","трибунал","A body established to settle certain types of disputes.","The dispute was referred to an international tribunal."],
+["mediation","медиация","A voluntary process where a neutral third party helps resolve a dispute.","Mediation avoided a lengthy court battle."],
+["customary law","обычное право","Rules of conduct that acquire legal force through consistent practice.","Customary international law binds states without a written treaty."],
+["ambassador","посол","The highest-ranking diplomatic representative of a state.","The ambassador presented her credentials."],
+["envoy","посланник","A diplomatic representative sent on a special mission.","A special envoy was dispatched to mediate talks."],
+["diplomatic immunity","дипломатический иммунитет","Legal protection granted to diplomats from local jurisdiction.","Diplomatic immunity shields envoys from local prosecution."],
+["consulate","консульство","An office representing a foreign state's interests, esp. for citizens.","She renewed her passport at the consulate."],
+["embassy","посольство","The official residence and offices of an ambassador.","The embassy issued a travel advisory."],
+["sanction","санкция","A penalty imposed to enforce compliance with law or policy.","The UN imposed economic sanctions on the regime."],
+["embargo","эмбарго","An official ban on trade with a particular country.","The arms embargo remained in force for years."],
+["ceasefire","прекращение огня","An agreement to stop fighting temporarily.","A fragile ceasefire was brokered by mediators."],
+["armistice","перемирие","A formal agreement to end fighting, often before a full peace treaty.","The armistice of 1918 ended the fighting."],
+["accession","присоединение","The act by which a state becomes party to a treaty already in force.","The country's accession to the EU took a decade."],
+["denunciation","денонсация","The formal act of withdrawing from a treaty.","The state announced its denunciation of the pact."],
+["reservation","оговорка","A unilateral statement limiting the effect of certain treaty provisions for a state.","The state entered a reservation to Article 9."],
+["depositary","депозитарий","The entity that holds the official text of a multilateral treaty.","The UN Secretary-General acts as depositary for many treaties."],
+["protocol","протокол","A supplementary agreement to a treaty, or diplomatic etiquette rules.","The optional protocol allows individual complaints."],
+["annex","приложение","A document attached to and forming part of the main text.","Technical standards are set out in the annex."],
+["preamble","преамбула","The introductory statement of a treaty explaining its purpose.","The preamble reaffirms respect for human rights."],
+["mandate","мандат","Authority given to a state or body to act on behalf of others.","The mission operated under a UN mandate."],
+["trusteeship","опека","A system of international supervision over certain territories.","The UN Trusteeship Council administered former colonies."],
+["self-determination","самоопределение","The right of a people to determine its own political status.","The principle of self-determination is enshrined in the UN Charter."],
+["secession","сецессия, отделение","The withdrawal of a territory or group from a larger political entity.","The referendum on secession sparked international debate."],
+["annexation","аннексия","The forcible acquisition of territory by one state from another.","The annexation was condemned as a violation of international law."],
+["occupation","оккупация","Effective control of foreign territory by armed forces.","The law of occupation governs the occupying power's duties."],
+["belligerent","воюющая сторона","A state or group formally engaged in a war or conflict.","Both belligerents agreed to observe the Geneva Conventions."],
+["neutrality","нейтралитет","The status of not taking sides in a conflict.","Switzerland's neutrality dates back to 1815."],
+["asylum","убежище","Protection granted by a state to a person fleeing persecution.","She was granted political asylum."],
+["refugee","беженец","A person fleeing persecution, conflict, or violence across a border.","The 1951 Refugee Convention defines who qualifies as a refugee."],
+["statelessness","безгражданство","The condition of having no recognized nationality.","Statelessness leaves individuals without legal protection."],
+["repatriation","репатриация","The return of a person to their country of origin.","Voluntary repatriation is the preferred durable solution."],
+["expropriation","экспроприация","The taking of private property by the state, usually with compensation.","Expropriation without compensation breaches international standards."],
+["nationalization","национализация","The transfer of private industry or assets to state control.","The nationalization of oil fields triggered disputes."],
+["compensation","компенсация","Payment made to make up for loss or damage.","The tribunal awarded compensation for the seized assets."],
+["damages","убытки","Monetary compensation awarded for loss or injury.","The court awarded damages for breach of contract."],
+["liability","ответственность","Legal responsibility for one's acts or omissions.","State liability arises from internationally wrongful acts."],
+["breach","нарушение","The act of breaking a law, obligation, or agreement.","The breach of treaty justified countermeasures."]
+];
+
+/* ---------- 4. ПРАВО (термин | англ.эквивалент | определение | пример) ---------- */
+const RAW_LAW = [
+["Верховенство права","Rule of law","Принцип, согласно которому государство и граждане подчинены закону","Основа правового государства"],
+["Разделение властей","Separation of powers","Распределение власти между законодательной, исполнительной и судебной ветвями","Классическая триада Монтескьё"],
+["Конституция","Constitution","Основной закон государства, обладающий высшей юридической силой","Учредительный акт правовой системы"],
+["Романо-германская правовая семья","Civil law system","Правовая система, основанная на кодифицированном писаном праве","Франция, Германия, Россия"],
+["Англосаксонская правовая семья","Common law system","Правовая система, основанная на судебном прецеденте","Великобритания, США, Австралия"],
+["Естественное право","Natural law","Концепция прав, присущих человеку от природы, независимо от государства","Философская основа прав человека"],
+["Позитивное право","Positive law","Право, установленное и санкционированное государством","Противопоставляется естественному праву"],
+["Правосубъектность","Legal personality","Способность быть носителем прав и обязанностей","Государства, международные организации, физлица"],
+["Субъекты международного права","Subjects of international law","Участники международных правоотношений, обладающие правами и обязанностями","Государства — первичные субъекты"],
+["Государственный суверенитет","State sovereignty","Верховенство власти государства внутри страны и независимость вовне","Основа Вестфальской системы 1648 года"],
+["Признание государств","Recognition of states","Акт, которым существующие государства подтверждают статус нового государства","Конститутивная и декларативная теории признания"],
+["Правопреемство государств","State succession","Переход прав и обязанностей от одного государства к другому","Актуально при распаде СССР и Югославии"],
+["Монизм","Monism","Теория единства международного и внутреннего права","Международное право автоматически часть внутреннего"],
+["Дуализм","Dualism","Теория раздельного существования международного и внутреннего права","Требуется трансформация нормы во внутреннее право"],
+["Принцип субсидиарности","Subsidiarity principle","Решения принимаются на максимально близком к гражданину уровне","Ключевой принцип права ЕС"],
+["Принцип соразмерности","Proportionality principle","Мера должна соответствовать преследуемой цели","Используется при оценке ограничений прав"],
+["Надлежащая правовая процедура","Due process","Гарантия справедливого и законного судебного разбирательства","Закреплена в Пятой поправке к Конституции США"],
+["Презумпция невиновности","Presumption of innocence","Обвиняемый считается невиновным, пока вина не доказана","Ст.11 Всеобщей декларации прав человека"],
+["Бремя доказывания","Burden of proof","Обязанность стороны обосновать свои утверждения доказательствами","В уголовном процессе лежит на обвинении"],
+["Судебный надзор","Judicial review","Проверка судом соответствия актов власти конституции или закону","Marbury v. Madison (1803) в США"],
+["Дееспособность","Legal capacity","Способность лица своими действиями приобретать права и обязанности","Наступает по достижении определённого возраста"],
+["Форс-мажор","Force majeure","Обстоятельство непреодолимой силы, освобождающее от ответственности","Стандартное условие международных контрактов"],
+["Принцип добросовестности","Good faith principle","Требование честного и разумного поведения сторон","Основа исполнения договорных обязательств"],
+["Эстоппель","Estoppel","Запрет отрицать факт, ранее подтверждённый своим поведением","Государство не может оспаривать ранее признанную границу"],
+["Неосновательное обогащение","Unjust enrichment","Получение имущественной выгоды без законного основания","Обязывает вернуть полученное"],
+["Реституция","Restitution","Восстановление положения, существовавшего до правонарушения","Одна из форм возмещения вреда в международном праве"],
+["Договорное право","Contract law","Отрасль права, регулирующая заключение и исполнение договоров","Основа коммерческих отношений"],
+["Деликтное право","Tort law","Отрасль права, регулирующая гражданские правонарушения","Источник обязательств из причинения вреда"],
+["Уголовное право","Criminal law","Отрасль права, определяющая преступления и наказания","Регулирует отношения между государством и правонарушителем"],
+["Административное право","Administrative law","Отрасль права, регулирующая деятельность органов исполнительной власти","Контроль за действиями чиновников"],
+["Конституционное право","Constitutional law","Отрасль права, регулирующая устройство государства и основные права","Высшая юридическая сила по отношению к другим отраслям"],
+["Международное частное право","Private international law","Отрасль права, регулирующая частные отношения с иностранным элементом","Определяет применимое право в трансграничных спорах"],
+["Международное публичное право","Public international law","Право, регулирующее отношения между государствами","Основано на договорах и обычае"],
+["Право прав человека","Human rights law","Отрасль права, защищающая основные права личности","Всеобщая декларация прав человека 1948 года"],
+["Международное гуманитарное право","International humanitarian law","Право, регулирующее ведение вооружённых конфликтов","Женевские конвенции 1949 года"],
+["Право на применение силы","Jus ad bellum","Совокупность норм, регулирующих законность применения силы государством","Ст.2(4) и ст.51 Устава ООН"],
+["Право войны","Jus in bello","Совокупность норм, регулирующих поведение сторон во время конфликта","Также именуется международным гуманитарным правом"],
+["Военное преступление","War crime","Серьёзное нарушение законов и обычаев войны","Юрисдикция Международного уголовного суда"],
+["Преступление против человечности","Crime against humanity","Масштабное или систематическое нападение на гражданское население","Определено в Римском статуте МУС"],
+["Геноцид","Genocide","Действия, направленные на уничтожение национальной, этнической или религиозной группы","Конвенция о предупреждении геноцида 1948 года"],
+["Агрессия","Act of aggression","Применение вооружённой силы государством против суверенитета другого государства","Определена резолюцией ГА ООН 3314 (1974)"],
+["Право на самооборону","Right to self-defense","Право государства защищаться от вооружённого нападения","Ст.51 Устава ООН"],
+["Система коллективной безопасности","Collective security system","Механизм совместного противодействия агрессии государств-членов","Основа главы VII Устава ООН"],
+["Принцип невмешательства","Principle of non-intervention","Запрет вмешательства во внутренние дела суверенного государства","Ст.2(7) Устава ООН"],
+["Критерии государственности","Statehood criteria","Условия признания образования государством","Монтевидейская конвенция 1933 года: территория, население, власть, способность к сношениям"],
+["Дипломатическая защита","Diplomatic protection","Право государства защищать интересы своих граждан за рубежом","Осуществляется через дипломатические каналы"],
+["Универсальная юрисдикция","Universal jurisdiction","Право любого государства преследовать за тяжкие международные преступления","Применяется независимо от места совершения и гражданства"],
+["Мягкое право","Soft law","Нормы, не обладающие юридически обязательной силой, но влияющие на поведение государств","Декларации, резолюции, рекомендации"],
+["Оговорка о наибольшем благоприятствовании","Most-favoured-nation clause","Обязательство предоставлять партнёру не худшие условия, чем другим","Основной принцип права ВТО"],
+["Экстратерриториальность","Extraterritoriality","Применение права государства за пределами его территории","Юрисдикция над гражданами за рубежом"]
+];
+
+/* ---------- 5. ЛИТЕРАТУРА (автор | произведение | контекст | связь с правом) ---------- */
+const RAW_LIT = [
+["Ф.М. Достоевский","Преступление и наказание","Роман 1866 года, действие происходит в пореформенном Петербурге","Исследует природу вины, наказания и раскаяния — вопрос соразмерности кары преступлению"],
+["Ф.М. Достоевский","Братья Карамазовы","Последний роман писателя, 1880 год","Центральная сюжетная линия строится вокруг судебного процесса и ошибки правосудия"],
+["Л.Н. Толстой","Война и мир","Эпопея о наполеоновских войнах 1805–1812 годов","Поднимает вопросы легитимности власти и международного конфликта"],
+["Л.Н. Толстой","Воскресение","Поздний роман, 1899 год, критика судебной системы империи","Прямая критика формализма и несправедливости суда присяжных"],
+["А.С. Пушкин","Капитанская дочка","Повесть о пугачёвском восстании, 1836 год","Тема легитимности власти и самозванства в переломную эпоху"],
+["Н.В. Гоголь","Мёртвые души","Поэма о крепостнической России, 1842 год","Сатира на бюрократию и злоупотребления чиновничьего аппарата"],
+["А.П. Чехов","Остров Сахалин","Документальный очерк 1895 года по итогам поездки на каторгу","Одно из первых в России пенитенциарных исследований условий заключения"],
+["М.А. Булгаков","Мастер и Маргарита","Роман, написан в 1928–1940 годах","Аллегория власти, суда и ответственности через евангельский сюжет о Понтии Пилате"],
+["А.И. Солженицын","Архипелаг ГУЛАГ","Документально-художественное исследование, опубликовано в 1973 году","Ключевой источник о репрессиях и внесудебных расправах в СССР"],
+["А.И. Солженицын","Один день Ивана Денисовича","Повесть 1962 года о лагерном быте","Первое официально опубликованное произведение о ГУЛАГе"],
+["Джордж Оруэлл","1984","Антиутопия, издана в 1949 году","Классика анализа тоталитарного контроля и отсутствия верховенства права"],
+["Джордж Оруэлл","Скотный двор","Аллегорическая повесть 1945 года","Иллюстрирует узурпацию власти и подмену изначальных принципов"],
+["Франц Кафка","Процесс","Роман, опубликован посмертно в 1925 году","Символ абсурда бюрократического правосудия без прозрачных правил"],
+["Франц Кафка","Замок","Роман, опубликован посмертно в 1926 году","Отражает недоступность и непрозрачность административной власти"],
+["Уильям Шекспир","Венецианский купец","Пьеса конца XVI века","Классический разбор в юридических школах — спор о букве и духе договора"],
+["Уильям Шекспир","Гамлет","Трагедия ок. 1600 года","Вопросы легитимности престолонаследия и мести вне закона"],
+["Чарльз Диккенс","Повесть о двух городах","Роман 1859 года о Французской революции","Изображает революционное правосудие и террор как крайность"],
+["Чарльз Диккенс","Холодный дом","Роман 1853 года","Сатира на медлительность и абсурд английского канцлерского суда"],
+["Виктор Гюго","Отверженные","Роман 1862 года","Исследует несоразмерность наказания и вопрос социальной реабилитации"],
+["Харпер Ли","Убить пересмешника","Роман 1960 года о расовой несправедливости на американском Юге","Хрестоматийный пример адвокатской этики и расовых предрассудков в суде"],
+["Марк Твен","Приключения Гекльберри Финна","Роман 1884 года","Поднимает тему рабства и морального выбора вне писаных законов"],
+["Гарриет Бичер-Стоу","Хижина дяди Тома","Роман 1852 года","Повлиял на общественное мнение об институте рабства в США"],
+["Эмиль Золя","Жерминаль","Роман 1885 года о жизни шахтёров","Иллюстрирует зарождение трудового законодательства и права на забастовку"],
+["Альбер Камю","Посторонний","Повесть 1942 года","Классика для разбора темы уголовного процесса и абсурдности приговора"],
+["Альбер Камю","Чума","Роман 1947 года","Аллегория коллективной ответственности перед лицом кризиса"],
+["Эрих Мария Ремарк","На Западном фронте без перемен","Роман 1929 года о Первой мировой войне","Основа для дискуссий о законах и обычаях войны"],
+["Эрнест Хемингуэй","Прощай, оружие!","Роман 1929 года","Отражает разочарование в институте войны межвоенной эпохи"],
+["Мигель де Сервантес","Дон Кихот","Роман, части опубликованы в 1605 и 1615 годах","Размышление о справедливости и субъективном восприятии закона"],
+["Данте Алигьери","Божественная комедия","Поэма начала XIV века","Средневековая модель воздаяния — соответствие кары проступку"],
+["Иоганн Вольфганг Гёте","Фауст","Трагедия, части опубликованы в 1808 и 1832 годах","Тема договора (сделки) и его правовых и моральных последствий"],
+["Уильям Голдинг","Повелитель мух","Роман 1954 года","Модель зарождения и распада правового порядка в изоляции"],
+["Олдос Хаксли","О дивный новый мир","Антиутопия 1932 года","Модель общества, отказавшегося от индивидуальных прав ради стабильности"],
+["Евгений Замятин","Мы","Антиутопия, написана в 1920 году","Одна из первых антиутопий, повлиявшая на Оруэлла и Хаксли"],
+["Н.Г. Чернышевский","Что делать?","Роман 1863 года","Идеи общественного переустройства и договорных отношений в семье"],
+["А.Н. Радищев","Путешествие из Петербурга в Москву","Книга 1790 года, за которую автор был осуждён","Первая в России развёрнутая критика крепостного права и произвола власти"],
+["М.Е. Салтыков-Щедрин","История одного города","Сатирический роман 1870 года","Гротескное изображение произвола местной власти"],
+["Пьер де Бомарше","Женитьба Фигаро","Комедия 1784 года","Критика сословных привилегий накануне Французской революции"],
+["Жан-Батист Мольер","Тартюф","Комедия 1664 года","Разбор темы лицемерия и злоупотребления доверием при заключении сделок"],
+["Вольтер","Кандид, или Оптимизм","Философская повесть 1759 года","Сатира на произвол власти и религиозную нетерпимость эпохи"],
+["Шарль-Луи де Монтескьё","О духе законов","Трактат 1748 года","Основополагающий труд о разделении властей"],
+["Жан-Жак Руссо","Об общественном договоре","Трактат 1762 года","Теоретическая основа концепции народного суверенитета"],
+["А.С. Грибоедов","Горе от ума","Комедия 1824 года","Сатира на чиновничье общество николаевской эпохи"],
+["М.Ю. Лермонтов","Герой нашего времени","Роман 1840 года","Портрет личности вне устойчивых социальных норм своего времени"],
+["А.Н. Островский","Гроза","Драма 1859 года","Конфликт личности с патриархальными нормами провинциального уклада"],
+["И.С. Тургенев","Записки охотника","Цикл рассказов 1852 года","Одно из произведений, повлиявших на общественную дискуссию об отмене крепостного права"],
+["В.С. Гроссман","Жизнь и судьба","Роман, написан в 1959 году, издан в СССР в 1988-м","Сопоставление нацистского и советского тоталитарных режимов"],
+["В.Т. Шаламов","Колымские рассказы","Цикл рассказов, писался в 1954–1973 годах","Документальное свидетельство о лагерной системе ГУЛАГа"],
+["Джордж Оруэлл","Памяти Каталонии","Документальная повесть 1938 года","Личное свидетельство о Гражданской войне в Испании"],
+["Харпер Ли","Пойди поставь сторожа","Роман, издан в 2015 году","Более поздний взгляд на тех же героев и расовые предрассудки Юга США"],
+["Ф.М. Достоевский","Идиот","Роман 1869 года","Исследует нравственный закон в столкновении с формальным обществом"]
+];
+
+/* ---------- 6. ИСКУССТВО (стиль | автор | произведение | период | где блеснуть) ---------- */
+const RAW_ART = [
+["Раннее Возрождение","Мазаччо","Троица","1425–1428","Первое последовательное применение линейной перспективы"],
+["Высокое Возрождение","Леонардо да Винчи","Мона Лиза","1503–1519","Символ эпохи Возрождения и портретной живописи"],
+["Высокое Возрождение","Микеланджело Буонарроти","Давид","1501–1504","Идеал гражданской доблести Флорентийской республики"],
+["Высокое Возрождение","Рафаэль Санти","Афинская школа","1509–1511","Фреска, объединяющая античную философию и гуманизм"],
+["Северное Возрождение","Ян ван Эйк","Портрет четы Арнольфини","1434","Одна из первых картин маслом с детальным символизмом"],
+["Северное Возрождение","Питер Брейгель Старший","Охотники на снегу","1565","Классика жанра пейзажа с бытовыми сценами"],
+["Северное Возрождение","Иероним Босх","Сад земных наслаждений","ок. 1500–1510","Уникальная фантасмагорическая символика морали"],
+["Барокко","Караваджо","Призвание апостола Матфея","1599–1600","Новаторский драматический контраст света и тени (кьяроскуро)"],
+["Барокко","Рембрандт ван Рейн","Ночной дозор","1642","Групповой портрет с необычной динамической композицией"],
+["Барокко","Диего Веласкес","Менины","1656","Сложная многоуровневая композиция, взгляд на природу изображения"],
+["Рококо","Антуан Ватто","Паломничество на остров Киферу","1717","Лёгкость и галантность придворного искусства XVIII века"],
+["Рококо","Жан-Оноре Фрагонар","Качели","1767","Символ игривой чувственности эпохи рококо"],
+["Классицизм","Жак-Луи Давид","Клятва Горациев","1784","Пример гражданского пафоса накануне Французской революции"],
+["Классицизм","Жак-Луи Давид","Смерть Марата","1793","Живописный манифест эпохи Французской революции"],
+["Неоклассицизм","Антонио Канова","Амур и Психея","1787–1793","Возрождение античного идеала в скульптуре"],
+["Романтизм","Эжен Делакруа","Свобода, ведущая народ","1830","Аллегория Июльской революции 1830 года во Франции"],
+["Романтизм","Франсиско Гойя","Расстрел повстанцев 3 мая 1808 года","1814","Одно из первых антивоенных полотен в истории живописи"],
+["Реализм","Гюстав Курбе","Похороны в Орнане","1849–1850","Манифест реалистического изображения простых людей"],
+["Реализм","Жан-Франсуа Милле","Собирательницы колосьев","1857","Изображение крестьянского труда без идеализации"],
+["Передвижники (реализм)","Илья Репин","Бурлаки на Волге","1870–1873","Социально острый образ тяжёлого труда в Российской империи"],
+["Передвижники (реализм)","Василий Суриков","Утро стрелецкой казни","1881","Историческая драма эпохи петровских реформ"],
+["Импрессионизм","Клод Моне","Впечатление. Восходящее солнце","1872","Дал название целому направлению в живописи"],
+["Импрессионизм","Пьер-Огюст Ренуар","Бал в Мулен де ла Галетт","1876","Передача света и движения парижской жизни"],
+["Импрессионизм","Эдгар Дега","Голубые танцовщицы","ок. 1897","Излюбленная тема балета в творчестве художника"],
+["Постимпрессионизм","Винсент Ван Гог","Звёздная ночь","1889","Экспрессивная работа с цветом и мазком"],
+["Постимпрессионизм","Поль Сезанн","Гора Сент-Виктуар","1887–1890 (серия)","Переход от импрессионизма к аналитической форме, повлиявший на кубизм"],
+["Пуантилизм","Жорж Сёра","Воскресный день на острове Гранд-Жатт","1884–1886","Техника раздельного нанесения точек чистого цвета"],
+["Символизм","Эдвард Мунк","Крик","1893","Один из самых узнаваемых образов тревоги в искусстве"],
+["Модерн (ар-нуво)","Густав Климт","Поцелуй","1907–1908","Вершина «золотого периода» художника"],
+["Кубизм","Пабло Пикассо","Авиньонские девицы","1907","Работа, ознаменовавшая рождение кубизма"],
+["Кубизм / политическое искусство","Пабло Пикассо","Герника","1937","Отклик на бомбардировку баскского города во время Гражданской войны в Испании"],
+["Фовизм","Анри Матисс","Танец","1910","Яркий пример декоративной силы цвета фовизма"],
+["Экспрессионизм","Эрнст Людвиг Кирхнер","Улица, Берлин","1913","Нервная энергия городской жизни довоенной Германии"],
+["Футуризм","Умберто Боччони","Уникальные формы непрерывности в пространстве","1913","Скульптурное воплощение идеи движения и скорости"],
+["Супрематизм","Казимир Малевич","Чёрный квадрат","1915","Манифест беспредметного искусства"],
+["Дадаизм","Марсель Дюшан","Фонтан","1917","Радикальный пересмотр самого понятия произведения искусства"],
+["Сюрреализм","Сальвадор Дали","Постоянство памяти","1931","Образ «мягких часов» как символ относительности времени"],
+["Сюрреализм","Рене Магритт","Сын человеческий","1964","Игра с восприятием и скрытым смыслом изображения"],
+["Абстрактный экспрессионизм","Джексон Поллок","№5, 1948","1948","Техника дриппинга — разбрызгивания краски"],
+["Абстрактный экспрессионизм","Марк Ротко","Оранжевое, красное, жёлтое","1961","Медитативное воздействие цветовых полей"],
+["Поп-арт","Энди Уорхол","Банки супа Кэмпбелл","1962","Стирание границы между массовой культурой и искусством"],
+["Поп-арт","Рой Лихтенштейн","Whaam!","1963","Эстетика комиксов, увеличенная до масштабов живописи"],
+["Соцреализм","Александр Дейнека","Оборона Севастополя","1942","Героико-патриотический образ Великой Отечественной войны"],
+["Соцреализм","Вера Мухина","Рабочий и колхозница","1937","Символ советского павильона на Всемирной выставке в Париже"],
+["Древнерусская иконопись","Андрей Рублёв","Троица","1425–1427","Вершина древнерусской иконописи, включена в список ЮНЕСКО"],
+["Символизм (Россия)","Михаил Врубель","Демон сидящий","1890","Ключевой образ русского символизма конца XIX века"],
+["Абстракционизм","Василий Кандинский","Композиция VII","1913","Один из пионеров беспредметной живописи"],
+["Ар-деко","Тамара де Лемпицка","Автопортрет в зелёном Бугатти","1929","Икона стиля ар-деко межвоенного периода"],
+["Оп-арт","Виктор Вазарели","Зебры","1938","Ранний пример оптических иллюзий в живописи"],
+["Стрит-арт","Бэнкси","Девочка с воздушным шаром","2002","Один из самых узнаваемых образов уличного искусства XXI века"]
+];
+
+/* ---------- 7. ИТАЛЬЯНСКИЙ (фраза | перевод | грамматика/контекст | где блеснуть) ---------- */
+const RAW_ITA = [
+["Buongiorno","Доброе утро / добрый день","Стандартное приветствие до вечера","Универсальное официальное приветствие"],
+["Buonasera","Добрый вечер","Используется примерно после 17:00","Вечернее приветствие"],
+["Buonanotte","Спокойной ночи","Прощание перед сном, а не вечернее приветствие","Не путать с buonasera"],
+["Come stai?","Как дела? (неформ.)","Форма 'tu' — обращение на «ты»","Разговор со сверстниками"],
+["Come sta?","Как дела? (формал.)","Форма 'Lei' — вежливое обращение","Обращение к преподавателю или незнакомцу"],
+["Piacere di conoscerti","Приятно познакомиться (неформ.)","Piacere = удовольствие; используется при знакомстве","Первая фраза при знакомстве со сверстником"],
+["Molto lieto/a","Очень рад(а) (формал.)","Более официальный вариант при знакомстве","Дипломатический протокольный оборот"],
+["Grazie mille","Большое спасибо","Буквально «тысяча благодарностей»","Усиленная благодарность"],
+["Prego","Пожалуйста / не за что","Ответ на благодарность или приглашение войти","Многозначное вежливое слово"],
+["Mi scusi","Извините (формал.)","Форма вежливого обращения 'Lei'","Привлечь внимание незнакомого человека"],
+["Scusami","Извини (неформ.)","Форма 'tu'","Извинение перед другом"],
+["Per favore","Пожалуйста (просьба)","Добавляется к просьбе для вежливости","Используется в конце просьбы"],
+["Non capisco","Я не понимаю","Capire (понимать) в 1 л. ед.ч.","Если собеседник говорит слишком быстро"],
+["Parla inglese?","Вы говорите по-английски? (формал.)","Parlare — глагол 1 спряжения","Полезно в незнакомой обстановке"],
+["Dove si trova...?","Где находится...?","Безличная конструкция с si","Спросить дорогу"],
+["Quanto costa?","Сколько это стоит?","Costare — 3 л. ед.ч.","В магазине или на рынке"],
+["Vorrei...","Я хотел(а) бы...","Condizionale от volere — вежливая форма желания","Заказ в кафе или ресторане"],
+["Il conto, per favore","Счёт, пожалуйста","Стандартная фраза в ресторане","Завершение обеда"],
+["Che ora è?","Который час?","Альтернатива — Che ore sono?","Вопрос о времени"],
+["Sono le...","Сейчас ... часов","Множественное число часов кроме часа дня","Ответ на вопрос о времени"],
+["A che ora...?","В котором часу...?","Вопрос о времени начала действия","Уточнение расписания"],
+["Mi chiamo...","Меня зовут...","Возвратный глагол chiamarsi","Представление себя"],
+["Di dove sei?","Ты откуда? (неформ.)","Essere + di + место","Вопрос о происхождении"],
+["Sono russo/russa","Я русский/русская","Согласование прилагательного по роду","Ответ о национальности"],
+["Sto studiando legge","Я изучаю право","Настоящее длительное stare + gerundio","Рассказ о своей специальности"],
+["Frequento la facoltà di giurisprudenza","Я учусь на юридическом факультете","Frequentare — посещать, учиться","Более формальный вариант о специальности"],
+["Buon appetito","Приятного аппетита","Пожелание перед едой","Стандартный застольный оборот"],
+["Salute!","Будьте здоровы! / Ваше здоровье!","Используется как тост и в ответ на чихание","Многозначное восклицание"],
+["In bocca al lupo","Ни пуха ни пера","Буквально «в пасть волку»; отвечают «Crepi (il lupo)»","Пожелание удачи перед экзаменом"],
+["Crepi il lupo","Отвечает на in bocca al lupo","Буквально «пусть сдохнет волк»","Правильный ответ на пожелание удачи"],
+["Auguri!","Поздравляю! / Всего наилучшего!","Универсальное поздравление","Дни рождения, праздники"],
+["Congratulazioni!","Поздравляю! (с конкретным достижением)","Используется при успехе, экзамене","Поздравление с достижением"],
+["Ci vediamo","Увидимся","Возвратный глагол vedersi","Неформальное прощание"],
+["A presto","До скорого","Прощание с ожиданием скорой встречи","Нейтральное прощание"],
+["Arrivederci","До свидания","Стандартное прощание","Нейтрально-формальное прощание"],
+["ArrivederLa","До свидания (очень формал.)","Форма с заглавной La — высшая вежливость","Обращение к высокопоставленному лицу"],
+["Come si dice...?","Как сказать...?","Безличная конструкция si dice","Уточнить перевод слова"],
+["Cosa significa...?","Что это значит?","Significare — означать","Спросить значение слова"],
+["Non lo so","Я не знаю","lo — местоимение-заменитель прямого дополнения","Ответ на незнание"],
+["Sono d'accordo","Я согласен(на)","Essere d'accordo — устойчивое выражение","Согласие в дискуссии"],
+["Non sono d'accordo","Я не согласен(на)","Отрицание перед глаголом essere","Несогласие в дискуссии"],
+["Hai ragione","Ты прав(а)","Avere ragione — буквально «иметь правоту»","Признание правоты собеседника"],
+["Mi dispiace","Мне жаль / извините","Displacere — не нравиться, сожалеть","Выражение сожаления"],
+["Non fa niente","Ничего страшного","Устойчивое выражение","Ответ на извинение"],
+["Certo","Конечно","Наречие уверенности","Подтверждение согласия"],
+["Forse","Может быть","Наречие сомнения","Выражение неуверенности"],
+["Magari!","Ещё бы! / Хотелось бы!","Восклицание с оттенком желания","Эмоциональный отклик на предложение"],
+["Va bene","Хорошо, договорились","Устойчивая фраза согласия","Подтверждение договорённости"],
+["D'accordo","Договорились","Синоним va bene","Финализация договорённости"],
+["Sono pronto/a","Я готов(а)","Согласование по роду через окончание","Готовность к действию"]
+];
+
+/* ---------- 8. ЛИНГВОСТРАНОВЕДЕНИЕ (kind | имя | суб | описание | связь) ---------- */
+/* Блок «Персоналии»: 50 реальных исторических и современных политиков/дипломатов */
+const RAW_LINGVO_PERSON = [
+["person","Отто фон Бисмарк","Германия, 1815–1898","«Железный канцлер», объединил Германию в 1871 году «железом и кровью»","Связь: пример реалполитик — базовой концепции теории международных отношений"],
+["person","Шарль де Голль","Франция, 1890–1970","Основатель Пятой республики (1958), символ французского суверенитета","Связь: полупрезидентская модель Франции разбирается в категории «География»"],
+["person","Уинстон Черчилль","Великобритания, 1874–1965","Премьер-министр в годы Второй мировой войны, автор термина «железный занавес»","Связь: речь в Фултоне (1946) считается символическим началом холодной войны"],
+["person","Франклин Делано Рузвельт","США, 1882–1945","Автор «Нового курса», один из архитекторов будущей ООН","Связь: участвовал в Ялтинской конференции — теме категории «История»"],
+["person","Иосиф Сталин","СССР, 1878–1953","Участник Ялтинской и Потсдамской конференций 1945 года","Связь: послевоенное устройство мира и создание ООН — категория «История»"],
+["person","Махатма Ганди","Индия, 1869–1948","Лидер ненасильственного сопротивления, борьба за независимость Индии","Связь: концепция самоопределения народов в международном праве"],
+["person","Нельсон Мандела","ЮАР, 1918–2013","Борьба с апартеидом, первый чернокожий президент ЮАР (1994)","Связь: пример переходного правосудия — тема категории «Право»"],
+["person","Генри Киссинджер","США, 1923–2023","Госсекретарь США, автор «шаттл-дипломатии» на Ближнем Востоке","Связь: реализм как школа теории международных отношений"],
+["person","Маргарет Тэтчер","Великобритания, 1925–2013","«Железная леди», премьер-министр 1979–1990","Связь: жёсткая экономическая политика и Фолклендская война"],
+["person","Рональд Рейган","США, 1911–2004","Президент США, переговоры с СССР об окончании холодной войны","Связь: договор о РСМД 1987 года — важная веха контроля над вооружениями"],
+["person","Михаил Горбачёв","СССР, 1931–2022","Инициатор перестройки и гласности, Нобелевская премия мира 1990","Связь: реформы привели к распаду СССР — тема категории «История»"],
+["person","Дэн Сяопин","Китай, 1904–1997","Инициатор экономических реформ «четырёх модернизаций»","Связь: сочетание рыночной экономики с социалистической правовой системой"],
+["person","Вилли Брандт","ФРГ, 1913–1992","Канцлер, автор «новой восточной политики» сближения с СССР","Связь: символический жест — коленопреклонение в Варшаве 1970 года"],
+["person","Конрад Аденауэр","ФРГ, 1876–1967","Первый канцлер ФРГ, интеграция страны в западноевропейские институты","Связь: один из отцов-основателей европейской интеграции (наряду с Шуманом)"],
+["person","Шарль Морис де Талейран","Франция, 1754–1838","Дипломат эпохи Наполеона, ключевая роль на Венском конгрессе","Связь: принцип легитимизма Венской системы международных отношений"],
+["person","Клеменс фон Меттерних","Австрия, 1773–1859","Архитектор Венской системы международных отношений после 1815 года","Связь: баланс сил как принцип европейской дипломатии XIX века"],
+["person","Вудро Вильсон","США, 1856–1924","Автор «14 пунктов», инициатор идеи Лиги Наций","Связь: принцип самоопределения народов в международном праве"],
+["person","Даг Хаммаршёльд","Швеция, 1905–1961","Второй Генеральный секретарь ООН, погиб при исполнении обязанностей","Связь: посмертная Нобелевская премия мира, укрепление роли ООН"],
+["person","Кофи Аннан","Гана, 1938–2018","Генеральный секретарь ООН 1997–2006, Нобелевская премия мира 2001","Связь: концепция «Ответственность по защите» (R2P) в международном праве"],
+["person","Антониу Гутерреш","Португалия, р.1949","Действующий Генеральный секретарь ООН с 2017 года","Связь: возглавляет ООН в период климатического и гуманитарного кризисов"],
+["person","Андрей Громыко","СССР, 1909–1989","Министр иностранных дел СССР 28 лет, прозвище «мистер Нет»","Связь: участник переговоров по ОСВ и разрядке международной напряжённости"],
+["person","Евгений Примаков","Россия, 1929–2015","«Разворот над Атлантикой» 1999 года, министр иностранных дел","Связь: символ многополярного подхода во внешней политике России"],
+["person","Сергей Лавров","Россия, р.1950","Министр иностранных дел Российской Федерации с 2004 года","Связь: представляет Россию в Совете Безопасности ООН"],
+["person","Джавахарлал Неру","Индия, 1889–1964","Первый премьер-министр Индии, один из основателей Движения неприсоединения","Связь: концепция «неприсоединения» в биполярной системе холодной войны"],
+["person","Гамаль Абдель Насер","Египет, 1918–1970","Идеолог панарабизма, национализировал Суэцкий канал в 1956 году","Связь: Суэцкий кризис как пример конфликта интересов великих держав"],
+["person","Хо Ши Мин","Вьетнам, 1890–1969","Лидер борьбы за независимость и объединение Вьетнама","Связь: Вьетнамская война как опосредованный конфликт холодной войны"],
+["person","Фидель Кастро","Куба, 1926–2016","Лидер Кубинской революции 1959 года","Связь: Карибский кризис 1962 года — тема категории «История»"],
+["person","Индира Ганди","Индия, 1917–1984","Премьер-министр Индии, укрепление позиций страны в Южной Азии","Связь: индо-пакистанские отношения и вопрос Кашмира"],
+["person","Голда Меир","Израиль, 1898–1978","Премьер-министр Израиля в период войны Судного дня 1973 года","Связь: ближневосточный конфликт как долгосрочная тема мировой дипломатии"],
+["person","Ицхак Рабин","Израиль, 1922–1995","Подписал соглашения в Осло 1993 года, убит в 1995 году","Связь: соглашения Осло — попытка урегулирования палестино-израильского конфликта"],
+["person","Ясир Арафат","Палестина, 1929–2004","Лидер Организации освобождения Палестины (ООП)","Связь: вопрос признания государственности Палестины в международном праве"],
+["person","Анвар Садат","Египет, 1918–1981","Подписал мирный договор с Израилем в 1979 году в Кэмп-Дэвиде","Связь: первый мирный договор арабской страны с Израилем"],
+["person","Гельмут Коль","ФРГ, 1930–2017","Канцлер, руководил объединением Германии в 1990 году","Связь: воссоединение Германии — символ окончания холодной войны"],
+["person","Джордж Буш-старший","США, 1924–2018","Президент США, операция «Буря в пустыне» 1991 года","Связь: пример применения главы VII Устава ООН против агрессии"],
+["person","Билл Клинтон","США, р.1946","Президент США, расширение НАТО, Дейтонские соглашения 1995 года","Связь: посредничество в урегулировании конфликта в Боснии и Герцеговине"],
+["person","Барак Обама","США, р.1961","Президент США, «перезагрузка» с Россией, ядерная сделка с Ираном 2015","Связь: Нобелевская премия мира 2009 года"],
+["person","Ангела Меркель","Германия, р.1954","Канцлер ФРГ 2005–2021, ключевая фигура европейской политики","Связь: роль Германии как лидера Евросоюза в период кризисов"],
+["person","Эммануэль Макрон","Франция, р.1977","Действующий президент Франции с 2017 года","Связь: инициативы по реформированию Евросоюза и европейской обороне"],
+["person","Си Цзиньпин","Китай, р.1953","Действующий председатель КНР, инициатива «Один пояс — один путь»","Связь: экономическая дипломатия и рост влияния Китая в мире"],
+["person","Владимир Путин","Россия, р.1952","Президент Российской Федерации","Связь: постоянный член Совбеза ООН, ключевой актор мировой политики"],
+["person","Реджеп Тайип Эрдоган","Турция, р.1954","Президент Турции, укрепление роли страны как регионального лидера","Связь: Турция — член НАТО с особой позицией по региональным конфликтам"],
+["person","Нарендра Моди","Индия, р.1950","Действующий премьер-министр Индии","Связь: рост роли Индии в БРИКС и Индо-Тихоокеанском регионе"],
+["person","Джон Кеннеди","США, 1917–1963","Президент США в период Карибского кризиса 1962 года","Связь: успешное урегулирование ядерного противостояния через дипломатию"],
+["person","Никита Хрущёв","СССР, 1894–1971","Инициатор «оттепели», участник Карибского кризиса","Связь: доклад на XX съезде КПСС 1956 года — начало десталинизации"],
+["person","Леонид Брежнев","СССР, 1906–1982","Генеральный секретарь ЦК КПСС, период разрядки 1970-х годов","Связь: подписание Хельсинкского заключительного акта 1975 года"],
+["person","Симон Боливар","Латинская Америка, 1783–1830","Лидер борьбы за независимость испанских колоний в Южной Америке","Связь: деколонизация Латинской Америки в начале XIX века"],
+["person","Теодор Рузвельт","США, 1858–1919","«Дипломатия большой дубинки», Нобелевская премия мира 1906 года","Связь: посредничество в русско-японской войне 1904–1905 годов"],
+["person","Генри Джон Темпл (лорд Пальмерстон)","Великобритания, 1784–1865","Министр иностранных дел, символ политики баланса сил XIX века","Связь: концепция «у Британии нет вечных союзников, только вечные интересы»"],
+["person","Курт Вальдхайм","Австрия, 1918–2007","Генеральный секретарь ООН 1972–1981","Связь: период разрядки и активизации посреднической роли ООН"]
+];
+
+/* Блок «Аббревиатуры»: 65 проверенных сокращений международных организаций,
+   договоров и режимов (проверено и точно; список можно пополнять через форму) */
+const RAW_LINGVO_ABBR = [
+["abbr","ООН","United Nations — Организация Объединённых Наций","Универсальная международная организация, создана в 1945 году, 193 государства-члена","Связь: Устав ООН — основа современного международного права"],
+["abbr","ЕС","European Union — Европейский союз","Экономический и политический союз 27 европейских государств","Связь: пример наднационального объединения суверенных государств"],
+["abbr","НАТО","North Atlantic Treaty Organization — Организация Североатлантического договора","Военно-политический союз, создан в 1949 году, ст.5 — коллективная оборона","Связь: пример системы коллективной безопасности вне рамок ООН"],
+["abbr","ОБСЕ","Organization for Security and Co-operation in Europe","Крупнейшая региональная организация безопасности, наследница Хельсинкского процесса","Связь: развитие принципов Хельсинкского заключительного акта 1975 года"],
+["abbr","СНГ","Содружество Независимых Государств","Объединение большинства бывших республик СССР, создано в 1991 году","Связь: правопреемство государств после распада СССР"],
+["abbr","ЕАЭС","Евразийский экономический союз","Экономическое объединение России, Беларуси, Казахстана, Армении, Киргизии","Связь: пример региональной экономической интеграции на постсоветском пространстве"],
+["abbr","ОДКБ","Организация Договора о коллективной безопасности","Военно-политический союз государств СНГ, создан в 2002 году","Связь: региональный аналог принципа коллективной обороны"],
+["abbr","ШОС","Шанхайская организация сотрудничества","Евразийское объединение по вопросам безопасности и экономики","Связь: пример многостороннего формата с участием России и Китая"],
+["abbr","БРИКС","Brazil, Russia, India, China, South Africa","Объединение крупных развивающихся экономик, расширено в 2024 году","Связь: символ формирующейся многополярности в мировой экономике"],
+["abbr","АСЕАН","Association of Southeast Asian Nations","Ассоциация государств Юго-Восточной Азии, создана в 1967 году","Связь: пример успешной региональной интеграции в Азии"],
+["abbr","МЕРКОСУР","Mercado Común del Sur — Южноамериканский общий рынок","Таможенный союз стран Южной Америки","Связь: латиноамериканский аналог интеграционных процессов ЕС"],
+["abbr","ОПЕК","Organization of the Petroleum Exporting Countries","Организация стран — экспортёров нефти, координация нефтяной политики","Связь: влияние на мировые цены на энергоносители и геополитику"],
+["abbr","АС","Африканский союз","Континентальная организация африканских государств, преемник ОАЕ","Связь: институциональная основа панафриканизма"],
+["abbr","ЛАГ","Лига арабских государств","Региональная организация арабских стран, создана в 1945 году","Связь: координация позиций арабских государств по ближневосточным вопросам"],
+["abbr","G7","Группа семи","Неформальное объединение развитых экономик мира","Связь: координация экономической политики ведущих держав"],
+["abbr","G20","Группа двадцати","Форум крупнейших экономик мира, включая ЕС","Связь: основная площадка обсуждения глобальной экономической политики"],
+["abbr","ВТО","Всемирная торговая организация","Регулирует международную торговлю, преемница ГАТТ, создана в 1995 году","Связь: принцип наибольшего благоприятствования — категория «Право»"],
+["abbr","МВФ","Международный валютный фонд","Обеспечивает финансовую стабильность и кредитование государств","Связь: одна из Бреттон-Вудских организаций наряду со Всемирным банком"],
+["abbr","Всемирный банк","World Bank Group","Группа организаций для финансирования развития бедных стран","Связь: создан вместе с МВФ на Бреттон-Вудской конференции 1944 года"],
+["abbr","ЮНЕСКО","United Nations Educational, Scientific and Cultural Organization","Специализированное учреждение ООН по образованию, науке и культуре","Связь: список Всемирного наследия — темы категории «Искусство»"],
+["abbr","ЮНИСЕФ","United Nations Children's Fund","Фонд ООН помощи детям","Связь: защита прав ребёнка в международном гуманитарном праве"],
+["abbr","ВОЗ","Всемирная организация здравоохранения","Координирует международную политику в области здравоохранения","Связь: ключевая роль в реагировании на пандемию COVID-19"],
+["abbr","МАГАТЭ","Международное агентство по атомной энергии","Контроль за мирным использованием атомной энергии","Связь: инспекции в рамках режима нераспространения ядерного оружия"],
+["abbr","МОТ","Международная организация труда","Устанавливает международные трудовые стандарты","Связь: старейшая специализированная организация системы ООН (с 1919)"],
+["abbr","ФАО","Продовольственная и сельскохозяйственная организация ООН","Борьба с голодом и развитие сельского хозяйства","Связь: штаб-квартира в Риме — см. категорию «География»"],
+["abbr","ИКАО","Международная организация гражданской авиации","Устанавливает стандарты международных полётов","Связь: пример технической международной организации системы ООН"],
+["abbr","ИМО","Международная морская организация","Регулирует международное судоходство и безопасность на море","Связь: источник норм международного морского права"],
+["abbr","ВПС","Всемирный почтовый союз","Регулирует международную почтовую связь, создан в 1874 году","Связь: одна из старейших международных организаций в истории"],
+["abbr","МСЭ","Международный союз электросвязи","Регулирует использование радиочастот и спутниковых орбит","Связь: старейшая специализированная организация ООН по технологиям связи"],
+["abbr","ВОИС","Всемирная организация интеллектуальной собственности","Защита прав интеллектуальной собственности в мире","Связь: регулирует авторское право и патенты на международном уровне"],
+["abbr","ЮНИДО","Организация ООН по промышленному развитию","Содействие индустриализации развивающихся стран","Связь: часть системы специализированных учреждений ООН"],
+["abbr","ЮНКТАД","Конференция ООН по торговле и развитию","Орган ООН по вопросам мировой торговли и развития","Связь: интересы развивающихся стран в мировой торговле"],
+["abbr","ЮНЕП","Программа ООН по окружающей среде","Координирует международную экологическую политику","Связь: Парижское соглашение по климату — категория «История»"],
+["abbr","ЭКОСОС","Экономический и социальный совет ООН","Главный орган ООН по экономическим и социальным вопросам","Связь: один из шести главных органов ООН по Уставу"],
+["abbr","ДН","Движение неприсоединения","Объединение стран, не примкнувших к блокам в холодной войне","Связь: основано Неру, Насером, Тито в 1961 году"],
+["abbr","ЭКОВАС","Экономическое сообщество западноафриканских государств","Региональная организация экономической интеграции Западной Африки","Связь: пример региональной интеграции по модели ЕС в Африке"],
+["abbr","САДК","Сообщество развития Юга Африки","Региональная организация экономического сотрудничества Юга Африки","Связь: региональная интеграция после освобождения от апартеида и колониализма"],
+["abbr","ЮСМКА","United States-Mexico-Canada Agreement — преемник НАФТА","Соглашение о свободной торговле Северной Америки с 2020 года","Связь: пример пересмотра прежних торговых соглашений"],
+["abbr","МУС","Международный уголовный суд","Постоянный суд по военным преступлениям, геноциду, преступлениям против человечности","Связь: развитие принципов Нюрнбергского процесса 1945–1946 годов"],
+["abbr","МС ООН","Международный суд ООН","Главный судебный орган ООН, разрешает споры между государствами","Связь: базируется в Гааге — см. категорию «География»"],
+["abbr","МТБЮ","Международный трибунал по бывшей Югославии","Ad hoc трибунал по военным преступлениям на Балканах 1990-х годов","Связь: пример ad hoc трибунала — термин из категории «Латынь»"],
+["abbr","ЕСПЧ","Европейский суд по правам человека","Рассматривает жалобы на нарушение Европейской конвенции по правам человека","Связь: орган Совета Европы, а не Европейского союза"],
+["abbr","СЕ","Совет Европы","Организация по защите прав человека и демократии в Европе","Связь: не следует путать с институтами Европейского союза"],
+["abbr","ГАТТ","General Agreement on Tariffs and Trade","Генеральное соглашение по тарифам и торговле, предшественник ВТО","Связь: действовало с 1947 по 1995 год до создания ВТО"],
+["abbr","МККК","Международный комитет Красного Креста","Гуманитарная организация, защита жертв вооружённых конфликтов","Связь: ключевой институт международного гуманитарного права"],
+["abbr","УВКБ ООН","Управление Верховного комиссара ООН по делам беженцев","Защита прав беженцев по всему миру","Связь: реализует Конвенцию о статусе беженцев 1951 года"],
+["abbr","ДНЯО","Договор о нераспространении ядерного оружия","Основа режима ядерного нераспространения с 1968 года","Связь: ключевой договор категории «Право» о контроле над вооружениями"],
+["abbr","ОЗХО","Организация по запрещению химического оружия","Контроль за соблюдением Конвенции о химическом оружии","Связь: Нобелевская премия мира 2013 года"],
+["abbr","СНВ","Договор о сокращении наступательных вооружений","Двусторонние договоры России и США по ядерным вооружениям","Связь: часть системы контроля над стратегическими вооружениями"],
+["abbr","ПРО","Противоракетная оборона","Системы защиты от баллистических ракет","Связь: предмет споров в отношениях России и США"],
+["abbr","R2P","Responsibility to Protect — обязанность защищать","Концепция вмешательства для защиты населения от массовых злодеяний","Связь: применялась как обоснование интервенции в Ливию в 2011 году"],
+["abbr","ЦРУ","Central Intelligence Agency","Центральное разведывательное управление США","Связь: ключевой институт внешней политики США периода холодной войны"],
+["abbr","ФБР","Federal Bureau of Investigation","Федеральное бюро расследований США","Связь: внутренняя правоохранительная служба, в отличие от ЦРУ"],
+["abbr","ЕЦБ","Европейский центральный банк","Проводит денежно-кредитную политику еврозоны","Связь: институт экономического управления Европейского союза"],
+["abbr","АТЭС","Азиатско-Тихоокеанское экономическое сотрудничество","Форум экономического сотрудничества стран Тихоокеанского региона","Связь: платформа диалога крупнейших экономик Азии и Америки"],
+["abbr","ОАГ","Организация американских государств","Региональная организация государств Северной и Южной Америки","Связь: старейшая региональная организация в мире (с 1948 года)"],
+["abbr","ОИС","Организация исламского сотрудничества","Объединение мусульманских государств мира","Связь: вторая по числу членов межправительственная организация после ООН"],
+["abbr","КГБ","Комитет государственной безопасности","Орган государственной безопасности СССР","Связь: предшественник ФСБ и СВР современной России"],
+["abbr","ФСБ","Федеральная служба безопасности","Орган государственной безопасности Российской Федерации","Связь: правопреемник ряда функций советского КГБ"],
+["abbr","МИД","Министерство иностранных дел","Орган исполнительной власти, отвечающий за внешнюю политику государства","Связь: базовый институт дипломатической службы любой страны"],
+["abbr","GDPR","General Data Protection Regulation","Регламент Евросоюза о защите персональных данных","Связь: пример экстерриториального действия права ЕС"],
+["abbr","Brexit","Britain + exit","Выход Великобритании из состава Европейского союза в 2020 году","Связь: применение статьи 50 Договора о Европейском союзе"],
+["abbr","НАФТА","North American Free Trade Agreement","Зона свободной торговли Северной Америки 1994–2020 годов","Связь: заменена соглашением ЮСМКА в 2020 году"],
+["abbr","АБР","Азиатский банк развития","Региональный банк развития для стран Азии","Связь: аналог Всемирного банка на региональном уровне"],
+["abbr","МБРР","Международный банк реконструкции и развития","Основная организация группы Всемирного банка","Связь: создан в 1944 году вместе с МВФ"]
+];
+
+const RAW_LINGVO_ALL = RAW_LINGVO_PERSON.concat(RAW_LINGVO_ABBR);
+
+/* ---------- 9. ИСТОРИЯ (блок | событие | дата | описание | связь) ---------- */
+const RAW_HIST_WORLD = [
+["world","Вестфальский мир","1648","Завершение Тридцатилетней войны, рождение системы суверенных государств","Связь: основа современного международного права и принципа государственного суверенитета"],
+["world","Великая французская революция","1789–1799","Свержение монархии, принятие Декларации прав человека и гражданина","Связь: повлияла на все последующие конституции и концепцию прав человека"],
+["world","Венский конгресс","1814–1815","Послевоенное устройство Европы на принципах легитимизма и баланса сил","Связь: заложил основы современного дипломатического протокола и рангов"],
+["world","Первая мировая война","1914–1918","Глобальный военный конфликт, крушение четырёх империй","Связь: привела к созданию Лиги Наций — первой всемирной организации безопасности"],
+["world","Версальский договор","1919","Завершение Первой мировой войны, репарации, наложенные на Германию","Связь: экономические тяготы способствовали приходу нацизма к власти"],
+["world","Создание Лиги Наций","1920","Первая всемирная организация коллективной безопасности","Связь: предшественница ООН, показала слабость системы без участия США"],
+["world","Великая депрессия","1929–1939","Мировой экономический кризис, начавшийся с краха на Уолл-стрит","Связь: способствовала росту авторитарных и радикальных движений в Европе"],
+["world","Приход Гитлера к власти","1933","Установление нацистской диктатуры в Германии","Связь: прямая причина эскалации, приведшей ко Второй мировой войне"],
+["world","Мюнхенское соглашение","1938","Политика умиротворения агрессора со стороны Великобритании и Франции","Связь: хрестоматийный пример провала превентивной дипломатии"],
+["world","Вторая мировая война","1939–1945","Крупнейший вооружённый конфликт в истории человечества","Связь: породила ООН и современную систему международного права"],
+["world","Ялтинская конференция","1945","Раздел сфер влияния союзниками по антигитлеровской коалиции","Связь: заложила основы послевоенного биполярного миропорядка"],
+["world","Создание ООН","1945","Учреждение универсальной организации коллективной безопасности","Связь: институционализировала принципы суверенитета и неприменения силы"],
+["world","Нюрнбергский процесс","1945–1946","Международный суд над руководителями нацистской Германии","Связь: заложил основы современного международного уголовного права"],
+["world","Всеобщая декларация прав человека","1948","Базовый универсальный документ по правам человека","Связь: основа всей современной системы международного права прав человека"],
+["world","Начало холодной войны","1947","Идеологическое и геополитическое противостояние СССР и США","Связь: определило мировую политику на четыре последующих десятилетия"],
+["world","Карибский кризис","1962","Ядерное противостояние СССР и США из-за размещения ракет на Кубе","Связь: показал риски ядерной эскалации, привёл к разрядке и ДНЯО"],
+["world","Деколонизация Азии и Африки","1950–1970-е","Обретение независимости десятками бывших колоний","Связь: изменило состав ООН и мировую политическую карту"],
+["world","Договор о нераспространении ядерного оружия","1968","Основа современного режима ядерного нераспространения","Связь: ключевой элемент архитектуры контроля над вооружениями"],
+["world","Хельсинкский заключительный акт","1975","Принципы безопасности и сотрудничества в Европе","Связь: предшественник ОБСЕ, закрепил принцип нерушимости границ"],
+["world","Иранская революция","1979","Свержение шаха, установление Исламской Республики Иран","Связь: изменила баланс сил и политическую карту Ближнего Востока"],
+["world","Падение Берлинской стены","1989","Символическое окончание холодной войны в Европе","Связь: привело к объединению Германии в 1990 году"],
+["world","Распад СССР","1991","Образование пятнадцати новых независимых государств","Связь: породило вопросы правопреемства государств в международном праве"],
+["world","Война в Персидском заливе","1990–1991","Операция «Буря в пустыне» против оккупации Ираком Кувейта","Связь: пример применения главы VII Устава ООН против агрессии"],
+["world","Дейтонские соглашения","1995","Завершение войны в Боснии и Герцеговине","Связь: пример сложного многостороннего посреднического урегулирования"],
+["world","Создание Всемирной торговой организации","1995","Институционализация системы мировой торговли","Связь: развитие принципов ГАТТ 1947 года"],
+["world","Косовский кризис","1999","Военная операция НАТО без прямой санкции Совбеза ООН","Связь: породил длительную дискуссию о легитимности гуманитарной интервенции"],
+["world","Теракты 11 сентября","2001","Крупнейший террористический акт в истории США","Связь: начало «войны с терроризмом», трансформация международного права безопасности"],
+["world","Создание Международного уголовного суда","2002","Учреждение постоянного органа международного уголовного правосудия","Связь: развитие принципов, заложенных Нюрнбергским процессом"],
+["world","Арабская весна","2010–2012","Волна массовых протестов в странах Ближнего Востока и Северной Африки","Связь: привела к гражданским войнам в Сирии и Ливии"],
+["world","Присоединение Крыма к России","2014","Спорный с точки зрения большинства государств и ООН акт","Связь: обострило отношения России и Запада, введение санкционных режимов"],
+["world","Референдум по Brexit","2016","Решение Великобритании о выходе из Евросоюза","Связь: пример применения статьи 50 Договора о Европейском союзе"],
+["world","Парижское соглашение по климату","2015","Глобальное соглашение по борьбе с изменением климата","Связь: развитие принципов Рамочной конвенции ООН об изменении климата 1992 года"],
+["world","Иранская ядерная сделка (СВПД)","2015","Многостороннее соглашение по ядерной программе Ирана","Связь: пример комплексного многостороннего разоруженческого урегулирования"],
+["world","Пандемия COVID-19","2020","Глобальный кризис здравоохранения и мировой экономики","Связь: показала ключевую роль ВОЗ и пределы международного сотрудничества"],
+["world","Римский договор","1957","Создание Европейского экономического сообщества","Связь: предшественник современного Европейского союза"],
+["world","Кубинская революция","1959","Приход к власти Фиделя Кастро, провозглашение социалистического курса","Связь: начало долгого противостояния Кубы и США, экономическое эмбарго"],
+["world","Вьетнамская война","1955–1975","Военный конфликт в Юго-Восточной Азии в период холодной войны","Связь: пример опосредованного конфликта сверхдержав через третьи страны"],
+["world","Кэмп-Дэвидские соглашения","1978","Мирный договор между Египтом и Израилем","Связь: первый мирный договор арабской страны с Израилем"],
+["world","Мадридская конференция","1991","Начало ближневосточного мирного процесса","Связь: предшественник соглашений в Осло 1993 года"],
+["world","Вторжение в Ирак","2003","Военная операция США и союзников без прямой санкции Совбеза ООН","Связь: одна из самых спорных операций с точки зрения принципа jus ad bellum"],
+["world","Основание Совета Европы","1949","Первая послевоенная европейская политическая организация","Связь: впоследствии учредил Европейский суд по правам человека"]
+];
+
+const RAW_HIST_RUSSIA = [
+["russia","Крещение Руси","988","Принятие христианства князем Владимиром","Связь: интеграция Руси в византийскую (европейскую) культурную орбиту"],
+["russia","Съезд князей в Любече","1097","Попытка прекратить междоусобные войны на Руси","Связь: ранний пример договорного урегулирования внутренних конфликтов"],
+["russia","Монгольское нашествие","1237–1240","Установление ордынского владычества над русскими землями","Связь: во многом определило особенности российской государственности"],
+["russia","Куликовская битва","1380","Победа Дмитрия Донского над войском Мамая","Связь: начало объединения русских земель вокруг Москвы"],
+["russia","Стояние на реке Угре","1480","Фактическое окончание ордынского владычества","Связь: становление независимого Московского государства"],
+["russia","Венчание Ивана IV на царство","1547","Официальное принятие царского титула","Связь: оформление самодержавной модели государственной власти"],
+["russia","Опричнина","1565–1572","Политика террора и репрессий Ивана Грозного","Связь: пример деформации государственных институтов в истории"],
+["russia","Смутное время","1598–1613","Глубокий кризис власти, династии и государственности","Связь: завершилось созывом Земского собора и избранием новой династии"],
+["russia","Земский собор и избрание Романовых","1613","Избрание Михаила Романова на царство","Связь: начало династии Романовых, элемент сословного представительства"],
+["russia","Реформы Петра I","1696–1725","Модернизация армии, флота и системы государственного управления","Связь: завершились провозглашением России империей в 1721 году"],
+["russia","Провозглашение Российской империи","1721","По итогам победы в Северной войне со Швецией","Связь: закрепление статуса России как великой европейской державы"],
+["russia","Правление Екатерины II","1762–1796","«Просвещённый абсолютизм», разделы Речи Посполитой","Связь: значительное расширение территории и влияния империи в Европе"],
+["russia","Отечественная война 1812 года","1812","Победа над армией Наполеона Бонапарта","Связь: усилила роль России в формировании Венской системы отношений"],
+["russia","Участие России в Венском конгрессе","1814–1815","Россия как один из главных архитекторов новой Европы","Связь: пример дипломатического триумфа Российской империи"],
+["russia","Восстание декабристов","1825","Первое организованное выступление против самодержавия","Связь: начало организованного революционного движения в России"],
+["russia","Крымская война","1853–1856","Поражение России, Парижский мирный договор","Связь: показала технологическую отсталость империи, стимул к реформам"],
+["russia","Отмена крепостного права","1861","Одна из ключевых реформ Александра II","Связь: важнейшая социально-правовая реформа Российской империи"],
+["russia","Судебная реформа","1864","Введение суда присяжных и принципа состязательности процесса","Связь: заимствование передовых европейских правовых стандартов"],
+["russia","Русско-турецкая война","1877–1878","Освобождение Болгарии от османского владычества при поддержке России","Связь: пример панславистской внешней политики империи"],
+["russia","Первая русская революция","1905–1907","Манифест 17 октября, учреждение Государственной думы","Связь: первый опыт российского парламентаризма"],
+["russia","Русско-японская война","1904–1905","Поражение Российской империи в войне с Японией","Связь: ускорила революционные процессы 1905 года"],
+["russia","Столыпинская аграрная реформа","1906–1911","Попытка создать в России класс крестьян-собственников","Связь: пример незавершённой модернизации накануне революции"],
+["russia","Россия в Первой мировой войне","1914–1917","Участие Российской империи в составе Антанты","Связь: военные неудачи стали одним из катализаторов Февральской революции"],
+["russia","Февральская революция","1917","Свержение монархии и отречение Николая II","Связь: конец династии Романовых, установление власти Временного правительства"],
+["russia","Октябрьская революция","1917","Приход к власти партии большевиков во главе с Лениным","Связь: начало советского периода отечественной истории"],
+["russia","Брестский мир","1918","Выход Советской России из Первой мировой войны","Связь: пример вынужденного одностороннего мирного договора"],
+["russia","Гражданская война в России","1918–1922","Вооружённый конфликт между «красными» и «белыми»","Связь: завершилась образованием СССР в 1922 году"],
+["russia","Образование СССР","1922","Подписание договора об образовании Союза ССР","Связь: новая для своего времени форма федеративного государства"],
+["russia","Индустриализация и коллективизация","1928–1937","Форсированная модернизация экономики СССР","Связь: сопровождалась массовыми репрессиями и человеческими жертвами"],
+["russia","Большой террор","1937–1938","Массовые политические репрессии в СССР","Связь: тема произведений Солженицына и Шаламова — категория «Литература»"],
+["russia","Пакт Молотова — Риббентропа","1939","Договор о ненападении между СССР и нацистской Германией","Связь: один из самых спорных эпизодов советской дипломатии XX века"],
+["russia","Великая Отечественная война","1941–1945","Ключевая часть Второй мировой войны на советско-германском фронте","Связь: решающий вклад СССР в разгром нацизма, участие в Ялтинской конференции"],
+["russia","Ялтинская и Потсдамская конференции","1945","Определение послевоенного устройства мира союзниками","Связь: СССР становится одним из пяти постоянных членов Совбеза ООН"],
+["russia","Начало холодной войны для СССР","1946–1947","Фултонская речь Черчилля, доктрина Трумэна","Связь: начало биполярной конфронтации с Западом на четыре десятилетия"],
+["russia","XX съезд КПСС и десталинизация","1956","Доклад Хрущёва о культе личности Сталина","Связь: начало периода «оттепели» во внутренней и внешней политике"],
+["russia","Карибский кризис для СССР","1962","Противостояние с США из-за размещения ракет на Кубе","Связь: ближайший момент подхода мира к прямому ядерному конфликту"],
+["russia","Перестройка и гласность","1985–1991","Комплекс политических и экономических реформ Горбачёва","Связь: привели к распаду социалистического блока и самого СССР"],
+["russia","Распад СССР","1991","Образование Содружества Независимых Государств","Связь: Россия признана государством-продолжателем СССР в международном праве"],
+["russia","Конституция Российской Федерации","1993","Принятие действующей конституции страны","Связь: закрепление принципов правового государства и разделения властей"],
+["russia","Вступление России в Совет Европы","1996","Интеграция в европейские правозащитные институты","Связь: Россия признала юрисдикцию ЕСПЧ на своей территории (до 2022 года)"]
+];
+
+const RAW_HIST_ALL = RAW_HIST_WORLD.concat(RAW_HIST_RUSSIA);
+
+/* ---------- Метаданные категорий ----------
+   Каждая категория разбита на темы (topics) — диапазоны индексов внутри raw.
+   Пользователь может добавлять свои темы и категории через интерфейс. */
+const CATEGORY_META = [
+  {key:"geo",   name:"География",            raw:RAW_GEO,      fields:["country","capital","fact1","fact2","usage"], type:"geo",
+   topics:[
+     {id:"t1",name:"Ключевые державы",range:[0,9]},
+     {id:"t2",name:"Европа",range:[10,19]},
+     {id:"t3",name:"Европа, Ближний Восток и Азия",range:[20,29]},
+     {id:"t4",name:"Америка, Африка и АТР",range:[30,39]},
+     {id:"t5",name:"Конфликтные зоны и особые случаи",range:[40,49]}
+   ]},
+  {key:"latin", name:"Латынь",                raw:RAW_LATIN,    fields:["latin","translation","meaning","usage"],     type:"latin",
+   topics:[
+     {id:"t1",name:"Основные принципы права",range:[0,16]},
+     {id:"t2",name:"Судебный процесс и доказывание",range:[17,33]},
+     {id:"t3",name:"Юридическая методология",range:[34,49]}
+   ]},
+  {key:"legal", name:"Юридический английский",raw:RAW_LEGAL_EN, fields:["term","translation","definition","example"], type:"legal",
+   topics:[
+     {id:"t1",name:"Договоры и дипломатия",range:[0,16]},
+     {id:"t2",name:"Судопроизводство и права человека",range:[17,33]},
+     {id:"t3",name:"Территория и ответственность государств",range:[34,49]}
+   ]},
+  {key:"law",   name:"Право",                 raw:RAW_LAW,      fields:["term","enTerm","definition","example"],     type:"law",
+   topics:[
+     {id:"t1",name:"Теория права",range:[0,16]},
+     {id:"t2",name:"Международное публичное право",range:[17,33]},
+     {id:"t3",name:"Уголовное и гуманитарное право",range:[34,49]}
+   ]},
+  {key:"lit",   name:"Литература",            raw:RAW_LIT,      fields:["author","title","context","legalConn"],     type:"lit",
+   topics:[
+     {id:"t1",name:"Русская классика",range:[0,16]},
+     {id:"t2",name:"Мировая классика",range:[17,33]},
+     {id:"t3",name:"XX век и антиутопии",range:[34,49]}
+   ]},
+  {key:"art",   name:"Искусство",             raw:RAW_ART,      fields:["style","artist","work","period","usage"],    type:"art",
+   topics:[
+     {id:"t1",name:"Возрождение и барокко",range:[0,16]},
+     {id:"t2",name:"От романтизма до модерна",range:[17,33]},
+     {id:"t3",name:"XX век и современность",range:[34,49]}
+   ]},
+  {key:"ita",   name:"Итальянский",           raw:RAW_ITA,      fields:["phrase","translation","grammar","usage"],    type:"ita",
+   topics:[
+     {id:"t1",name:"Приветствия и знакомство",range:[0,16]},
+     {id:"t2",name:"Повседневное общение",range:[17,33]},
+     {id:"t3",name:"Мнение и согласие",range:[34,49]}
+   ]},
+  {key:"lingvo",name:"Лингвострановедение",   raw:RAW_LINGVO_ALL, fields:["kind","name","sub","description","connection"], type:"lingvo",
+   topics:[
+     {id:"t1",name:"Дипломаты и политики XIX–XX века",range:[0,24]},
+     {id:"t2",name:"Современные лидеры и главы государств",range:[25,48]},
+     {id:"t3",name:"Аббревиатуры: международные организации",range:[49,81]},
+     {id:"t4",name:"Аббревиатуры: договоры и институты",range:[82,113]}
+   ]},
+  {key:"hist",  name:"История",               raw:RAW_HIST_ALL,   fields:["kind","name","sub","description","connection"], type:"hist",
+   topics:[
+     {id:"t1",name:"Всемирная история: до 1945 года",range:[0,9]},
+     {id:"t2",name:"Всемирная история: после 1945 года",range:[10,40]},
+     {id:"t3",name:"История России: до 1917 года",range:[41,64]},
+     {id:"t4",name:"История России: 1917 год — наши дни",range:[65,80]}
+   ]}
+];
+
+</script>
+<script>
+/* ==========================================================================
+   ЛОГИКА ПРИЛОЖЕНИЯ PRIMUS.STUD
+   ========================================================================== */
+
+/* ---------- Утилиты дат ---------- */
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+function addDays(iso,days){ const d=new Date(iso+"T00:00:00"); d.setDate(d.getDate()+days); return d.toISOString().slice(0,10); }
+function fmtDate(iso){ const d=new Date(iso+"T00:00:00"); return d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit'}); }
+function uid(prefix){ return prefix+"_"+Math.random().toString(36).slice(2,9); }
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function sample(arr,n){ return shuffle(arr).slice(0,n); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+/* ==========================================================================
+   1. STORAGE
+   ========================================================================== */
+const STORE_KEY = "primus_stud_v2";
+function defaultStore(){
+  return {
+    theme:"dark",
+    cardProgress:{}, cardOverrides:{}, extraCards:{}, deletedCards:[],
+    customCategories:[], customCards:{},
+    customTopics:{}, topicRenames:{}, deletedTopics:{}, cardTopicOverride:{},
+    learnLog:{}, mistakeIds:[],
+    aura:0, streak:0, lastActiveDate:null, dailyProgress:{},
+    categoryOrder:[], pinnedCategories:[], categoryRenames:{},
+    topicOrder:{}, pinnedTopics:{},
+    materials:{}
+  };
+}
+function loadStore(){
+  let s = defaultStore();
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw) s = Object.assign(s, JSON.parse(raw));
+  }catch(e){ console.warn("storage read error", e); }
+  // защита от неполной структуры
+  Object.keys(defaultStore()).forEach(k=>{ if(s[k]===undefined) s[k]=defaultStore()[k]; });
+  return s;
+}
+let STORE = loadStore();
+function saveStore(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(STORE)); }
+  catch(e){ console.warn("storage write error", e); }
+}
+
+/* ==========================================================================
+   2. ТЕМЫ (topics) — CRUD внутри категории
+   ========================================================================== */
+function defaultTopicIdForIndex(meta, idx){
+  const t = (meta.topics||[]).find(t=>idx>=t.range[0] && idx<=t.range[1]);
+  return t ? t.id : "general";
+}
+function getCategoryTopics(catKey){
+  const meta = (APP_DATA[catKey]||{}).meta || {};
+  const deleted = STORE.deletedTopics[catKey]||[];
+  const renames = STORE.topicRenames[catKey]||{};
+  const defaults = (meta.topics||[]).filter(t=>!deleted.includes(t.id)).map(t=>({id:t.id,name:renames[t.id]||t.name}));
+  const custom = (STORE.customTopics[catKey]||[]).filter(t=>!deleted.includes(t.id)).map(t=>({id:t.id,name:renames[t.id]||t.name}));
+  const list = defaults.concat(custom);
+  list.push({id:"general",name:"Без темы"});
+  return list;
+}
+function getCardTopicId(catKey, card){
+  return STORE.cardTopicOverride[card.id] || card.topicId || "general";
+}
+function topicName(catKey, topicId){
+  const t = getCategoryTopics(catKey).find(t=>t.id===topicId);
+  return t ? t.name : "Без темы";
+}
+function getCategoryTopicsOrdered(catKey){
+  const all = getCategoryTopics(catKey);
+  const byId = {}; all.forEach(t=>byId[t.id]=t);
+  const ids = getOrderedTopicIds(catKey);
+  const ordered = ids.map(id=>byId[id]).filter(Boolean);
+  if(byId['general']) ordered.push(byId['general']);
+  return ordered;
+}
+function addTopic(catKey, name){
+  if(!STORE.customTopics[catKey]) STORE.customTopics[catKey]=[];
+  const id = uid("topic");
+  STORE.customTopics[catKey].push({id,name});
+  saveStore(); buildAllData();
+  return id;
+}
+function renameTopic(catKey, topicId, newName){
+  if(!STORE.topicRenames[catKey]) STORE.topicRenames[catKey]={};
+  STORE.topicRenames[catKey][topicId]=newName;
+  // если это пользовательская тема — переименуем прямо в объекте
+  const custom = (STORE.customTopics[catKey]||[]).find(t=>t.id===topicId);
+  if(custom) custom.name = newName;
+  saveStore(); buildAllData();
+}
+function deleteTopic(catKey, topicId){
+  if(!STORE.deletedTopics[catKey]) STORE.deletedTopics[catKey]=[];
+  if(!STORE.deletedTopics[catKey].includes(topicId)) STORE.deletedTopics[catKey].push(topicId);
+  STORE.customTopics[catKey] = (STORE.customTopics[catKey]||[]).filter(t=>t.id!==topicId);
+  saveStore(); buildAllData();
+}
+function getOrderedTopicIds(catKey){
+  const topics = getCategoryTopics(catKey).filter(t=>t.id!=='general');
+  const pinned = STORE.pinnedTopics[catKey]||[];
+  const order = STORE.topicOrder[catKey] || topics.map(t=>t.id);
+  const known = new Set(topics.map(t=>t.id));
+  let ids = order.filter(id=>known.has(id));
+  topics.forEach(t=>{ if(!ids.includes(t.id)) ids.push(t.id); });
+  ids = ids.filter(id=>!pinned.includes(id));
+  return pinned.filter(id=>known.has(id)).concat(ids);
+}
+function moveTopic(catKey, topicId, dir){
+  const ids = getOrderedTopicIds(catKey);
+  const i = ids.indexOf(topicId);
+  const j = i+dir;
+  if(i<0||j<0||j>=ids.length) return;
+  [ids[i],ids[j]]=[ids[j],ids[i]];
+  STORE.topicOrder[catKey] = ids;
+  saveStore();
+}
+function toggleTopicPin(catKey, topicId){
+  if(!STORE.pinnedTopics[catKey]) STORE.pinnedTopics[catKey]=[];
+  const arr = STORE.pinnedTopics[catKey];
+  const i = arr.indexOf(topicId);
+  if(i>-1) arr.splice(i,1); else arr.push(topicId);
+  saveStore();
+}
+
+/* ---------- Управление категориями: переименование / порядок / закреп ---------- */
+function getCategoryDisplayName(catKey){
+  const rename = STORE.categoryRenames[catKey];
+  if(rename) return rename;
+  return APP_DATA[catKey] ? APP_DATA[catKey].meta.name : catKey;
+}
+function renameCategory(catKey, newName){
+  const isCustom = !CATEGORY_META.find(m=>m.key===catKey);
+  if(isCustom){
+    const cc = STORE.customCategories.find(c=>c.key===catKey);
+    if(cc) cc.name = newName;
+  } else {
+    STORE.categoryRenames[catKey] = newName;
+  }
+  saveStore(); buildAllData();
+}
+function getOrderedCategoryKeys(){
+  const allKeys = CATEGORY_META.map(m=>m.key).concat(STORE.customCategories.map(c=>c.key));
+  const pinned = STORE.pinnedCategories||[];
+  const order = STORE.categoryOrder.length ? STORE.categoryOrder : allKeys;
+  let ids = order.filter(id=>allKeys.includes(id));
+  allKeys.forEach(id=>{ if(!ids.includes(id)) ids.push(id); });
+  ids = ids.filter(id=>!pinned.includes(id));
+  return pinned.filter(id=>allKeys.includes(id)).concat(ids);
+}
+function moveCategory(catKey, dir){
+  const ids = getOrderedCategoryKeys();
+  const i = ids.indexOf(catKey);
+  const j = i+dir;
+  if(i<0||j<0||j>=ids.length) return;
+  [ids[i],ids[j]]=[ids[j],ids[i]];
+  STORE.categoryOrder = ids;
+  saveStore();
+}
+function toggleCategoryPin(catKey){
+  if(!STORE.pinnedCategories) STORE.pinnedCategories=[];
+  const arr = STORE.pinnedCategories;
+  const i = arr.indexOf(catKey);
+  if(i>-1) arr.splice(i,1); else arr.push(catKey);
+  saveStore();
+}
+
+/* ==========================================================================
+   3. ПОСТРОЕНИЕ КАРТОЧЕК ИЗ RAW-ДАННЫХ
+   ========================================================================== */
+let APP_DATA = {}; // key -> {meta, cards:[], tasks:[]}
+
+function buildCardFromRaw(catKey, meta, rawRow, fields, idx){
+  const id = catKey+"_"+idx;
+  const card = { id, catKey };
+  fields.forEach((f,i)=>{ card[f]=rawRow[i]; });
+  const override = STORE.cardOverrides[id];
+  if(override) Object.assign(card, override);
+  const saved = STORE.cardProgress[id];
+  card.level = saved ? saved.level : 0;
+  card.next_review = saved ? saved.next_review : todayISO();
+  card.topicId = STORE.cardTopicOverride[id] || defaultTopicIdForIndex(meta, idx);
+  return card;
+}
+function buildExtraCard(catKey, c){
+  const saved = STORE.cardProgress[c.id];
+  return Object.assign({}, c, {
+    level: saved ? saved.level : (c.level||0),
+    next_review: saved ? saved.next_review : (c.next_review||todayISO()),
+    topicId: STORE.cardTopicOverride[c.id] || c.topicId || "general"
+  });
+}
+function buildAllData(){
+  APP_DATA = {};
+  CATEGORY_META.forEach(meta=>{
+    let cards = meta.raw
+      .map((row,idx)=>buildCardFromRaw(meta.key,meta,row,meta.fields,idx))
+      .filter(c=>!STORE.deletedCards.includes(c.id));
+    const extra = (STORE.extraCards[meta.key]||[]).map(c=>buildExtraCard(meta.key,c));
+    cards = cards.concat(extra);
+    APP_DATA[meta.key] = { meta, cards, tasks: [] };
+  });
+  STORE.customCategories.forEach(cc=>{
+    const rawCards = STORE.customCards[cc.key] || [];
+    const cards = rawCards.map(c=>buildExtraCard(cc.key,c));
+    APP_DATA[cc.key] = { meta: cc, cards, tasks: [] };
+  });
+  allCategoryKeysInternal().forEach(k=>{ APP_DATA[k].tasks = buildTasksForCategory(k); });
+}
+function allCategoryKeysInternal(){ return Object.keys(APP_DATA); }
+
+/* ==========================================================================
+   4. ОТОБРАЖЕНИЕ ЛИЦА КАРТОЧКИ (унифицированная проекция полей)
+   ========================================================================== */
+function renderCardFace(type,c){
+  switch(type){
+    case "geo": return {top:c.country, sub:c.capital, body:`${c.fact1}. ${c.fact2}.`, usage:c.usage, connection:`${c.usage}. ${c.fact2}.`};
+    case "latin": return {top:c.latin, sub:c.translation, body:c.meaning, usage:c.usage, connection:c.usage};
+    case "legal": return {top:c.term, sub:c.translation, body:c.definition, usage:c.example, connection:c.example};
+    case "law": return {top:c.term, sub:c.enTerm, body:c.definition, usage:c.example, connection:c.example};
+    case "lit": return {top:c.title, sub:c.author, body:c.context, usage:c.legalConn, connection:c.legalConn};
+    case "art": return {top:c.work, sub:`${c.artist} · ${c.period}`, body:c.style, usage:c.usage, connection:c.usage};
+    case "ita": return {top:c.phrase, sub:c.translation, body:c.grammar, usage:c.usage, connection:c.usage};
+    case "lingvo": return {top:c.name, sub:c.sub, body:c.description, usage:c.connection, connection:c.connection};
+    case "hist": return {top:c.name, sub:c.sub, body:c.description, usage:c.connection, connection:c.connection};
+    default: return {top:c.front||"Карточка", sub:c.back||"", body:c.back||"", usage:c.note||"", connection:c.note||""};
+  }
+}
+function genericPromptVerb(type){
+  const map = {
+    geo:"Какая столица у страны", latin:"Как переводится выражение", legal:"Как переводится термин",
+    law:"Какое определение соответствует термину", lit:"Кто автор произведения", art:"К какому стилю относится",
+    ita:"Как переводится фраза", lingvo:"Что это означает —", hist:"Когда это произошло —"
+  };
+  return map[type] || "Выбери верный вариант для";
+}
+
+/* ==========================================================================
+   5. ГЕНЕРАЦИЯ ЗАДАНИЙ: 5 РЕЖИМОВ ПРАКТИКИ
+      task (задачи) · case (кейсы) · match (соответствие) · fill (вставка слова) · open (открытый вопрос)
+   ========================================================================== */
+const CASES_BY_CAT = {
+  geo:[
+    ["Кейс: два государства спорят о принадлежности острова, ссылаясь на разные исторические карты и факт длительного административного управления одной из сторон. Какой принцип, скорее всего, окажется решающим?","Эффективный контроль (effectivités) — международные суды чаще опираются на длительное эффективное осуществление власти, а не только на исторические претензии."],
+    ["Кейс: страна объявляет о постоянном нейтралитете и просит международное признание этого статуса. Какие обязательства это на неё накладывает?","Постоянный нейтралитет обязывает не участвовать в военных союзах и вооружённых конфликтах — по образцу Швейцарии (с 1815) и Австрии (с 1955)."],
+    ["Кейс: федеративное государство с несколькими официальными языками сталкивается с требованием региона о большей автономии. На какой опыт можно опереться?","Опыт Бельгии (языковой федерализм) или Канады (билингвизм) показывает возможность сочетания единства государства с широкой региональной автономией."]
+  ],
+  latin:[
+    ["Кейс: суд ссылается на «rebus sic stantibus», чтобы обосновать выход государства из договора. Насколько это правомерно?","Правомерно лишь при исключительных условиях: изменение обстоятельств должно быть фундаментальным и непредвиденным (ст.62 Венской конвенции о праве международных договоров)."],
+    ["Кейс: подсудимый ссылается на «in dubio pro reo». Что это меняет в исходе дела?","Любые неустранимые сомнения в виновности толкуются в пользу обвиняемого — это требует оправдания при недостаточности доказательств."],
+    ["Кейс: международная организация выходит за пределы своих полномочий, принимая решение, не предусмотренное учредительным договором. Как это называется и что это влечёт?","Это действие ultra vires — за пределами полномочий; такое решение может быть признано юридически ничтожным."]
+  ],
+  legal:[
+    ["Кейс: дипломат нарушает местное законодательство страны пребывания. Может ли его судить местный суд?","Нет — действует диплоatic immunity (дипломатический иммунитет); страна пребывания может объявить его persona non grata и потребовать отзыва."],
+    ["Кейс: государство национализирует иностранную собственность без компенсации. Какие правовые последствия это влечёт?","Это нарушение международных инвестиционных стандартов: expropriation допустима лишь при выплате быстрой, адекватной и эффективной compensation."],
+    ["Кейс: беженец пересекает границу, спасаясь от преследований, но принимающая страна отказывается его впустить. Какая норма нарушена?","Нарушен принцип non-refoulement (нельзя высылать в место, где угрожает опасность), закреплённый Конвенцией 1951 года о статусе refugee."]
+  ],
+  law:[
+    ["Кейс уровня ВСОШ: государство А признаёт независимость новой территории, отделившейся от государства Б без согласия последнего. Как оценить ситуацию?","Конфликт принципов территориальной целостности и самоопределения требует анализа контекста: наличия вооружённого конфликта, волеизъявления населения и позиции Совбеза ООН."],
+    ["Кейс: международный трибунал рассматривает дело о геноциде, но обвиняемое государство отказывается признавать юрисдикцию суда. Какие есть механизмы?","Юрисдикция обычно основана на согласии государств; возможны альтернативные пути — резолюции ГА/СБ ООН, универсальная юрисдикция национальных судов."],
+    ["Кейс: компания требует компенсацию за экспроприацию имущества иностранным государством. Какие нормы применимы?","Экспроприация должна быть недискриминационной, в общественных интересах и сопровождаться быстрой, адекватной и эффективной компенсацией."]
+  ],
+  lit:[
+    ["Кейс: в романе герой совершает преступление и мучительно переживает вину, хотя формально избегает наказания. Какой философско-правовой вопрос это поднимает?","Вопрос о соотношении юридической и нравственной ответственности — центральная тема «Преступления и наказания» Достоевского."],
+    ["Кейс: пьеса строится вокруг спора о букве и духе заключённого договора. Какой юридический принцип здесь обыгрывается?","Проблема буквального и телеологического толкования договора — классически разбирается на примере «Венецианского купца» Шекспира."]
+  ],
+  art:[
+    ["Кейс: картина создана как прямой отклик на военное преступление и стала международным символом антивоенного протеста. О каком произведении речь?","«Герника» Пикассо (1937) — отклик на бомбардировку баскского города во время Гражданской войны в Испании."],
+    ["Кейс: скульптура становится символом целой политической системы и демонстрируется на всемирной выставке. Какой пример здесь уместен?","«Рабочий и колхозница» Веры Мухиной (1937) — символ советского павильона на Всемирной выставке в Париже."]
+  ],
+  ita:[
+    ["Кейс: на встрече с итальянским партнёром нужно вежливо выразить несогласие, не показавшись грубым. Какие обороты уместны?","«Non sono del tutto d'accordo» (я не совсем согласен) мягче, чем прямое «non sono d'accordo»; итальянская деловая культура ценит дипломатичность формулировок."],
+    ["Кейс: перед экзаменом итальянский однокурсник желает удачи необычной фразой про волка. Как правильно ответить?","На «In bocca al lupo» отвечают «Crepi (il lupo)» — отвечать «grazie» считается плохой приметой."]
+  ],
+  lingvo:[
+    ["Кейс: генеральный секретарь международной организации погибает при исполнении обязанностей во время миротворческой миссии. О ком речь и в чём его наследие?","Даг Хаммаршёльд, второй Генсек ООН, погиб в 1961 году; посмертно удостоен Нобелевской премии мира, укрепил роль ООН как посредника."],
+    ["Кейс: организация объединяет страны, отказавшиеся примыкать к военным блокам в период холодной войны. Что это за организация и кто её основал?","Движение неприсоединения, основано в 1961 году Неру (Индия), Насером (Египет) и Тито (Югославия)."]
+  ],
+  hist:[
+    ["Кейс: две сверхдержавы оказываются на грани ядерной войны из-за размещения ракет у границ друг друга, но конфликт разрешается дипломатическим путём. Какое событие имеется в виду и чем оно закончилось?","Карибский кризис 1962 года — урегулирован переговорами Кеннеди и Хрущёва, стал стимулом для последующих договоров о контроле над вооружениями."],
+    ["Кейс: страна проводит военную операцию против соседа для защиты гражданского населения без прямой санкции Совбеза ООН. Какой прецедент здесь уместен и какая дискуссия возникает?","Косовский кризис 1999 года — операция НАТО без санкции СБ ООН породила дискуссию о легитимности гуманитарной интервенции."]
+  ]
+};
+
+function buildTasksForCategory(catKey){
+  const cat = APP_DATA[catKey];
+  const cards = cat.cards;
+  const type = cat.meta.type || "custom";
+  const tasks = [];
+  // TASK — множественный выбор
+  cards.forEach(c=>{
+    const face = renderCardFace(type,c);
+    if(!face.sub) return;
+    const pool = cards.filter(x=>x.id!==c.id);
+    if(pool.length<3) return;
+    const distractors = sample(pool,3).map(x=>renderCardFace(type,x).sub);
+    const options = shuffle([face.sub, ...distractors]);
+    tasks.push({id:uid("t"),cat:catKey,cardId:c.id,topicId:getCardTopicId(catKey,c),mode:"task",
+      prompt:`${genericPromptVerb(type)} «${face.top}»?`, options, answer:face.sub,
+      explanation:`${face.top} → ${face.sub}. ${face.body}`, olympiad:false});
+  });
+  // FILL — вставка пропущенного слова
+  sample(cards, Math.min(20,cards.length)).forEach(c=>{
+    const face = renderCardFace(type,c);
+    tasks.push({id:uid("t"),cat:catKey,cardId:c.id,topicId:getCardTopicId(catKey,c),mode:"fill",
+      prompt:`Впиши пропущенный термин: ________ — это «${face.sub}». Подсказка: ${(face.body||"").slice(0,80)}`,
+      answer:face.top, explanation:`${face.top} — ${face.sub}. ${face.body}`, olympiad:false});
+  });
+  // MATCH — соответствие
+  const matchSets = Math.min(8, Math.floor(cards.length/5) || 0);
+  for(let i=0;i<matchSets;i++){
+    const picks = sample(cards, Math.min(5,cards.length));
+    const pairs = picks.map(c=>{ const f=renderCardFace(type,c); return {left:f.top,right:f.sub,cardId:c.id}; });
+    tasks.push({id:uid("t"),cat:catKey,topicId:getCardTopicId(catKey,picks[0]),mode:"match",
+      prompt:"Сопоставь термины и их значения", pairs, explanation:"Проверь получившиеся пары.", olympiad:false});
+  }
+  // OPEN — открытый вопрос
+  sample(cards, Math.min(15,cards.length)).forEach(c=>{
+    const face = renderCardFace(type,c);
+    tasks.push({id:uid("t"),cat:catKey,cardId:c.id,topicId:getCardTopicId(catKey,c),mode:"open",
+      prompt:`Своими словами: почему важно «${face.top}» и как это связано с другими темами?`,
+      answer:face.connection||face.body, explanation:face.connection||face.body, olympiad:true});
+  });
+  // CASE — кейсы
+  (CASES_BY_CAT[catKey]||[]).forEach(([p,a])=>tasks.push({id:uid("t"),cat:catKey,topicId:"general",mode:"case",
+    prompt:p, answer:a, explanation:a, olympiad:true}));
+  return tasks;
+}
+function buildCustomTasksSimple(catKey){
+  const cards = APP_DATA[catKey].cards;
+  return cards.map(c=>({id:uid("t"),cat:catKey,cardId:c.id,topicId:getCardTopicId(catKey,c),mode:"open",
+    prompt:c.front||"Карточка", answer:c.back||"", explanation:c.note||"", olympiad:false}));
+}
+
+/* ==========================================================================
+   6. SPACED REPETITION + AURA + РНО (интегрированная логика review)
+   ========================================================================== */
+function awardAura(amount){ STORE.aura = Math.max(0, (STORE.aura||0) + amount); }
+function getLevelInfo(){
+  const aura = STORE.aura||0;
+  const level = Math.floor(aura/200) + 1;
+  const into = aura % 200;
+  return { level, aura, into, need:200 };
+}
+function todayProgress(){
+  const d = todayISO();
+  if(!STORE.dailyProgress[d]) STORE.dailyProgress[d] = {learned:0,tasks:0,rno:0,bonusGiven:false};
+  return STORE.dailyProgress[d];
+}
+const DAILY_GOALS = { learned:10, tasks:15, rno:5 };
+function bumpDaily(kind){
+  const p = todayProgress();
+  p[kind] = (p[kind]||0)+1;
+  checkDailyBonus();
+}
+function checkDailyBonus(){
+  const p = todayProgress();
+  if(!p.bonusGiven && p.learned>=DAILY_GOALS.learned && p.tasks>=DAILY_GOALS.tasks && p.rno>=DAILY_GOALS.rno){
+    p.bonusGiven = true;
+    awardAura(30);
+    bumpStreak();
+  }
+}
+function bumpStreak(){
+  const today = todayISO();
+  const yesterday = addDays(today,-1);
+  if(STORE.lastActiveDate===yesterday) STORE.streak = (STORE.streak||0)+1;
+  else if(STORE.lastActiveDate!==today) STORE.streak = 1;
+  STORE.lastActiveDate = today;
+}
+function markMistake(cardId){ if(!STORE.mistakeIds.includes(cardId)) STORE.mistakeIds.push(cardId); }
+function clearMistakeIfMastered(card){
+  if(card.level>=3){ const i=STORE.mistakeIds.indexOf(card.id); if(i>-1) STORE.mistakeIds.splice(i,1); }
+}
+
+function review(card, correct, ctx){
+  ctx = ctx || {};
+  const today = todayISO();
+  if(correct){
+    card.level = (card.level||0) + 1;
+    const intervals = [1,3,7,14,30];
+    const days = intervals[Math.min(card.level, intervals.length-1)];
+    card.next_review = addDays(today, days);
+    if(card.level>=3){
+      if(!STORE.learnLog[today]) STORE.learnLog[today]=[];
+      if(!STORE.learnLog[today].includes(card.id)){ STORE.learnLog[today].push(card.id); bumpDaily("learned"); }
+      clearMistakeIfMastered(card);
+    }
+    awardAura(5);
+  } else {
+    card.level = 0;
+    card.next_review = today;
+    markMistake(card.id);
+    awardAura(1);
+  }
+  bumpDaily("tasks");
+  if(ctx.isRno) bumpDaily("rno");
+  STORE.cardProgress[card.id] = { level:card.level, next_review:card.next_review };
+  saveStore();
+}
+
+function findCard(catKey, cardId){
+  if(!cardId || !APP_DATA[catKey]) return null;
+  return APP_DATA[catKey].cards.find(c=>c.id===cardId) || null;
+}
+function allCategoryKeys(){ return Object.keys(APP_DATA); }
+function allCards(){ return allCategoryKeys().flatMap(k=>APP_DATA[k].cards); }
+function hasProgress(card){ return !!STORE.cardProgress[card.id]; }
+function reviewDueCards(){
+  return allCards().filter(c=>hasProgress(c) && !STORE.mistakeIds.includes(c.id) && c.next_review<=todayISO());
+}
+function rnoDueCards(){
+  return allCards().filter(c=>STORE.mistakeIds.includes(c.id) && c.next_review<=todayISO());
+}
+
+/* ==========================================================================
+   7. STATE
+   ========================================================================== */
+let VIEW = "progress";
+let PRACTICE_STATE = { cat:null, mode:"task", idx:0, correct:0, total:0, olympiadOnly:false, revealed:false, matchLeft:null, matchDone:[] };
+let CAT_SUBVIEW = {};
+let CAT_TOPIC_FILTER = {};
+let STUDY_SESSION = null; // {catKey, queue:[cardId], idx, flipped, stats:{seen,knew}}
+
+/* ==========================================================================
+   8. НАВИГАЦИЯ
+   ========================================================================== */
+function renderNav(){
+  const nav = document.getElementById("navCategories");
+  let html = '<div class="nav-group"><div class="nav-label">Категории</div>';
+  getOrderedCategoryKeys().forEach(key=>{
+    const n = APP_DATA[key] ? APP_DATA[key].cards.length : 0;
+    const pinned = (STORE.pinnedCategories||[]).includes(key);
+    html += navItemHtml(key, getCategoryDisplayName(key), n, pinned);
+  });
+  html += '</div>';
+  nav.innerHTML = html;
+  nav.querySelectorAll(".nav-item").forEach(el=>el.addEventListener("click",()=>{ VIEW=el.dataset.view; renderAll(); }));
+
+  document.querySelectorAll('.sidebar .nav-item[data-view]').forEach(el=>{
+    const toolViews = ["progress","review","rno","perfect"];
+    if(toolViews.includes(el.dataset.view)) el.classList.toggle("active", VIEW===el.dataset.view);
+  });
+  const dueCount = reviewDueCards().length;
+  const mistakeCount = rnoDueCards().length;
+  const elReview = document.getElementById("cntReview"); if(elReview) elReview.textContent = dueCount>0 ? dueCount : "";
+  const elRno = document.getElementById("cntRno"); if(elRno) elRno.textContent = mistakeCount>0 ? mistakeCount : "";
+  const auraBadge = document.getElementById("auraBadge");
+  if(auraBadge){ const li=getLevelInfo(); auraBadge.textContent = `${li.aura} Aura · ур. ${li.level}`; }
+}
+function navItemHtml(key,name,count,pinned){
+  const mono = name.slice(0,2).toUpperCase();
+  return `<div class="nav-item ${VIEW===key?'active':''}" data-view="${key}">${pinned?'<span class="mini-btn pin-on" style="pointer-events:none;padding:2px 5px">•</span>':`<span class="mono-badge">${mono}</span>`}${esc(name)}<span class="count">${count}</span></div>`;
+}
+document.querySelector(".sidebar").addEventListener("click",(e)=>{
+  const item = e.target.closest(".nav-item[data-view]");
+  if(!item) return;
+  const toolViews = ["progress","review","rno","perfect"];
+  if(toolViews.includes(item.dataset.view)){ VIEW = item.dataset.view; renderAll(); }
+});
+
+/* ==========================================================================
+   9. ГЛАВНЫЙ ДИСПЕТЧЕР
+   ========================================================================== */
+function renderAll(){
+  renderNav();
+  const main = document.getElementById("main");
+  if(APP_DATA[VIEW]) return renderCategoryView(main, VIEW);
+  if(VIEW==="progress") return renderProgressPage(main);
+  if(VIEW==="review") return renderReview(main);
+  if(VIEW==="rno") return renderRno(main);
+  if(VIEW==="perfect") return renderPerfectUsage(main);
+}
+
+/* ==========================================================================
+   10. PROGRESS — объединённая страница (Aura, чеклист, календарь, кольца прогресса)
+   ========================================================================== */
+function renderProgressPage(main){
+  const li = getLevelInfo();
+  const p = todayProgress();
+  const due = reviewDueCards();
+  const mistakes = rnoDueCards();
+  const pct = (val,goal)=>Math.min(100, Math.round(100*val/goal));
+
+  main.innerHTML = `
+    <div class="topbar">
+      <div><h2>Progress</h2><div class="desc">Aura, план на сегодня, календарь занятий и прогресс по темам — всё в одном месте</div></div>
+    </div>
+    <div class="aura-hero">
+      <div class="aura-num">${li.aura}<span class="aura-unit">Aura</span></div>
+      <div class="aura-level">Уровень ${li.level} · до следующего ${li.need-li.into} Aura</div>
+      <div class="aura-bar"><div class="aura-bar-fill" style="width:${Math.round(100*li.into/li.need)}%"></div></div>
+      <div class="streak-row">Серия дней подряд: <b>${STORE.streak||0}</b></div>
+    </div>
+
+    <h3 style="margin-top:26px">План на сегодня</h3>
+    <div class="checklist">
+      <div class="check-item ${p.learned>=DAILY_GOALS.learned?'done':''}">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-top"><span>Выучить карточки (уровень ≥ 3)</span><span>${p.learned}/${DAILY_GOALS.learned}</span></div>
+          <div class="check-bar"><div class="check-bar-fill" style="width:${pct(p.learned,DAILY_GOALS.learned)}%"></div></div>
+        </div>
+      </div>
+      <div class="check-item ${p.tasks>=DAILY_GOALS.tasks?'done':''}">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-top"><span>Пройти заданий в практике</span><span>${p.tasks}/${DAILY_GOALS.tasks}</span></div>
+          <div class="check-bar"><div class="check-bar-fill" style="width:${pct(p.tasks,DAILY_GOALS.tasks)}%"></div></div>
+        </div>
+      </div>
+      <div class="check-item ${p.rno>=DAILY_GOALS.rno?'done':''}">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-top"><span>РНО — работа над ошибками</span><span>${p.rno}/${DAILY_GOALS.rno}</span></div>
+          <div class="check-bar"><div class="check-bar-fill" style="width:${pct(p.rno,DAILY_GOALS.rno)}%"></div></div>
+        </div>
+      </div>
+    </div>
+    ${p.bonusGiven?'<div class="bonus-banner">План на сегодня выполнен — начислен бонус +30 Aura, день в календаре закрашен</div>':'<div class="bonus-hint">Выполни все три пункта — получишь +30 Aura, а день в календаре закрасится</div>'}
+
+    <div class="home-grid">
+      <div class="home-card" id="goReview">
+        <div class="home-card-num">${due.length}</div>
+        <div class="home-card-label">карточек ждут повторения (из уже пройденного)</div>
+      </div>
+      <div class="home-card rno-card" id="goRno">
+        <div class="home-card-num">${mistakes.length}</div>
+        <div class="home-card-label">ошибок в РНО — 5–10 минут в день решают многое</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">Календарь</h3>
+    <div class="cal-wrap" id="calWrap"></div>
+
+    <h3 style="margin-top:28px">Прогресс по темам</h3>
+    <div class="prog-grid" id="progGrid"></div>
+  `;
+  document.getElementById("goReview").onclick=()=>{ VIEW="review"; renderAll(); };
+  document.getElementById("goRno").onclick=()=>{ VIEW="rno"; renderAll(); };
+  renderCalendarInto(document.getElementById("calWrap"));
+  renderProgressRingsInto(document.getElementById("progGrid"));
+
+  const backupWrap = document.createElement('div');
+  backupWrap.innerHTML = `
+    <h3 style="margin-top:28px">Перенос на другое устройство</h3>
+    <div class="desc" style="margin-bottom:12px">localStorage не синхронизируется между телефоном и компьютером сам по себе — прогресс переносится вручную через файл</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btnExportData">Экспорт моего прогресса</button>
+      <button class="btn" id="btnImportData">Импорт прогресса из файла</button>
+      <input type="file" id="importDataFile" accept="application/json" style="display:none">
+    </div>
+  `;
+  main.appendChild(backupWrap);
+  document.getElementById('btnExportData').onclick=exportStoreJSON;
+  document.getElementById('btnImportData').onclick=()=>document.getElementById('importDataFile').click();
+  document.getElementById('importDataFile').onchange=(e)=>{
+    const file = e.target.files[0];
+    if(file) importStoreJSON(file);
+  };
+}
+
+/* ---------- Экспорт / импорт всего прогресса (перенос между устройствами) ---------- */
+function exportStoreJSON(){
+  const blob = new Blob([JSON.stringify(STORE, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `primus-stud-progress-${todayISO()}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  try{ if(typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url); }catch(e){}
+}
+function importStoreJSON(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const parsed = JSON.parse(reader.result);
+      if(!confirm('Импорт заменит текущий прогресс в этом браузере данными из файла. Продолжить?')) return;
+      STORE = Object.assign(defaultStore(), parsed);
+      saveStore();
+      buildAllData();
+      VIEW = 'progress';
+      renderAll();
+      openInfoModal('Готово', 'Прогресс успешно импортирован.');
+    }catch(e){
+      openInfoModal('Ошибка', 'Не удалось прочитать файл — убедись, что это экспорт из PRIMUS.STUD.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ---------- Календарь (компактный, встроен в Progress) ---------- */
+function renderCalendarInto(wrap){
+  let html = '';
+  [{y:2026,m:8,name:"Август 2026"},{y:2026,m:9,name:"Сентябрь 2026"}].forEach(({y,m,name})=>{
+    html += `<div class="cal-month-title">${name}</div><div class="cal-grid">`;
+    ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>html+=`<div class="cal-dow">${d}</div>`);
+    const first = new Date(y,m-1,1);
+    let startDow = first.getDay(); startDow = startDow===0?6:startDow-1;
+    for(let i=0;i<startDow;i++) html += '<div class="cal-cell empty"></div>';
+    const daysInMonth = new Date(y,m,0).getDate();
+    for(let d=1; d<=daysInMonth; d++){
+      const iso = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const dp = STORE.dailyProgress[iso];
+      const filled = !!(dp && dp.bonusGiven);
+      html += `<div class="cal-cell ${filled?'filled':''}" data-date="${iso}"><span class="n">${d}</span></div>`;
+    }
+    html += '</div>';
+  });
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.cal-cell[data-date]').forEach(cell=>{
+    cell.onclick=()=>{
+      const iso = cell.dataset.date;
+      const ids = STORE.learnLog[iso]||[];
+      const dp = STORE.dailyProgress[iso];
+      const planDone = dp && dp.bonusGiven ? 'План дня выполнен.' : 'План дня не был выполнен полностью.';
+      const names = ids.map(id=>{
+        const c = allCards().find(x=>x.id===id);
+        if(!c) return id;
+        const face = renderCardFace((APP_DATA[c.catKey]||{}).meta ? APP_DATA[c.catKey].meta.type : "custom", c);
+        return face.top;
+      });
+      openInfoModal(`${fmtDate(iso)}`, `${planDone}<br><br>` + (names.length? names.map(n=>`• ${esc(n)}`).join('<br>') : 'Карточки в этот день не выучивались.'));
+    };
+  });
+}
+
+/* ---------- Кольца прогресса ---------- */
+function renderProgressRingsInto(grid){
+  let html='';
+  allCategoryKeys().forEach(key=>{
+    const data = APP_DATA[key];
+    const total = data.cards.length;
+    const learned = data.cards.filter(c=>c.level>=3).length;
+    const pct = total? Math.round(100*learned/total) : 0;
+    html += `<div class="prog-card">
+      ${donutSVG(pct)}
+      <div class="p-info"><h4>${esc(getCategoryDisplayName(key))}</h4><div class="p-sub">${learned} из ${total} · ${pct}%</div></div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+}
+function donutSVG(pct){
+  const r=26, c=2*Math.PI*r, off=c*(1-pct/100);
+  return `<svg width="64" height="64" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="${r}" fill="none" style="stroke:var(--border)" stroke-width="7"/>
+    <circle cx="32" cy="32" r="${r}" fill="none" style="stroke:var(--khaki-ring)" stroke-width="7" stroke-dasharray="${c}" stroke-dashoffset="${off}" stroke-linecap="round" transform="rotate(-90 32 32)"/>
+    <text x="32" y="37" text-anchor="middle" font-size="14" style="fill:var(--text)" font-family="Onest">${pct}%</text>
+  </svg>`;
+}
+
+/* ==========================================================================
+   11. КАТЕГОРИЯ: карточки (с темами) + практика (5 режимов)
+   ========================================================================== */
+function renderCategoryView(main, key){
+  const data = APP_DATA[key];
+  const sub = CAT_SUBVIEW[key] || "cards";
+  main.innerHTML = `
+    <div class="topbar">
+      <div><h2>${esc(getCategoryDisplayName(key))}</h2>
+        <div class="desc">${data.cards.length} карточек · ${getCategoryTopics(key).length-1} тем · ${data.tasks.length} заданий</div></div>
+      <div class="btn-row">
+        <button class="btn ${sub==='cards'?'btn-primary':''}" id="tabCards">Карточки</button>
+        <button class="btn ${sub==='theory'?'btn-primary':''}" id="tabTheory">Теория</button>
+        <button class="btn ${sub==='practice'?'btn-primary':''}" id="tabPractice">Практика</button>
+        <button class="btn" id="btnManageTopics">Темы</button>
+        <button class="btn btn-primary" id="btnAddCard">Добавить карточку</button>
+      </div>
+    </div>
+    <div id="catBody"></div>
+  `;
+  document.getElementById("tabCards").onclick=()=>{ CAT_SUBVIEW[key]='cards'; renderAll(); };
+  document.getElementById("tabTheory").onclick=()=>{ CAT_SUBVIEW[key]='theory'; renderAll(); };
+  document.getElementById("tabPractice").onclick=()=>{ CAT_SUBVIEW[key]='practice'; renderAll(); };
+  document.getElementById("btnManageTopics").onclick=()=>openTopicsModal(key);
+  document.getElementById("btnAddCard").onclick=()=>openCardModal(key);
+  const body = document.getElementById("catBody");
+  if(sub==='cards') renderCardsGrid(body,key);
+  else if(sub==='theory') renderTheory(body,key);
+  else renderPractice(body,key);
+}
+
+function renderCardsGrid(body,key){
+  const data = APP_DATA[key];
+  const topics = getCategoryTopicsOrdered(key);
+  const filter = CAT_TOPIC_FILTER[key] || "all";
+  if(data.cards.length===0){
+    body.innerHTML = `<div class="empty-state">Пока нет карточек в этой теме.<br><button class="btn btn-primary" style="margin-top:12px" id="emptyAdd">Добавить первую карточку</button></div>`;
+    body.querySelector('#emptyAdd').onclick=()=>openCardModal(key);
+    return;
+  }
+  let filterHtml = `<div class="filters" id="topicFilters"><div class="chip ${filter==='all'?'active':''}" data-t="all">Все темы</div>`;
+  topics.forEach(t=>{
+    const cnt = data.cards.filter(c=>getCardTopicId(key,c)===t.id).length;
+    if(cnt===0 && t.id!=='general') return;
+    filterHtml += `<div class="chip ${filter===t.id?'active':''}" data-t="${t.id}">${esc(t.name)} (${cnt})</div>`;
+  });
+  filterHtml += '</div>';
+
+  const type = data.meta.type || "custom";
+  const shown = filter==='all' ? data.cards : data.cards.filter(c=>getCardTopicId(key,c)===filter);
+  let html = filterHtml + `<div class="btn-row" style="margin-bottom:14px"><button class="btn btn-primary" id="btnStudy">Изучить (${shown.length})</button></div><div class="grid">`;
+  shown.forEach(c=>{
+    const {top,sub,body:cardBody,usage} = renderCardFace(type,c);
+    const badgeClass = c.level>=3?'mastered':'';
+    html += `<div class="flashcard" data-open="${c.id}">
+      <div class="level-badge ${badgeClass}">ур. ${c.level}</div>
+      <div class="fc-topic">${esc(topicName(key,getCardTopicId(key,c)))}</div>
+      <div class="fc-top">${esc(top)}</div>
+      <div class="fc-sub">${esc(sub)}</div>
+      <div class="fc-body">${esc(cardBody)}</div>
+      ${usage?`<div class="fc-usage">Perfect Usage: ${esc(usage)}</div>`:''}
+      <div class="fc-actions">
+        <button class="icon-btn edit" data-edit="${c.id}" title="Изменить">Ред.</button>
+        <button class="icon-btn" data-del="${c.id}" title="Удалить">Удал.</button>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  body.innerHTML = html;
+  body.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{ CAT_TOPIC_FILTER[key]=chip.dataset.t; renderCardsGrid(body,key); });
+  body.querySelectorAll('[data-edit]').forEach(el=>el.onclick=(e)=>{ e.stopPropagation(); openCardModal(key, el.dataset.edit); });
+  body.querySelectorAll('[data-del]').forEach(el=>el.onclick=(e)=>{ e.stopPropagation(); deleteCard(key, el.dataset.del); });
+  body.querySelectorAll('.flashcard').forEach(card=>card.addEventListener('click',(e)=>{
+    if(e.target.closest('.icon-btn')) return;
+    startStudySession(key, shown.map(c=>c.id), card.dataset.open);
+  }));
+  document.getElementById('btnStudy').onclick=()=>startStudySession(key, shown.map(c=>c.id));
+}
+
+/* ---------- Изучение карточек в стиле Quizlet: флип + Знаю/Не знаю/Повторю ещё ---------- */
+function startStudySession(catKey, cardIds, startId){
+  if(cardIds.length===0) return;
+  let ids = cardIds.slice();
+  if(startId){ ids = [startId, ...ids.filter(id=>id!==startId)]; }
+  STUDY_SESSION = { catKey, queue: shuffle(ids), idx:0, flipped:false, seen:0, knew:0 };
+  if(startId){ STUDY_SESSION.queue = [startId, ...shuffle(ids.filter(id=>id!==startId))]; }
+  renderStudyModal();
+  openOverlay();
+}
+function renderStudyModal(){
+  const s = STUDY_SESSION;
+  const modal = document.getElementById('modalBody');
+  modal.classList.add('modal-lg');
+  if(!s || s.queue.length===0){
+    modal.innerHTML = `<h3>Сессия завершена</h3><div class="empty-state">Все карточки пройдены: «Знаю» — ${s?s.knew:0} из ${s?s.seen:0} попыток.</div><div class="modal-actions"><button class="btn btn-primary" id="mCloseStudy">Готово</button></div>`;
+    document.getElementById('mCloseStudy').onclick=()=>{ modal.classList.remove('modal-lg'); STUDY_SESSION=null; closeOverlay(); buildAllData(); renderAll(); };
+    return;
+  }
+  const cardId = s.queue[s.idx % s.queue.length];
+  const card = findCard(s.catKey, cardId);
+  if(!card){ s.queue.splice(s.idx%s.queue.length,1); renderStudyModal(); return; }
+  const type = (APP_DATA[s.catKey]||{}).meta ? APP_DATA[s.catKey].meta.type : "custom";
+  const {top,sub,body,usage} = renderCardFace(type,card);
+  modal.innerHTML = `
+    <h3>Изучение — ${esc(getCategoryDisplayName(s.catKey))}</h3>
+    <div class="study-progress">Осталось в очереди: ${s.queue.length}</div>
+    <div class="study-card-wrap">
+      <div class="study-card" id="studyCard">
+        <span class="sc-topic">${esc(topicName(s.catKey,getCardTopicId(s.catKey,card)))}</span>
+        ${s.flipped
+          ? `<div><div class="sc-main">${esc(sub)}</div><div class="sc-sub">${esc(body)}${usage?`<br><br>Perfect Usage: ${esc(usage)}`:''}</div></div>`
+          : `<div class="sc-main">${esc(top)}</div>`}
+        <span class="sc-hint">${s.flipped?'Нажми, чтобы увидеть вопрос':'Нажми, чтобы увидеть ответ'}</span>
+      </div>
+    </div>
+    <div class="study-actions">
+      <button class="btn btn-dontknow" id="btnDontKnow">Не знаю</button>
+      <button class="btn btn-again" id="btnAgain">Повторю ещё</button>
+      <button class="btn btn-know" id="btnKnow">Знаю</button>
+    </div>
+    <div class="modal-actions"><button class="btn" id="mCloseStudy2">Закрыть сессию</button></div>
+  `;
+  document.getElementById('studyCard').onclick=()=>{ s.flipped=!s.flipped; renderStudyModal(); };
+  document.getElementById('mCloseStudy2').onclick=()=>{ modal.classList.remove('modal-lg'); STUDY_SESSION=null; closeOverlay(); };
+  function requeue(){
+    const id = s.queue.shift();
+    s.queue.push(id);
+    s.idx = 0;
+    s.flipped = false;
+    s.seen++;
+    renderStudyModal();
+  }
+  document.getElementById('btnKnow').onclick=()=>{
+    s.queue.shift();
+    s.idx = 0; s.flipped=false; s.seen++; s.knew++;
+    renderStudyModal();
+  };
+  document.getElementById('btnDontKnow').onclick=requeue;
+  document.getElementById('btnAgain').onclick=requeue;
+}
+
+/* ---------- Теория (Feynman): главный вопрос + факты + связи ---------- */
+function renderTheory(body,key){
+  const materials = (STORE.materials[key]||[]);
+  const topics = getCategoryTopicsOrdered(key);
+  let html = `<div class="btn-row" style="margin-bottom:10px">
+    <button class="btn btn-primary" id="btnAddTheory">Добавить материал</button>
+    <button class="btn" id="btnQuickAdd">Быстрое добавление карточек текстом</button>
+    <button class="btn" id="btnImportTheory">Импортировать из файла</button>
+    <input type="file" id="importTheoryFile" accept="application/json" style="display:none">
+  </div>
+  <div style="font-size:11.5px;color:var(--text-faint);margin-bottom:16px;line-height:1.6">
+    Импорт ждёт JSON вида <code>{"materials":[{"topic","title","mainQuestion","explanation","facts","connections","application"}],"cards":[{"topic","fields":{...}}]}</code> — такой файл готовит Claude в чате из твоей лекции.
+  </div>`;
+  if(materials.length===0){
+    html += `<div class="empty-state">Пока нет конспектов. После лекции запиши сюда главный вопрос, объяснение простыми словами и пару интересных фактов — по технике Фейнмана. Из каждого материала потом можно сразу сделать карточку.</div>`;
+  } else {
+    materials.forEach(m=>{
+      html += `<div class="theory-item">
+        <div class="theory-topic">${esc(topicName(key,m.topicId))}</div>
+        <div class="theory-title">${esc(m.title)}</div>
+        <div class="theory-block"><div class="tb-label">Главный вопрос</div><div class="tb-body">${esc(m.mainQuestion)}</div></div>
+        <div class="theory-block"><div class="tb-label">Объяснение простыми словами</div><div class="tb-body">${esc(m.explanation)}</div></div>
+        ${m.facts?`<div class="theory-block"><div class="tb-label">Интересные факты — копнуть глубже</div><div class="tb-body">${esc(m.facts)}</div></div>`:''}
+        ${m.connections?`<div class="theory-block"><div class="tb-label">Связь с другими темами</div><div class="tb-body">${esc(m.connections)}</div></div>`:''}
+        ${m.application?`<div class="theory-block"><div class="tb-label">Как использовать</div><div class="tb-body">${esc(m.application)}</div></div>`:''}
+        <div class="theory-actions">
+          <button class="btn btn-primary" data-mkcard="${m.id}">Сделать карточку</button>
+          <button class="btn" data-edittheory="${m.id}">Изменить</button>
+          <button class="btn" data-deltheory="${m.id}">Удалить</button>
+        </div>
+      </div>`;
+    });
+  }
+  body.innerHTML = html;
+  document.getElementById('btnAddTheory').onclick=()=>openTheoryModal(key);
+  document.getElementById('btnQuickAdd').onclick=()=>openQuickAddModal(key);
+  document.getElementById('btnImportTheory').onclick=()=>document.getElementById('importTheoryFile').click();
+  document.getElementById('importTheoryFile').onchange=(e)=>{
+    const file = e.target.files[0];
+    if(file) importTheoryJSON(key, file, body);
+  };
+  body.querySelectorAll('[data-mkcard]').forEach(btn=>btn.onclick=()=>{
+    const m = materials.find(x=>x.id===btn.dataset.mkcard);
+    if(m) openCardModal(key, null, m);
+  });
+  body.querySelectorAll('[data-edittheory]').forEach(btn=>btn.onclick=()=>openTheoryModal(key, btn.dataset.edittheory));
+  body.querySelectorAll('[data-deltheory]').forEach(btn=>btn.onclick=()=>{
+    STORE.materials[key] = (STORE.materials[key]||[]).filter(x=>x.id!==btn.dataset.deltheory);
+    saveStore(); renderTheory(body,key);
+  });
+}
+
+/* ---------- Практика: 5 режимов ---------- */
+const PRACTICE_MODES = [
+  {id:"task", label:"Задачи"},
+  {id:"case", label:"Кейсы"},
+  {id:"match", label:"Соответствие"},
+  {id:"fill", label:"Вставка слова"},
+  {id:"open", label:"Открытый вопрос"}
+];
+function renderPractice(body,key){
+  const data = APP_DATA[key];
+  if(PRACTICE_STATE.cat!==key){
+    PRACTICE_STATE = { cat:key, mode:"task", idx:0, correct:0, total:0, olympiadOnly:false, revealed:false, matchLeft:null, matchDone:[] };
+  }
+  const modeCounts = {};
+  PRACTICE_MODES.forEach(m=>{ modeCounts[m.id] = data.tasks.filter(t=>t.mode===m.id).length; });
+
+  let tabsHtml = '<div class="mode-tabs">';
+  PRACTICE_MODES.forEach(m=>{
+    tabsHtml += `<button class="mode-tab ${PRACTICE_STATE.mode===m.id?'active':''}" data-mode="${m.id}">${m.label} <span class="mode-count">${modeCounts[m.id]}</span></button>`;
+  });
+  tabsHtml += '</div>';
+
+  const pool = data.tasks.filter(t=>t.mode===PRACTICE_STATE.mode && (!PRACTICE_STATE.olympiadOnly || t.olympiad));
+  const pct = PRACTICE_STATE.total ? Math.round(100*PRACTICE_STATE.correct/PRACTICE_STATE.total) : 0;
+
+  body.innerHTML = `
+    <div class="practice-wrap">
+      ${tabsHtml}
+      <div class="stat-row">
+        <div class="stat-box"><div class="num">${PRACTICE_STATE.total}</div><div class="lbl">пройдено</div></div>
+        <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">правильных</div></div>
+        <div class="stat-box"><div class="num">${pool.length}</div><div class="lbl">доступно в этом режиме</div></div>
+      </div>
+      <div class="toggle-row"><button class="switch ${PRACTICE_STATE.olympiadOnly?'on':''}" id="olympSwitch"></button> Олимпиадный уровень</div>
+      <div class="task-card" id="taskCard"></div>
+    </div>
+  `;
+  body.querySelectorAll('.mode-tab').forEach(tab=>tab.onclick=()=>{
+    PRACTICE_STATE.mode = tab.dataset.mode; PRACTICE_STATE.idx=0; PRACTICE_STATE.revealed=false; PRACTICE_STATE.matchLeft=null; PRACTICE_STATE.matchDone=[];
+    renderPractice(body,key);
+  });
+  document.getElementById("olympSwitch").onclick=()=>{
+    PRACTICE_STATE.olympiadOnly=!PRACTICE_STATE.olympiadOnly; PRACTICE_STATE.idx=0; renderPractice(body,key);
+  };
+
+  if(pool.length===0){
+    document.getElementById("taskCard").innerHTML = `<div class="empty-state">В этом режиме пока нет заданий для темы «${esc(data.meta.name)}».</div>`;
+    return;
+  }
+  const task = pool[PRACTICE_STATE.idx % pool.length];
+  renderTaskCard(document.getElementById("taskCard"), task, key, pool, body);
+}
+
+function gradeAndAdvance(key, task, correct){
+  PRACTICE_STATE.total++;
+  if(correct) PRACTICE_STATE.correct++;
+  const card = findCard(key, task.cardId);
+  if(card) review(card, correct);
+  saveStore();
+}
+
+function renderTaskCard(el, task, key, pool, body){
+  const modeLabels = {task:"Задача",case:"Кейс",match:"Соответствие",fill:"Вставка слова",open:"Открытый вопрос"};
+  let html = `<div class="task-type">${modeLabels[task.mode]}${task.olympiad?' <span class="olympiad-tag">Олимпиадный уровень</span>':''}</div>`;
+
+  if(task.mode==="match"){
+    renderMatchTask(el, task, key, body);
+    return;
+  }
+
+  html += `<div class="task-prompt">${esc(task.prompt)}</div>`;
+  if(task.options){
+    html += '<div class="opt-list">';
+    task.options.forEach(o=>{ html+=`<div class="opt" data-opt="${encodeURIComponent(o)}">${esc(o)}</div>`; });
+    html += '</div>';
+  } else if(task.mode==="open"){
+    html += `<textarea class="open-answer" id="openAnswer" placeholder="Напиши свой ответ своими словами..."></textarea>
+              <button class="btn" id="btnReveal">Показать ответ</button>`;
+  } else {
+    html += `<button class="btn" id="btnReveal">Показать ответ</button>`;
+  }
+  html += `<div class="answer-box" id="answerBox"><div class="a-label">Пояснение</div><div>${esc(task.explanation)}</div></div>`;
+  html += `<div class="grade-row" id="gradeRow" style="display:none">
+      <button class="btn btn-good" id="btnGood">Я ответил(а) правильно</button>
+      <button class="btn btn-bad" id="btnBad">Я ошибся(лась)</button>
+    </div>`;
+  html += `<div class="task-footer"><span></span><button class="btn" id="btnNext">Следующее задание</button></div>`;
+  el.innerHTML = html;
+
+  if(task.options){
+    el.querySelectorAll('.opt').forEach(optEl=>{
+      optEl.onclick=()=>{
+        if(PRACTICE_STATE.revealed) return;
+        PRACTICE_STATE.revealed = true;
+        const chosen = decodeURIComponent(optEl.dataset.opt);
+        el.querySelectorAll('.opt').forEach(o=>{
+          const val = decodeURIComponent(o.dataset.opt);
+          if(val===task.answer) o.classList.add('correct');
+          else if(val===chosen) o.classList.add('wrong');
+        });
+        document.getElementById('answerBox').classList.add('show');
+        gradeAndAdvance(key, task, chosen===task.answer);
+      };
+    });
+  } else {
+    document.getElementById('btnReveal').onclick=()=>{
+      document.getElementById('answerBox').classList.add('show');
+      document.getElementById('gradeRow').style.display='flex';
+      document.getElementById('btnReveal').style.display='none';
+    };
+    document.getElementById('btnGood').onclick=()=>{ if(!PRACTICE_STATE.revealed){PRACTICE_STATE.revealed=true; gradeAndAdvance(key,task,true);} document.getElementById('gradeRow').style.display='none'; };
+    document.getElementById('btnBad').onclick=()=>{ if(!PRACTICE_STATE.revealed){PRACTICE_STATE.revealed=true; gradeAndAdvance(key,task,false);} document.getElementById('gradeRow').style.display='none'; };
+  }
+
+  document.getElementById('btnNext').onclick=()=>{
+    PRACTICE_STATE.idx++; PRACTICE_STATE.revealed=false;
+    renderPractice(body, key);
+  };
+}
+
+function renderMatchTask(el, task, key, body){
+  const leftItems = shuffle(task.pairs.map((p,i)=>({...p, idx:i})));
+  const rightItems = shuffle(task.pairs.map((p,i)=>({...p, idx:i})));
+  let html = `<div class="task-prompt">${esc(task.prompt)}</div>
+    <div class="match-grid">
+      <div class="match-col" id="matchLeft">${leftItems.map(p=>`<div class="match-item" data-idx="${p.idx}">${esc(p.left)}</div>`).join('')}</div>
+      <div class="match-col" id="matchRight">${rightItems.map(p=>`<div class="match-item" data-idx="${p.idx}">${esc(p.right)}</div>`).join('')}</div>
+    </div>
+    <div class="task-footer"><span id="matchProgress">Найдено пар: 0 из ${task.pairs.length}</span><button class="btn" id="btnNextMatch">Следующее задание</button></div>`;
+  el.innerHTML = html;
+  PRACTICE_STATE.matchLeft = null;
+  PRACTICE_STATE.matchDone = [];
+
+  function selectItem(itemEl, side){
+    const idx = +itemEl.dataset.idx;
+    if(itemEl.classList.contains('correct')) return;
+    if(side==='left'){
+      el.querySelectorAll('#matchLeft .match-item').forEach(i=>i.classList.remove('selected'));
+      itemEl.classList.add('selected');
+      PRACTICE_STATE.matchLeft = idx;
+    } else {
+      if(PRACTICE_STATE.matchLeft===null) return;
+      const isMatch = PRACTICE_STATE.matchLeft===idx;
+      const leftEl = el.querySelector(`#matchLeft [data-idx="${PRACTICE_STATE.matchLeft}"]`);
+      if(isMatch){
+        itemEl.classList.add('correct'); if(leftEl) leftEl.classList.add('correct');
+        PRACTICE_STATE.matchDone.push(idx);
+        const card = findCard(key, task.pairs[idx].cardId);
+        if(card) review(card, true);
+        PRACTICE_STATE.total++; PRACTICE_STATE.correct++;
+      } else {
+        itemEl.classList.add('wrong'); if(leftEl) leftEl.classList.add('wrong');
+        setTimeout(()=>{ itemEl.classList.remove('wrong'); if(leftEl) leftEl.classList.remove('wrong'); },500);
+        const card = findCard(key, task.pairs[idx].cardId);
+        if(card) review(card, false);
+        PRACTICE_STATE.total++;
+      }
+      saveStore();
+      PRACTICE_STATE.matchLeft = null;
+      el.querySelectorAll('#matchLeft .match-item').forEach(i=>i.classList.remove('selected'));
+      const progEl = document.getElementById('matchProgress');
+      if(progEl) progEl.textContent = `Найдено пар: ${PRACTICE_STATE.matchDone.length} из ${task.pairs.length}`;
+    }
+  }
+  el.querySelectorAll('#matchLeft .match-item').forEach(i=>i.onclick=()=>selectItem(i,'left'));
+  el.querySelectorAll('#matchRight .match-item').forEach(i=>i.onclick=()=>selectItem(i,'right'));
+  document.getElementById('btnNextMatch').onclick=()=>{ renderPractice(body,key); };
+}
+
+/* ==========================================================================
+   12. ПОВТОРЕНИЕ — понятная разбивка по темам
+   ========================================================================== */
+function renderReview(main){
+  const due = reviewDueCards();
+  main.innerHTML = `<div class="topbar"><div><h2>Повторение</h2><div class="desc">Карточки, срок повторения которых наступил</div></div></div><div id="reviewBody"></div>`;
+  const rb = document.getElementById("reviewBody");
+  if(due.length===0){ rb.innerHTML = `<div class="empty-state">Все карточки повторены. Загляни завтра!</div>`; return; }
+
+  // группировка по категории+теме
+  const groups = {};
+  due.forEach(c=>{
+    const topicId = getCardTopicId(c.catKey, c);
+    const gKey = c.catKey+"::"+topicId;
+    if(!groups[gKey]) groups[gKey] = { catKey:c.catKey, topicId, cards:[] };
+    groups[gKey].cards.push(c);
+  });
+  const groupList = Object.values(groups).sort((a,b)=>b.cards.length-a.cards.length);
+
+  let html = `<div class="review-summary">Сегодня на повторение: <b>${due.length} карточек</b></div><div class="review-groups" id="reviewGroups">`;
+  groupList.forEach(g=>{
+    const catName = APP_DATA[g.catKey] ? APP_DATA[g.catKey].meta.name : g.catKey;
+    html += `<div class="review-group" data-g="${esc(g.catKey)}::${esc(g.topicId)}">
+      <span class="rg-mark"></span>
+      <span class="rg-text"><b>${esc(catName)}</b> (тема: ${esc(topicName(g.catKey,g.topicId))})</span>
+      <span class="rg-count">${g.cards.length} карточек</span>
+    </div>`;
+  });
+  html += `</div><button class="btn btn-primary" id="btnStartReview" style="margin-top:16px">Начать повторение</button><div id="reviewSession"></div>`;
+  rb.innerHTML = html;
+
+  let activeFilter = null;
+  rb.querySelectorAll('.review-group').forEach(g=>g.onclick=()=>{
+    rb.querySelectorAll('.review-group').forEach(x=>x.classList.remove('active'));
+    if(activeFilter===g.dataset.g){ activeFilter=null; } else { activeFilter=g.dataset.g; g.classList.add('active'); }
+  });
+  document.getElementById('btnStartReview').onclick=()=>{
+    const queue = activeFilter ? due.filter(c=>(c.catKey+"::"+getCardTopicId(c.catKey,c))===activeFilter) : due.slice();
+    runReviewSession(document.getElementById('reviewSession'), queue, false);
+  };
+}
+
+function runReviewSession(container, queue, isRno){
+  let idx = 0;
+  function showCard(){
+    if(idx>=queue.length){ container.innerHTML = `<div class="empty-state">Повторение завершено — молодец!</div>`; return; }
+    const c = queue[idx];
+    const meta = APP_DATA[c.catKey] ? APP_DATA[c.catKey].meta : null;
+    const type = meta ? (meta.type||"custom") : "custom";
+    const {top,sub,body,usage} = renderCardFace(type,c);
+    container.innerHTML = `
+      <div class="stat-row"><div class="stat-box"><div class="num">${idx+1}/${queue.length}</div><div class="lbl">карточек в очереди</div></div></div>
+      <div class="task-card">
+        <div class="task-type">${meta?esc(meta.name):''} ${isRno?'· РНО':''}</div>
+        <div class="task-prompt">${esc(top)}</div>
+        <div style="color:var(--accent-strong);font-weight:600;margin-bottom:8px">${esc(sub)}</div>
+        <button class="btn" id="btnRevealRev">Показать ответ</button>
+        <div class="answer-box" id="answerBoxRev"><div class="a-label">Детали</div><div>${esc(body)}</div>${usage?`<div class="fc-usage" style="margin-top:8px">Perfect Usage: ${esc(usage)}</div>`:''}</div>
+        <div class="grade-row" id="gradeRowRev" style="display:none">
+          <button class="btn btn-good" id="btnGoodRev">Помню</button>
+          <button class="btn btn-bad" id="btnBadRev">Забыл(а)</button>
+        </div>
+      </div>`;
+    document.getElementById('btnRevealRev').onclick=()=>{
+      document.getElementById('answerBoxRev').classList.add('show');
+      document.getElementById('gradeRowRev').style.display='flex';
+      document.getElementById('btnRevealRev').style.display='none';
+    };
+    document.getElementById('btnGoodRev').onclick=()=>{ review(c,true,{isRno}); idx++; showCard(); };
+    document.getElementById('btnBadRev').onclick=()=>{ review(c,false,{isRno}); idx++; showCard(); };
+  }
+  showCard();
+}
+
+/* ==========================================================================
+   13. РНО — РАБОТА НАД ОШИБКАМИ
+   ========================================================================== */
+function renderRno(main){
+  const mistakeCards = allCards().filter(c=>STORE.mistakeIds.includes(c.id));
+  const due = rnoDueCards();
+  main.innerHTML = `
+    <div class="topbar"><div><h2>РНО — работа над ошибками</h2><div class="desc">Все ошибки из практики попадают сюда и повторяются по интервалам (1 → 3 → 7 → 14 → 30 дней)</div></div></div>
+    <div class="rno-banner">5–10 минут в день на РНО — и ошибки перестанут повторяться</div>
+    <div id="rnoBody"></div>
+  `;
+  const body = document.getElementById("rnoBody");
+  if(mistakeCards.length===0){
+    body.innerHTML = `<div class="empty-state">Ошибок пока нет — или все они уже исправлены. Отличная работа!</div>`;
+    return;
+  }
+  if(due.length===0){
+    body.innerHTML = `<div class="empty-state">На сегодня в РНО ничего не осталось. Всего в работе: ${mistakeCards.length} карточек.</div>`;
+    return;
+  }
+  const groups = {};
+  due.forEach(c=>{
+    const topicId = getCardTopicId(c.catKey,c);
+    const gKey = c.catKey+"::"+topicId;
+    if(!groups[gKey]) groups[gKey]={catKey:c.catKey,topicId,cards:[]};
+    groups[gKey].cards.push(c);
+  });
+  let html = `<div class="review-summary">Сегодня в РНО: <b>${due.length} карточек</b></div><div class="review-groups">`;
+  Object.values(groups).forEach(g=>{
+    const catName = APP_DATA[g.catKey] ? APP_DATA[g.catKey].meta.name : g.catKey;
+    html += `<div class="review-group"><span class="rg-mark rno-mark"></span><span class="rg-text"><b>${esc(catName)}</b> (тема: ${esc(topicName(g.catKey,g.topicId))})</span><span class="rg-count">${g.cards.length}</span></div>`;
+  });
+  html += `</div><button class="btn btn-primary" id="btnStartRno" style="margin-top:16px">Начать работу над ошибками</button><div id="rnoSession"></div>`;
+  body.innerHTML = html;
+  document.getElementById('btnStartRno').onclick=()=>{ runReviewSession(document.getElementById('rnoSession'), due, true); };
+}
+
+/* ==========================================================================
+   17. PERFECT USAGE (бывшее «Где блеснуть»)
+   ========================================================================== */
+function renderPerfectUsage(main){
+  main.innerHTML = `<div class="topbar"><div><h2>Perfect Usage</h2><div class="desc">Все карточки, сгруппированные по темам — с указанием, где именно это пригодится</div></div></div>
+    <div class="filters" id="peFilters"></div><div id="peBody"></div>`;
+  const filters = document.getElementById("peFilters");
+  let fhtml = `<div class="chip active" data-f="all">Все</div>`;
+  allCategoryKeys().forEach(k=>fhtml+=`<div class="chip" data-f="${k}">${esc(APP_DATA[k].meta.name)}</div>`);
+  filters.innerHTML = fhtml;
+  function draw(filterKey){
+    const body = document.getElementById("peBody");
+    let html='';
+    allCategoryKeys().forEach(key=>{
+      if(filterKey!=='all' && filterKey!==key) return;
+      const data = APP_DATA[key];
+      const type = data.meta.type||"custom";
+      data.cards.forEach(c=>{
+        const {top,usage} = renderCardFace(type,c);
+        if(!usage) return;
+        html += `<div class="shine-item"><div class="s-top"><span>${esc(top)}</span><span class="s-cat">${esc(data.meta.name)}</span></div><div class="s-usage">Perfect Usage: ${esc(usage)}</div></div>`;
+      });
+    });
+    body.innerHTML = html || `<div class="empty-state">Нет карточек с примерами использования.</div>`;
+  }
+  filters.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{
+    filters.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active'); draw(chip.dataset.f);
+  });
+  draw('all');
+}
+
+/* ==========================================================================
+   18. МОДАЛКИ: карточка / категория / темы / инфо
+   ========================================================================== */
+function openOverlay(){ document.getElementById('overlay').classList.add('show'); }
+function closeOverlay(){ document.getElementById('overlay').classList.remove('show'); document.getElementById('modalBody').classList.remove('modal-lg'); }
+document.getElementById('overlay').addEventListener('click',(e)=>{ if(e.target.id==='overlay'){ STUDY_SESSION=null; closeOverlay(); } });
+
+function openInfoModal(title, html){
+  document.getElementById('modalBody').innerHTML = `<h3>${esc(title)}</h3><div style="font-size:13px;line-height:1.7">${html}</div><div class="modal-actions"><button class="btn" id="mClose">Закрыть</button></div>`;
+  document.getElementById('mClose').onclick=closeOverlay;
+  openOverlay();
+}
+
+function openTopicsModal(key){
+  function draw(){
+    const topics = getCategoryTopicsOrdered(key).filter(t=>t.id!=='general');
+    const pinned = STORE.pinnedTopics[key]||[];
+    let html = `<h3>Темы: ${esc(getCategoryDisplayName(key))}</h3><div id="topicsList">`;
+    topics.forEach((t,i)=>{
+      const isPinned = pinned.includes(t.id);
+      html += `<div class="topic-row">
+        <button class="mini-btn ${isPinned?'pin-on':''}" data-pin-topic="${t.id}" title="Закрепить">•</button>
+        <button class="mini-btn" data-up-topic="${t.id}" ${i===0?'disabled':''} title="Выше">▲</button>
+        <button class="mini-btn" data-down-topic="${t.id}" ${i===topics.length-1?'disabled':''} title="Ниже">▼</button>
+        <input class="topic-name-input" data-id="${t.id}" value="${esc(t.name)}">
+        <button class="icon-btn" data-del-topic="${t.id}">Удал.</button>
+      </div>`;
+    });
+    html += `</div>
+      <div class="field" style="margin-top:14px"><label>Новая тема</label><input id="newTopicName" placeholder="Например: Судебные прецеденты"></div>
+      <div class="modal-actions"><button class="btn" id="mCloseTopics">Готово</button><button class="btn btn-primary" id="mAddTopic">Добавить тему</button></div>`;
+    document.getElementById('modalBody').innerHTML = html;
+    document.getElementById('mCloseTopics').onclick=()=>{ closeOverlay(); buildAllData(); renderAll(); };
+    document.getElementById('mAddTopic').onclick=()=>{
+      const name = document.getElementById('newTopicName').value.trim();
+      if(!name) return;
+      addTopic(key,name);
+      draw();
+    };
+    document.querySelectorAll('.topic-name-input').forEach(inp=>{
+      inp.addEventListener('change',()=>{ renameTopic(key, inp.dataset.id, inp.value.trim()||'Без названия'); });
+    });
+    document.querySelectorAll('[data-del-topic]').forEach(btn=>{ btn.onclick=()=>{ deleteTopic(key, btn.dataset.delTopic); draw(); }; });
+    document.querySelectorAll('[data-pin-topic]').forEach(btn=>{ btn.onclick=()=>{ toggleTopicPin(key, btn.dataset.pinTopic); draw(); }; });
+    document.querySelectorAll('[data-up-topic]').forEach(btn=>{ btn.onclick=()=>{ moveTopic(key, btn.dataset.upTopic,-1); draw(); }; });
+    document.querySelectorAll('[data-down-topic]').forEach(btn=>{ btn.onclick=()=>{ moveTopic(key, btn.dataset.downTopic,1); draw(); }; });
+  }
+  draw();
+  openOverlay();
+}
+
+function openManageCategoriesModal(){
+  function draw(){
+    const keys = getOrderedCategoryKeys();
+    const pinned = STORE.pinnedCategories||[];
+    let html = `<h3>Управление категориями</h3><div id="catManageList">`;
+    keys.forEach((key,i)=>{
+      const isPinned = pinned.includes(key);
+      html += `<div class="manage-row">
+        <button class="mini-btn ${isPinned?'pin-on':''}" data-pin-cat="${key}" title="Закрепить">•</button>
+        <button class="mini-btn" data-up-cat="${key}" ${i===0?'disabled':''} title="Выше">▲</button>
+        <button class="mini-btn" data-down-cat="${key}" ${i===keys.length-1?'disabled':''} title="Ниже">▼</button>
+        <input class="manage-name-input" data-id="${key}" value="${esc(getCategoryDisplayName(key))}">
+      </div>`;
+    });
+    html += `</div><div class="modal-actions"><button class="btn btn-primary" id="mCloseManageCat">Готово</button></div>`;
+    document.getElementById('modalBody').innerHTML = html;
+    document.getElementById('mCloseManageCat').onclick=()=>{ closeOverlay(); buildAllData(); renderAll(); };
+    document.querySelectorAll('.manage-name-input').forEach(inp=>{
+      inp.addEventListener('change',()=>{ renameCategory(inp.dataset.id, inp.value.trim()||inp.dataset.id); });
+    });
+    document.querySelectorAll('[data-pin-cat]').forEach(btn=>{ btn.onclick=()=>{ toggleCategoryPin(btn.dataset.pinCat); draw(); }; });
+    document.querySelectorAll('[data-up-cat]').forEach(btn=>{ btn.onclick=()=>{ moveCategory(btn.dataset.upCat,-1); draw(); }; });
+    document.querySelectorAll('[data-down-cat]').forEach(btn=>{ btn.onclick=()=>{ moveCategory(btn.dataset.downCat,1); draw(); }; });
+  }
+  draw();
+  openOverlay();
+}
+
+/* ---------- Теория: модалка добавления/редактирования материала ---------- */
+function openTheoryModal(key, materialId){
+  const editing = materialId ? (STORE.materials[key]||[]).find(m=>m.id===materialId) : null;
+  const topics = getCategoryTopics(key);
+  let topicSelect = `<div class="field"><label>Тема</label><select id="theoryTopicSelect">`;
+  topics.forEach(t=>{
+    const selected = editing ? editing.topicId===t.id : t.id==='general';
+    topicSelect += `<option value="${t.id}" ${selected?'selected':''}>${esc(t.name)}</option>`;
+  });
+  topicSelect += `</select></div>`;
+  document.getElementById('modalBody').innerHTML = `
+    <h3>${editing?'Изменить материал':'Новый материал (Теория)'}</h3>
+    <div class="field"><label>Название (тема лекции)</label><input id="thTitle" value="${editing?esc(editing.title):''}"></div>
+    ${topicSelect}
+    <div class="field"><label>Главный вопрос</label><textarea id="thQuestion" placeholder="На какой вопрос отвечает этот материал?">${editing?esc(editing.mainQuestion):''}</textarea></div>
+    <div class="field"><label>Объяснение простыми словами</label><textarea id="thExplain" placeholder="Как бы ты объяснила это другу, не используя термины?">${editing?esc(editing.explanation):''}</textarea></div>
+    <div class="field"><label>Интересные факты (копнуть глубже)</label><textarea id="thFacts" placeholder="Пара фактов сверх программы">${editing?esc(editing.facts||''):''}</textarea></div>
+    <div class="field"><label>Связь с другими темами</label><textarea id="thConn" placeholder="Как это соединяется с другими предметами?">${editing?esc(editing.connections||''):''}</textarea></div>
+    <div class="field"><label>Как использовать</label><textarea id="thApp" placeholder="Где и как это применить?">${editing?esc(editing.application||''):''}</textarea></div>
+    <div class="modal-actions"><button class="btn" id="mCancelTh">Отмена</button><button class="btn btn-primary" id="mSaveTh">Сохранить</button></div>`;
+  document.getElementById('mCancelTh').onclick=closeOverlay;
+  document.getElementById('mSaveTh').onclick=()=>{
+    const vals = {
+      title: document.getElementById('thTitle').value.trim() || 'Без названия',
+      topicId: document.getElementById('theoryTopicSelect').value,
+      mainQuestion: document.getElementById('thQuestion').value.trim(),
+      explanation: document.getElementById('thExplain').value.trim(),
+      facts: document.getElementById('thFacts').value.trim(),
+      connections: document.getElementById('thConn').value.trim(),
+      application: document.getElementById('thApp').value.trim(),
+      date: editing ? editing.date : todayISO()
+    };
+    if(!STORE.materials[key]) STORE.materials[key]=[];
+    if(editing){ Object.assign(editing, vals); }
+    else { STORE.materials[key].push(Object.assign({id:uid('mat')}, vals)); }
+    saveStore();
+    closeOverlay();
+    renderAll();
+  };
+  openOverlay();
+}
+
+function resolveTopicByName(catKey, name){
+  if(!name) return "general";
+  const topics = getCategoryTopics(catKey);
+  const found = topics.find(t=>t.name.toLowerCase().trim()===String(name).toLowerCase().trim());
+  if(found) return found.id;
+  return addTopic(catKey, name);
+}
+
+/* ---------- Импорт теории+карточек из JSON (материал от Claude в чате) ---------- */
+function importTheoryJSON(key, file, body){
+  const reader = new FileReader();
+  reader.onload = () => {
+    let parsed;
+    try{ parsed = JSON.parse(reader.result); }
+    catch(e){ openInfoModal('Ошибка', 'Файл повреждён или это не JSON. Проверь, что содержимое — валидный JSON, который я тебе дала.'); return; }
+    const data = APP_DATA[key];
+    const isCustom = !CATEGORY_META.find(m=>m.key===key);
+    const fieldKeys = (data.meta.fields || (data.meta.type==='custom'?['front','back','note']:['front','back'])).slice();
+    let matCount=0, cardCount=0;
+
+    (parsed.materials||[]).forEach(m=>{
+      const topicId = resolveTopicByName(key, m.topic);
+      if(!STORE.materials[key]) STORE.materials[key]=[];
+      STORE.materials[key].push({
+        id:uid('mat'), topicId,
+        title: m.title||'Без названия', mainQuestion: m.mainQuestion||'', explanation: m.explanation||'',
+        facts: m.facts||'', connections: m.connections||'', application: m.application||'', date: todayISO()
+      });
+      matCount++;
+    });
+
+    (parsed.cards||[]).forEach(c=>{
+      const topicId = resolveTopicByName(key, c.topic);
+      const vals = {};
+      fieldKeys.forEach(f=>{ vals[f] = (c.fields && c.fields[f]) || ''; });
+      const id = uid(key);
+      const newCard = Object.assign({id, catKey:key, level:0, next_review:todayISO(), topicId}, vals);
+      if(isCustom){
+        if(!STORE.customCards[key]) STORE.customCards[key]=[];
+        STORE.customCards[key].push(newCard);
+      } else {
+        if(!STORE.extraCards[key]) STORE.extraCards[key]=[];
+        STORE.extraCards[key].push(newCard);
+      }
+      cardCount++;
+    });
+
+    saveStore();
+    buildAllData();
+    renderAll();
+    openInfoModal('Импорт завершён', `Добавлено материалов: <b>${matCount}</b>, карточек: <b>${cardCount}</b>.`);
+  };
+  reader.readAsText(file);
+}
+function openQuickAddModal(key){
+  const data = APP_DATA[key];
+  const topics = getCategoryTopics(key);
+  const fieldCount = (data.meta.fields || (data.meta.type==='custom'?['front','back','note']:['front','back'])).length;
+  let topicSelect = `<select id="qaTopicSelect">`;
+  topics.forEach(t=>{ topicSelect += `<option value="${t.id}" ${t.id==='general'?'selected':''}>${esc(t.name)}</option>`; });
+  topicSelect += `</select>`;
+  document.getElementById('modalBody').innerHTML = `
+    <h3>Быстрое добавление карточек</h3>
+    <div style="font-size:12.5px;color:var(--text-dim);margin-bottom:10px;line-height:1.6">
+      По одной карточке на строку, поля через <b>::</b>. Для этой категории нужно ${fieldCount} полей: ${esc((data.meta.fields||[]).join(' :: ') || 'front :: back')}.<br>
+      Совет: вставь конспект лекции в чат с Claude и попроси оформить его в этом формате — вставишь готовый результат сюда.
+    </div>
+    <div class="field"><label>Тема для всех карточек</label>${topicSelect}</div>
+    <div class="field"><label>Карточки</label><textarea id="qaText" style="min-height:160px" placeholder="термин :: перевод :: пояснение :: пример
+термин2 :: перевод2 :: пояснение2 :: пример2"></textarea></div>
+    <div class="modal-actions"><button class="btn" id="mCancelQa">Отмена</button><button class="btn btn-primary" id="mSaveQa">Создать карточки</button></div>`;
+  document.getElementById('mCancelQa').onclick=closeOverlay;
+  document.getElementById('mSaveQa').onclick=()=>{
+    const topicId = document.getElementById('qaTopicSelect').value;
+    const raw = document.getElementById('qaText').value.trim();
+    if(!raw) return;
+    const isCustom = !CATEGORY_META.find(m=>m.key===key);
+    const fields = data.meta.fields || (data.meta.type==='custom'?['front','back','note']:['front','back']);
+    let count = 0;
+    raw.split('\n').map(l=>l.trim()).filter(Boolean).forEach(line=>{
+      const parts = line.split('::').map(p=>p.trim());
+      const vals = {};
+      fields.forEach((f,i)=>{ vals[f]=parts[i]||''; });
+      const id = uid(key);
+      const newCard = Object.assign({id, catKey:key, level:0, next_review:todayISO(), topicId}, vals);
+      if(isCustom){
+        if(!STORE.customCards[key]) STORE.customCards[key]=[];
+        STORE.customCards[key].push(newCard);
+      } else {
+        if(!STORE.extraCards[key]) STORE.extraCards[key]=[];
+        STORE.extraCards[key].push(newCard);
+      }
+      count++;
+    });
+    saveStore();
+    buildAllData();
+    closeOverlay();
+    renderAll();
+    openInfoModal('Готово', `Создано карточек: <b>${count}</b>.`);
+  };
+  openOverlay();
+}
+
+function theoryToCardDefaults(fieldDefs, material){
+  const vals = {};
+  fieldDefs.forEach(([f],i)=>{
+    if(i===0) vals[f]=material.mainQuestion;
+    else if(i===1) vals[f]=material.explanation;
+    else if(i===fieldDefs.length-1) vals[f]=[material.connections,material.application].filter(Boolean).join(' ');
+    else vals[f]=material.facts||'';
+  });
+  return vals;
+}
+
+function openCardModal(key, cardId, fromMaterial){
+  const data = APP_DATA[key];
+  const isCustom = !CATEGORY_META.find(m=>m.key===key);
+  const type = data.meta.type || "custom";
+  const editing = cardId ? data.cards.find(c=>c.id===cardId) : null;
+  let fieldDefs;
+  if(type==="custom"){
+    fieldDefs = [["front","Вопрос / термин"],["back","Ответ / перевод"],["note","Заметка / связь с другими темами"]];
+  } else {
+    const labelsMap = {
+      geo:[["country","Страна"],["capital","Столица"],["fact1","Факт 1"],["fact2","Факт 2"],["usage","Perfect Usage"]],
+      latin:[["latin","Латинское выражение"],["translation","Перевод"],["meaning","Значение"],["usage","Perfect Usage"]],
+      legal:[["term","Термин (EN)"],["translation","Перевод"],["definition","Определение"],["example","Пример / Perfect Usage"]],
+      law:[["term","Термин"],["enTerm","Англ. эквивалент"],["definition","Определение"],["example","Пример / Perfect Usage"]],
+      lit:[["author","Автор"],["title","Произведение"],["context","Исторический контекст"],["legalConn","Связь с правом / Perfect Usage"]],
+      art:[["style","Стиль"],["artist","Автор"],["work","Произведение"],["period","Период"],["usage","Perfect Usage"]],
+      ita:[["phrase","Фраза"],["translation","Перевод"],["grammar","Грамматика/контекст"],["usage","Perfect Usage"]],
+      lingvo:[["kind","Тип (person/abbr)"],["name","Имя / аббревиатура"],["sub","Годы или расшифровка"],["description","Описание"],["connection","Связь с другими темами"]],
+      hist:[["kind","Блок (world/russia)"],["name","Событие"],["sub","Дата"],["description","Описание"],["connection","Связь / причины и следствия"]]
+    };
+    fieldDefs = labelsMap[type];
+  }
+  const prefill = fromMaterial ? theoryToCardDefaults(fieldDefs, fromMaterial) : {};
+  const topics = getCategoryTopics(key);
+  let fieldsHtml = '';
+  fieldDefs.forEach(([f,label])=>{
+    const val = editing ? (editing[f]||'') : (prefill[f]||'');
+    fieldsHtml += `<div class="field"><label>${esc(label)}</label><textarea data-f="${f}">${esc(val)}</textarea></div>`;
+  });
+  let topicSelect = `<div class="field"><label>Тема</label><select id="cardTopicSelect">`;
+  topics.forEach(t=>{
+    const selected = editing ? (getCardTopicId(key,editing)===t.id) : (fromMaterial ? fromMaterial.topicId===t.id : t.id==='general');
+    topicSelect += `<option value="${t.id}" ${selected?'selected':''}>${esc(t.name)}</option>`;
+  });
+  topicSelect += `</select></div>`;
+
+  document.getElementById('modalBody').innerHTML = `
+    <h3>${editing?'Изменить карточку':'Добавить карточку'}</h3>
+    <div id="cardFields">${fieldsHtml}${topicSelect}</div>
+    <div class="modal-actions">
+      <button class="btn" id="mCancel">Отмена</button>
+      <button class="btn btn-primary" id="mSave">Сохранить</button>
+    </div>`;
+  document.getElementById('mCancel').onclick=closeOverlay;
+  document.getElementById('mSave').onclick=()=>{
+    const vals = {};
+    document.querySelectorAll('#cardFields textarea[data-f]').forEach(inp=>{ vals[inp.dataset.f]=inp.value.trim(); });
+    const topicId = document.getElementById('cardTopicSelect').value;
+    if(editing){
+      Object.assign(editing, vals);
+      STORE.cardTopicOverride[editing.id] = topicId;
+      if(isCustom){
+        const arr = STORE.customCards[key]||[];
+        const idx = arr.findIndex(c=>c.id===editing.id);
+        if(idx>-1) Object.assign(arr[idx], vals, {topicId});
+      } else {
+        const extraArr = STORE.extraCards[key]||[];
+        const exIdx = extraArr.findIndex(c=>c.id===editing.id);
+        if(exIdx>-1){ Object.assign(extraArr[exIdx], vals, {topicId}); }
+        else { STORE.cardOverrides[editing.id] = Object.assign(STORE.cardOverrides[editing.id]||{}, vals); }
+      }
+    } else {
+      const id = uid(key);
+      const newCard = Object.assign({id, catKey:key, level:0, next_review:todayISO(), topicId}, vals);
+      if(isCustom){
+        if(!STORE.customCards[key]) STORE.customCards[key]=[];
+        STORE.customCards[key].push(newCard);
+      } else {
+        if(!STORE.extraCards[key]) STORE.extraCards[key]=[];
+        STORE.extraCards[key].push(newCard);
+      }
+    }
+    saveStore();
+    buildAllData();
+    closeOverlay();
+    renderAll();
+  };
+  openOverlay();
+}
+
+function deleteCard(key, cardId){
+  const isCustom = !CATEGORY_META.find(m=>m.key===key);
+  if(isCustom){
+    if(STORE.customCards[key]) STORE.customCards[key] = STORE.customCards[key].filter(c=>c.id!==cardId);
+  } else {
+    const extraArr = STORE.extraCards[key]||[];
+    if(extraArr.find(c=>c.id===cardId)){
+      STORE.extraCards[key] = extraArr.filter(c=>c.id!==cardId);
+    } else {
+      if(!STORE.deletedCards.includes(cardId)) STORE.deletedCards.push(cardId);
+    }
+  }
+  delete STORE.cardProgress[cardId];
+  delete STORE.cardOverrides[cardId];
+  delete STORE.cardTopicOverride[cardId];
+  const mi = STORE.mistakeIds.indexOf(cardId); if(mi>-1) STORE.mistakeIds.splice(mi,1);
+  saveStore();
+  buildAllData();
+  renderAll();
+}
+
+function openCategoryModal(){
+  document.getElementById('modalBody').innerHTML = `
+    <h3>Новая категория</h3>
+    <div class="field"><label>Название темы</label><input id="ccName" placeholder="Например: Французский язык"></div>
+    <div class="modal-actions"><button class="btn" id="mCancel2">Отмена</button><button class="btn btn-primary" id="mSaveCat">Создать</button></div>`;
+  document.getElementById('mCancel2').onclick=closeOverlay;
+  document.getElementById('mSaveCat').onclick=()=>{
+    const name = document.getElementById('ccName').value.trim();
+    if(!name) return;
+    const key = uid('cat');
+    STORE.customCategories.push({key,name,type:'custom',topics:[]});
+    STORE.customCards[key]=[];
+    saveStore();
+    buildAllData();
+    VIEW = key;
+    closeOverlay();
+    renderAll();
+  };
+  openOverlay();
+}
+
+/* ==========================================================================
+   19. ТЕМА (тёмная/светлая)
+   ========================================================================== */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', STORE.theme);
+  const label = document.getElementById('themeLabel');
+  if(label) label.textContent = STORE.theme==='dark' ? 'Тёмная тема' : 'Светлая тема';
+}
+document.getElementById('themeSwitch').addEventListener('click',()=>{
+  STORE.theme = STORE.theme==='dark' ? 'light' : 'dark';
+  saveStore(); applyTheme();
+});
+document.getElementById('btnAddCategory').addEventListener('click', openCategoryModal);
+document.getElementById('btnManageCategories').addEventListener('click', openManageCategoriesModal);
+
+/* ==========================================================================
+   20. ИНИЦИАЛИЗАЦИЯ
+   ========================================================================== */
+applyTheme();
+buildAllData();
+renderAll();
+
+</script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
