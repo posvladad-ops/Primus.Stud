@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>PRIMUS.STUD</title>
+<title>PRIMUS.</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#10141C">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="PRIMUS.STUD">
+<meta name="apple-mobile-web-app-title" content="PRIMUS.">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +40,14 @@ html[data-theme="dark"]{
   --good:#7C9473;
   --bad:#B5675A;
   --shadow:0 10px 30px rgba(0,0,0,.38);
+  --wine:#5E2430;
+  --wine-soft:rgba(94,36,48,.20);
+  --eis-uiq:#5E2430;
+  --eis-inq:#6E3F3C;
+  --eis-uniq:#5C5230;
+  --eis-ninq:#625A34;
+  --choc-bitter:#2A1710;
+  --modal-smoky:#3A3833;
 }
 html[data-theme="light"]{
   --bg:#EDEBE6;
@@ -59,6 +67,14 @@ html[data-theme="light"]{
   --good:#5C7A52;
   --bad:#A24E42;
   --shadow:0 10px 26px rgba(50,45,35,.08);
+  --wine:#7A3540;
+  --wine-soft:rgba(122,53,64,.10);
+  --eis-uiq:#7A3540;
+  --eis-inq:#87524A;
+  --eis-uniq:#726842;
+  --eis-ninq:#6E6440;
+  --choc-bitter:#2E1C10;
+  --modal-smoky:#E9E6DF;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
@@ -92,12 +108,13 @@ textarea,input,select{border-radius:var(--radius-s);}
 .cover-banner.has-image .cover-label{opacity:0;background:rgba(10,10,10,.55);color:#fff;}
 .cover-banner.has-image:hover .cover-label{opacity:1;}
 .cover-remove{
-  position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;
-  background:rgba(10,10,10,.55);color:#fff;border:none;font-size:13px;display:none;
-  align-items:center;justify-content:center;cursor:pointer;
+  position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;
+  background:rgba(10,10,10,.35);color:rgba(255,255,255,.85);border:none;font-size:12px;font-weight:300;display:none;
+  align-items:center;justify-content:center;cursor:pointer;line-height:1;opacity:0;transition:opacity .15s,background .15s;
 }
+.cover-banner.has-image:hover .cover-remove{opacity:1;}
 .cover-banner.has-image .cover-remove{display:flex;}
-.cover-remove:hover{background:rgba(10,10,10,.8);}
+.cover-remove:hover{background:rgba(10,10,10,.6);}
 .sidebar{
   background:var(--bg-soft);
   border-right:1px solid var(--border);
@@ -110,7 +127,7 @@ textarea,input,select{border-radius:var(--radius-s);}
 }
 .sidebar-resizer:hover,.sidebar-resizer.dragging{background:var(--accent-soft);}
 .brand{padding:4px 8px 6px;}
-.brand h1{font-size:22px;letter-spacing:1px;transform:scaleX(1.22) scaleY(0.92);transform-origin:left center;font-weight:800;display:inline-block;}
+.brand h1{font-size:19px;letter-spacing:2.5px;transform:scaleX(1.55) scaleY(0.8);transform-origin:left center;font-weight:800;display:inline-block;white-space:nowrap;}
 .brand .sub{font-size:11.5px;color:var(--text-dim);margin-top:3px;letter-spacing:.2px;}
 .aura-badge{margin:10px 8px 16px;padding:8px 12px;border-radius:var(--radius-s);background:var(--accent-soft);color:var(--accent-strong);font-family:var(--font-mono);font-size:11.5px;font-weight:600;text-align:center;}
 
@@ -161,6 +178,10 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
 
 /* Aura hero */
 .aura-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);padding:24px 28px;box-shadow:var(--shadow);}
+.aura-hero-sm{padding:16px 22px;}
+.aura-hero-sm .aura-num{font-size:30px;}
+.aura-hero-sm .aura-unit{font-size:13px;}
+.aura-hero-sm .aura-bar{margin-top:8px;height:6px;}
 .aura-num{font-family:var(--font-display);font-size:44px;font-weight:800;color:var(--accent-strong);}
 .aura-unit{font-size:16px;font-weight:600;color:var(--text-dim);margin-left:8px;}
 .aura-level{font-size:13px;color:var(--text-dim);margin-top:4px;}
@@ -258,6 +279,11 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
 
 /* Review / RNO */
 .review-summary{font-family:var(--font-display);font-size:19px;font-weight:700;margin-bottom:14px;}
+.art-row{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--radius-s);border:1px solid var(--border);margin-bottom:6px;cursor:pointer;font-size:12.5px;}
+.art-row:hover{border-color:var(--accent);background:var(--surface-hover);}
+.art-top{font-weight:600;}
+.art-sub{color:var(--text-dim);}
+.art-cat{margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--text-faint);text-transform:uppercase;}
 .review-groups{display:flex;flex-direction:column;gap:8px;}
 .review-group{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-s);padding:12px 14px;cursor:pointer;font-size:13px;}
 .review-group.active{border-color:var(--accent);background:var(--accent-soft);}
@@ -304,7 +330,10 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
 }
 .field textarea{min-height:64px;resize:vertical;}
 .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
-.topic-row,.manage-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.topic-row,.manage-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;transition:transform .15s;}
+.topic-row.dragging{opacity:.85;box-shadow:var(--shadow);border-radius:var(--radius-s);background:var(--surface);z-index:5;}
+.drag-handle{cursor:grab;color:var(--text-faint);font-size:16px;padding:2px 4px;touch-action:none;user-select:none;}
+.drag-handle:active{cursor:grabbing;color:var(--accent-strong);}
 .topic-name-input,.manage-name-input{flex:1;padding:8px 10px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);font-size:13px;border-radius:var(--radius-s);}
 .mini-btn{border:1px solid var(--border);background:var(--surface);border-radius:6px;padding:4px 7px;color:var(--text-faint);font-size:11px;}
 .mini-btn:hover{color:var(--accent);border-color:var(--accent);}
@@ -347,6 +376,173 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
   .match-grid{grid-template-columns:1fr;}
   .cover-banner{height:44px;}
 }
+
+/* ==========================================================================
+   OVERVIEW: вкладки внутри Progress
+   ========================================================================== */
+.ov-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.ov-tab{padding:8px 15px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:12.5px;color:var(--text-dim);}
+.ov-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+
+/* ---------- План: базовый минимум / роскошный максимум ---------- */
+.plan-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:start;}
+@media (max-width:900px){.plan-grid{grid-template-columns:1fr;}}
+.plan-tier-label{font-size:11px;color:var(--text-faint);font-weight:400;letter-spacing:1.2px;text-transform:uppercase;
+  opacity:.6;margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.plan-tier-label:first-child{margin-top:0;}
+.plan-task{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-s);padding:10px 12px;margin-bottom:7px;}
+.plan-task .pt-check{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:transparent;}
+.plan-task.done .pt-check{background:var(--good);border-color:var(--good);color:#fff;}
+.plan-task.done .pt-text{text-decoration:line-through;color:var(--text-faint);}
+.plan-task .pt-quad{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.plan-task .pt-text{flex:1;font-size:13px;cursor:text;}
+.plan-task .pt-deadline{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);white-space:nowrap;}
+.plan-task .pt-del{border:none;background:transparent;color:var(--text-faint);cursor:pointer;font-size:12px;padding:2px 4px;}
+.plan-task .pt-del:hover{color:var(--bad);}
+.plan-add-btn{width:100%;padding:9px;border-radius:var(--radius-s);border:1px dashed var(--border);background:transparent;color:var(--text-faint);font-size:12.5px;margin-top:4px;}
+.plan-add-btn:hover{border-color:var(--accent);color:var(--accent-strong);}
+.plan-goal-edit{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-faint);margin-top:4px;}
+.plan-goal-edit input{width:42px;padding:3px 5px;font-size:11px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);border-radius:4px;text-align:center;}
+
+/* ---------- Матрица Эйзенхауэра ---------- */
+.eis-wrap{border:1px solid var(--border);border-radius:var(--radius-l);padding:18px;background:var(--surface);}
+.eis-title{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--khaki);margin-bottom:14px;text-align:center;letter-spacing:3.5px;text-transform:uppercase;opacity:.55;transform:scaleX(1.15);}
+.eis-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;min-height:340px;}
+.eis-cell{border-radius:var(--radius-m);padding:10px;display:flex;flex-direction:column;color:rgba(255,255,255,.92);position:relative;overflow:hidden;}
+.eis-cell .ec-label{font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.4px;opacity:.75;line-height:1.4;margin-bottom:6px;}
+.eis-cell .ec-add{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.14);
+  border:none;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.eis-cell .ec-add:hover{background:rgba(255,255,255,.28);}
+.eis-cell.uiq{background:var(--eis-uiq);}
+.eis-cell.inq{background:var(--eis-inq);}
+.eis-cell.uniq{background:var(--eis-uniq);}
+.eis-cell.ninq{background:var(--eis-ninq);}
+.ec-chips{display:flex;flex-direction:column;gap:4px;overflow-y:auto;flex:1;}
+.eq-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.10);border-radius:6px;padding:5px 7px;font-size:11px;cursor:pointer;line-height:1.3;}
+.eq-chip:hover{background:rgba(255,255,255,.18);}
+.eq-chip-toggle{width:14px;height:14px;border-radius:4px;border:1.5px solid rgba(255,255,255,.5);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;}
+.eq-chip-toggle:hover{color:#fff;background:rgba(255,255,255,.2);}
+.eq-chip-date{margin-left:auto;font-family:var(--font-mono);font-size:9px;opacity:.7;white-space:nowrap;}
+.eq-empty{font-size:10.5px;opacity:.5;padding:4px 0;}
+
+/* ---------- Недельная шкала планера ---------- */
+.week-strip{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.week-days{display:flex;gap:5px;flex:1;}
+.week-day-pick{flex:1;text-align:center;padding:8px 2px;border-radius:var(--radius-s);background:var(--surface);border:1px solid var(--border);cursor:pointer;}
+.week-day-pick:hover{border-color:var(--accent);}
+.week-day-pick.active{background:var(--accent-soft);border-color:var(--accent);}
+.week-day-pick.done .wd-num{color:var(--good);}
+.week-day-pick .wd-label{font-family:var(--font-mono);font-size:9px;color:var(--text-faint);text-transform:uppercase;}
+.week-day-pick .wd-num{font-family:var(--font-display);font-size:14px;font-weight:700;margin-top:2px;}
+
+/* ---------- Модалка добавления задачи (smoky warm grey) ---------- */
+.smoky-modal{background:var(--modal-smoky) !important;border-radius:var(--radius-l);}
+html[data-theme="dark"] .smoky-modal .field label{color:#C9C4B8;}
+html[data-theme="dark"] .smoky-modal h3{color:#F0EDE5;}
+html[data-theme="dark"] .smoky-modal{color:#F0EDE5;}
+
+/* ---------- Заметки ---------- */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+.note-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:14px 16px;display:flex;flex-direction:column;min-height:120px;}
+.note-editable{min-height:220px;}
+.note-editable h2,.n-body h2{font-family:var(--font-display);font-size:19px;font-weight:700;margin:10px 0 6px;}
+.note-editable h3,.n-body h3{font-family:var(--font-display);font-size:15px;font-weight:600;margin:8px 0 4px;color:var(--text-dim);}
+.note-card .n-title{font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:6px;}
+.note-card .n-body{font-size:12.5px;color:var(--text-dim);line-height:1.5;flex:1;overflow:hidden;max-height:100px;}
+.note-card .n-date{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);margin-top:8px;}
+.note-card .n-actions{display:flex;gap:6px;margin-top:8px;}
+
+/* ---------- Таймер: Pomodoro + Stopwatch ---------- */
+.timer-tabs{display:flex;gap:6px;margin-bottom:18px;}
+.timer-tabs .btn{border-radius:3px;}
+.timer-display{font-family:var(--font-mono);font-size:64px;font-weight:700;text-align:center;margin:14px 0;
+  letter-spacing:2px;transform:scaleX(1.28) scaleY(0.94);transform-origin:center;color:var(--choc-bitter);}
+html[data-theme="dark"] .timer-display{color:#E8D9C5;}
+.timer-subject-input{width:100%;max-width:360px;margin:0 auto 16px;display:block;padding:10px 14px;border-radius:3px;
+  border:1px solid var(--border);background:var(--bg-soft);color:var(--text);font-size:13px;text-align:center;}
+.timer-controls{display:flex;gap:10px;justify-content:center;margin-bottom:20px;}
+.btn-timer-primary{background:var(--wine);border-color:var(--wine);color:#fff;padding:10px 24px;border-radius:3px;}
+.btn-timer-secondary{background:var(--khaki-ring);border-color:var(--khaki-ring);color:#fff;border-radius:3px;}
+.btn-timer-ghost{background:var(--choc-bitter);border-color:var(--choc-bitter);color:#fff;border-radius:3px;}
+.pomo-progress{width:100%;max-width:360px;margin:0 auto 16px;height:4px;border-radius:2px;background:var(--bg-soft);overflow:hidden;}
+.pomo-progress-fill{height:100%;background:var(--wine);transition:width 1s linear;}
+.time-records{margin-top:24px;}
+.time-record-row{display:flex;justify-content:space-between;padding:9px 12px;border-bottom:1px solid var(--border);font-size:12.5px;}
+.time-record-row .tr-subject{font-weight:500;}
+.time-record-row .tr-dur{font-family:var(--font-mono);color:var(--text-faint);}
+
+/* ---------- Расписание ---------- */
+.sched-day{margin-bottom:18px;}
+.sched-day-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--accent-strong);margin-bottom:8px;}
+.sched-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius-s);padding:10px 14px;margin-bottom:6px;}
+.sched-item .si-time{font-family:var(--font-mono);font-size:12px;color:var(--accent-strong);font-weight:600;}
+.sched-item .si-main{font-size:13px;}
+.sched-item .si-meta{font-size:11px;color:var(--text-faint);margin-top:2px;}
+.sched-item .si-del{border:none;background:transparent;color:var(--text-faint);cursor:pointer;font-size:12px;}
+
+/* ---------- Прогресс: предметы с раскрытием тем ---------- */
+.subj-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:16px;cursor:pointer;}
+.subj-card-top{display:flex;align-items:center;gap:14px;}
+.subj-topics{margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);display:none;}
+.subj-card.expanded .subj-topics{display:block;}
+.subj-topic-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:11.5px;}
+.subj-topic-row .stn{flex:1;color:var(--text-dim);}
+.subj-topic-row .stb{flex:1.4;height:5px;border-radius:5px;background:var(--bg-soft);overflow:hidden;}
+.subj-topic-row .stb-fill{height:100%;background:var(--khaki-ring);}
+.subj-topic-row .stp{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);width:32px;text-align:right;}
+
+/* ---------- Вкладка Темы (внутри предмета) ---------- */
+.topics-tab-list{display:flex;flex-direction:column;gap:8px;max-width:520px;}
+
+/* ---------- Rich text toolbar для карточек ---------- */
+.rt-toolbar{display:flex;gap:4px;margin-bottom:4px;}
+.rt-btn{width:26px;height:26px;border:1px solid var(--border);background:var(--surface);border-radius:5px;font-size:12px;color:var(--text-dim);cursor:pointer;}
+.rt-btn:hover{border-color:var(--accent);color:var(--accent-strong);}
+.rt-btn.b{font-weight:800;}
+.rt-btn.i{font-style:italic;}
+.rt-btn.s{text-decoration:line-through;}
+.rt-btn.u{text-decoration:underline;}
+.rt-editable{min-height:56px;padding:9px 11px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);
+  font-family:var(--font-body);font-size:13px;border-radius:var(--radius-s);outline:none;}
+.rt-attach-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.rt-attach-thumb{width:44px;height:44px;object-fit:cover;border-radius:6px;border:1px solid var(--border);}
+.rt-attach-chip{font-size:11px;color:var(--text-dim);background:var(--bg-soft);padding:5px 10px;border-radius:14px;border:1px solid var(--border);}
+.fc-attach{margin-top:8px;max-width:100%;border-radius:8px;border:1px solid var(--border);}
+
+/* ---------- Тетрадь (рисование стилусом: перо/маркер/ластик, бесконечный скролл) ---------- */
+.nb-toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px;}
+.nb-title{font-family:var(--font-display);font-size:16px;font-weight:700;}
+.nb-page-nav{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-dim);margin-left:auto;}
+.nb-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);}
+.nb-group{display:flex;align-items:center;gap:6px;}
+.nb-group select{padding:6px 8px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);border-radius:6px;font-size:12.5px;}
+.nb-group-label{font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;color:var(--text-faint);margin-right:2px;}
+.nb-colors{gap:5px;flex-wrap:wrap;max-width:220px;}
+.nb-swatch{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);cursor:pointer;padding:0;}
+.nb-swatch.active{border-color:var(--accent-strong);transform:scale(1.2);}
+.nb-slider-group{gap:8px;}
+.nb-slider-group input[type=range]{width:90px;accent-color:var(--accent);}
+.nb-scroll{
+  max-height:72vh;overflow-y:auto;border-radius:var(--radius-m);border:1px solid var(--border);
+  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;padding:14px;background:var(--bg-soft);
+}
+.nb-page{position:relative;width:100%;height:900px;border-radius:var(--radius-s);overflow:hidden;flex-shrink:0;touch-action:none;}
+.nb-canvas{position:absolute;top:0;left:0;width:100%;height:100%;cursor:crosshair;touch-action:none;}
+.nb-page-del{position:absolute;bottom:8px;right:8px;font-size:10.5px;padding:4px 9px;border-radius:12px;border:1px solid rgba(0,0,0,.15);background:rgba(255,255,255,.7);color:#5a5044;cursor:pointer;}
+.nb-page.paper-cream{background-color:#F4ECD8;}
+.nb-page.paper-white{background-color:#FFFFFF;}
+.nb-page.paper-black{background-color:#1B1B1B;}
+.nb-page.paper-cream.bg-lined{background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #B9AD8C 28px);}
+.nb-page.paper-white.bg-lined{background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #D8D8D8 28px);}
+.nb-page.paper-black.bg-lined{background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #3A3A3A 28px);}
+.nb-page.paper-cream.bg-grid{background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #C9BE9E 28px),repeating-linear-gradient(to right, transparent, transparent 27px, #C9BE9E 28px);}
+.nb-page.paper-white.bg-grid{background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #E2E2E2 28px),repeating-linear-gradient(to right, transparent, transparent 27px, #E2E2E2 28px);}
+.nb-page.paper-black.bg-grid{background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #333 28px),repeating-linear-gradient(to right, transparent, transparent 27px, #333 28px);}
+.nb-page.paper-cream.bg-dot{background-image:radial-gradient(#B9AD8C 1.3px, transparent 1.3px);background-size:22px 22px;}
+.nb-page.paper-white.bg-dot{background-image:radial-gradient(#D2D2D2 1.3px, transparent 1.3px);background-size:22px 22px;}
+.nb-page.paper-black.bg-dot{background-image:radial-gradient(#3D3D3D 1.3px, transparent 1.3px);background-size:22px 22px;}
+.nb-card{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -354,7 +550,7 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-resizer" id="sidebarResizer"></div>
     <div class="brand">
-      <h1>PRIMUS.STUD</h1>
+      <h1>PRIMUS.</h1>
       <div class="sub">The best platform for successful studying</div>
     </div>
     <div class="aura-badge" id="auraBadge">0 Aura · ур. 1</div>
@@ -363,10 +559,13 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
     <button class="nav-add" id="btnManageCategories">Управление категориями</button>
     <div class="nav-group">
       <div class="nav-label">Overview</div>
+      <div class="nav-item" data-view="schedule"><span class="mono-badge">SC</span>Schedule</div>
       <div class="nav-item" data-view="progress"><span class="mono-badge">PG</span>Progress</div>
-      <div class="nav-item" data-view="review"><span class="mono-badge">SR</span>Spaced Repetition<span class="count" id="cntReview"></span></div>
+      <div class="nav-item" data-view="timers"><span class="mono-badge">TM</span>Timers</div>
       <div class="nav-item" data-view="rno"><span class="mono-badge">WN</span>WON<span class="count" id="cntRno"></span></div>
-      <div class="nav-item" data-view="perfect"><span class="mono-badge">PU</span>Perfect Usage</div>
+      <div class="nav-item" data-view="review"><span class="mono-badge">SR</span>Spaced Repetition<span class="count" id="cntReview"></span></div>
+      <div class="nav-item" data-view="notes"><span class="mono-badge">NT</span>Notes</div>
+      <div class="nav-item" data-view="storage"><span class="mono-badge">ST</span>Storage</div>
     </div>
     <div class="theme-toggle">
       <span id="themeLabel">Тёмная тема</span>
@@ -376,7 +575,7 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
   <div class="content-col">
     <div class="cover-banner" id="coverBanner">
       <span class="cover-label" id="coverLabel">+ Добавить обложку</span>
-      <button class="cover-remove" id="coverRemove" title="Убрать обложку">✕</button>
+      <button class="cover-remove" id="coverRemove" title="Убрать обложку">×</button>
       <input type="file" id="coverInput" accept="image/*" style="display:none">
     </div>
     <main class="main" id="main"></main>
@@ -1054,7 +1253,7 @@ const CATEGORY_META = [
 </script>
 <script>
 /* ==========================================================================
-   ЛОГИКА ПРИЛОЖЕНИЯ PRIMUS.STUD
+   ЛОГИКА ПРИЛОЖЕНИЯ PRIMUS.
    ========================================================================== */
 
 /* ---------- Утилиты дат ---------- */
@@ -1065,6 +1264,16 @@ function uid(prefix){ return prefix+"_"+Math.random().toString(36).slice(2,9); }
 function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
 function sample(arr,n){ return shuffle(arr).slice(0,n); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function stripHtml(html){
+  if(html==null) return '';
+  const tmp = document.createElement('div');
+  tmp.innerHTML = String(html);
+  return (tmp.textContent||tmp.innerText||'').trim();
+}
+function renderCardFacePlain(type,c){
+  const f = renderCardFace(type,c);
+  return { top:stripHtml(f.top), sub:stripHtml(f.sub), body:stripHtml(f.body), usage:stripHtml(f.usage), connection:stripHtml(f.connection) };
+}
 
 /* ==========================================================================
    1. STORAGE
@@ -1081,7 +1290,15 @@ function defaultStore(){
     categoryOrder:[], pinnedCategories:[], categoryRenames:{},
     topicOrder:{}, pinnedTopics:{},
     materials:{},
-    sidebarWidth:256, coverImage:null
+    sidebarWidth:256, coverImage:null,
+    fixedMistakes:0,
+    dailyGoals:{learned:10, tasks:15, rno:5},
+    planTasks:[], // {id,text,tier:'min'|'max',quadrant:'uiq'|'inq'|'uniq'|'ninq',done,deadline,createdDate}
+    notes:[], // {id,title,body,date}
+    timeRecords:[], // {id,subject,seconds,date,type}
+    schedule:[], // {id,day,time,subject,room,professor}
+    customTasks:{}, // catKey -> [{id,mode,topic,prompt,options,answer,explanation}]
+    notebooks:{} // catKey -> [{id,name,pages:[{id,bg,paper,strokes:[]}]}]
   };
 }
 function loadStore(){
@@ -1092,6 +1309,7 @@ function loadStore(){
   }catch(e){ console.warn("storage read error", e); }
   // защита от неполной структуры
   Object.keys(defaultStore()).forEach(k=>{ if(s[k]===undefined) s[k]=defaultStore()[k]; });
+  s.dailyGoals = Object.assign({learned:10,tasks:15,rno:5}, s.dailyGoals||{});
   return s;
 }
 let STORE = loadStore();
@@ -1346,11 +1564,11 @@ function buildTasksForCategory(catKey){
   const tasks = [];
   // TASK — множественный выбор
   cards.forEach(c=>{
-    const face = renderCardFace(type,c);
+    const face = renderCardFacePlain(type,c);
     if(!face.sub) return;
     const pool = cards.filter(x=>x.id!==c.id);
     if(pool.length<3) return;
-    const distractors = sample(pool,3).map(x=>renderCardFace(type,x).sub);
+    const distractors = sample(pool,3).map(x=>renderCardFacePlain(type,x).sub);
     const options = shuffle([face.sub, ...distractors]);
     tasks.push({id:uid("t"),cat:catKey,cardId:c.id,topicId:getCardTopicId(catKey,c),mode:"task",
       prompt:`${genericPromptVerb(type)} «${face.top}»?`, options, answer:face.sub,
@@ -1358,7 +1576,7 @@ function buildTasksForCategory(catKey){
   });
   // FILL — вставка пропущенного слова
   sample(cards, Math.min(20,cards.length)).forEach(c=>{
-    const face = renderCardFace(type,c);
+    const face = renderCardFacePlain(type,c);
     tasks.push({id:uid("t"),cat:catKey,cardId:c.id,topicId:getCardTopicId(catKey,c),mode:"fill",
       prompt:`Впиши пропущенный термин: ________ — это «${face.sub}». Подсказка: ${(face.body||"").slice(0,80)}`,
       answer:face.top, explanation:`${face.top} — ${face.sub}. ${face.body}`, olympiad:false});
@@ -1367,13 +1585,13 @@ function buildTasksForCategory(catKey){
   const matchSets = Math.min(8, Math.floor(cards.length/5) || 0);
   for(let i=0;i<matchSets;i++){
     const picks = sample(cards, Math.min(5,cards.length));
-    const pairs = picks.map(c=>{ const f=renderCardFace(type,c); return {left:f.top,right:f.sub,cardId:c.id}; });
+    const pairs = picks.map(c=>{ const f=renderCardFacePlain(type,c); return {left:f.top,right:f.sub,cardId:c.id}; });
     tasks.push({id:uid("t"),cat:catKey,topicId:getCardTopicId(catKey,picks[0]),mode:"match",
       prompt:"Сопоставь термины и их значения", pairs, explanation:"Проверь получившиеся пары.", olympiad:false});
   }
   // OPEN — открытый вопрос
   sample(cards, Math.min(15,cards.length)).forEach(c=>{
-    const face = renderCardFace(type,c);
+    const face = renderCardFacePlain(type,c);
     tasks.push({id:uid("t"),cat:catKey,cardId:c.id,topicId:getCardTopicId(catKey,c),mode:"open",
       prompt:`Своими словами: почему важно «${face.top}» и как это связано с другими темами?`,
       answer:face.connection||face.body, explanation:face.connection||face.body, olympiad:true});
@@ -1381,6 +1599,12 @@ function buildTasksForCategory(catKey){
   // CASE — кейсы
   (CASES_BY_CAT[catKey]||[]).forEach(([p,a])=>tasks.push({id:uid("t"),cat:catKey,topicId:"general",mode:"case",
     prompt:p, answer:a, explanation:a, olympiad:true}));
+  // Задания, добавленные вручную (вставлены пользователем через "Добавить задания")
+  (STORE.customTasks[catKey]||[]).forEach(t=>{
+    tasks.push({id:t.id, cat:catKey, cardId:null, topicId:t.topicId||"general", mode:t.mode||"task",
+      prompt:t.prompt||"", options:t.options||null, pairs:t.pairs||null,
+      answer:t.answer||"", explanation:t.explanation||"", olympiad:!!t.olympiad});
+  });
   return tasks;
 }
 function buildCustomTasksSimple(catKey){
@@ -1404,7 +1628,7 @@ function todayProgress(){
   if(!STORE.dailyProgress[d]) STORE.dailyProgress[d] = {learned:0,tasks:0,rno:0,bonusGiven:false};
   return STORE.dailyProgress[d];
 }
-const DAILY_GOALS = { learned:10, tasks:15, rno:5 };
+
 function bumpDaily(kind){
   const p = todayProgress();
   p[kind] = (p[kind]||0)+1;
@@ -1412,7 +1636,7 @@ function bumpDaily(kind){
 }
 function checkDailyBonus(){
   const p = todayProgress();
-  if(!p.bonusGiven && p.learned>=DAILY_GOALS.learned && p.tasks>=DAILY_GOALS.tasks && p.rno>=DAILY_GOALS.rno){
+  if(!p.bonusGiven && p.learned>=STORE.dailyGoals.learned && p.tasks>=STORE.dailyGoals.tasks && p.rno>=STORE.dailyGoals.rno){
     p.bonusGiven = true;
     awardAura(30);
     bumpStreak();
@@ -1427,7 +1651,10 @@ function bumpStreak(){
 }
 function markMistake(cardId){ if(!STORE.mistakeIds.includes(cardId)) STORE.mistakeIds.push(cardId); }
 function clearMistakeIfMastered(card){
-  if(card.level>=3){ const i=STORE.mistakeIds.indexOf(card.id); if(i>-1) STORE.mistakeIds.splice(i,1); }
+  if(card.level>=3){
+    const i=STORE.mistakeIds.indexOf(card.id);
+    if(i>-1){ STORE.mistakeIds.splice(i,1); STORE.fixedMistakes = (STORE.fixedMistakes||0)+1; }
+  }
 }
 
 function review(card, correct, ctx){
@@ -1484,7 +1711,7 @@ let STUDY_SESSION = null; // {catKey, queue:[cardId], idx, flipped, stats:{seen,
    ========================================================================== */
 function renderNav(){
   const nav = document.getElementById("navCategories");
-  let html = '<div class="nav-group"><div class="nav-label">Категории</div>';
+  let html = '<div class="nav-group"><div class="nav-label">Предметы</div>';
   getOrderedCategoryKeys().forEach(key=>{
     const n = APP_DATA[key] ? APP_DATA[key].cards.length : 0;
     const pinned = (STORE.pinnedCategories||[]).includes(key);
@@ -1495,7 +1722,7 @@ function renderNav(){
   nav.querySelectorAll(".nav-item").forEach(el=>el.addEventListener("click",()=>{ VIEW=el.dataset.view; renderAll(); }));
 
   document.querySelectorAll('.sidebar .nav-item[data-view]').forEach(el=>{
-    const toolViews = ["progress","review","rno","perfect"];
+    const toolViews = ["schedule","progress","timers","rno","review","notes","storage"];
     if(toolViews.includes(el.dataset.view)) el.classList.toggle("active", VIEW===el.dataset.view);
   });
   const dueCount = reviewDueCards().length;
@@ -1512,7 +1739,7 @@ function navItemHtml(key,name,count,pinned){
 document.querySelector(".sidebar").addEventListener("click",(e)=>{
   const item = e.target.closest(".nav-item[data-view]");
   if(!item) return;
-  const toolViews = ["progress","review","rno","perfect"];
+  const toolViews = ["schedule","progress","timers","rno","review","notes","storage"];
   if(toolViews.includes(item.dataset.view)){ VIEW = item.dataset.view; renderAll(); }
 });
 
@@ -1523,84 +1750,33 @@ function renderAll(){
   renderNav();
   const main = document.getElementById("main");
   if(APP_DATA[VIEW]) return renderCategoryView(main, VIEW);
+  if(VIEW==="schedule") return renderSchedulePage(main);
   if(VIEW==="progress") return renderProgressPage(main);
-  if(VIEW==="review") return renderReview(main);
+  if(VIEW==="timers") return renderTimersPage(main);
   if(VIEW==="rno") return renderRno(main);
-  if(VIEW==="perfect") return renderPerfectUsage(main);
+  if(VIEW==="review") return renderReview(main);
+  if(VIEW==="notes") return renderNotesPage(main);
+  if(VIEW==="storage") return renderStoragePage(main);
 }
 
 /* ==========================================================================
-   10. PROGRESS — объединённая страница (Aura, чеклист, календарь, кольца прогресса)
+   10. SCHEDULE / PROGRESS / TIMERS / NOTES / STORAGE — самостоятельные страницы
    ========================================================================== */
-function renderProgressPage(main){
-  const li = getLevelInfo();
-  const p = todayProgress();
-  const due = reviewDueCards();
-  const mistakes = rnoDueCards();
-  const pct = (val,goal)=>Math.min(100, Math.round(100*val/goal));
-
+function renderSchedulePage(main){
+  main.innerHTML = `<div class="topbar"><div><h2>Schedule</h2><div class="desc">Расписание занятий — кабинеты, преподаватели, время</div></div></div><div id="ovBody"></div>`;
+  renderOvSchedule(document.getElementById('ovBody'));
+}
+function renderTimersPage(main){
+  main.innerHTML = `<div class="topbar"><div><h2>Timers</h2><div class="desc">Pomodoro и секундомер — сколько времени ушло на каждый предмет</div></div></div><div id="ovBody"></div>`;
+  renderOvTimer(document.getElementById('ovBody'));
+}
+function renderNotesPage(main){
+  main.innerHTML = `<div class="topbar"><div><h2>Notes</h2><div class="desc">Заметки — как на iPhone</div></div></div><div id="ovBody"></div>`;
+  renderOvNotes(document.getElementById('ovBody'));
+}
+function renderStoragePage(main){
   main.innerHTML = `
-    <div class="topbar">
-      <div><h2>Progress</h2><div class="desc">Aura, план на сегодня, календарь занятий и прогресс по темам — всё в одном месте</div></div>
-    </div>
-    <div class="aura-hero">
-      <div class="aura-num">${li.aura}<span class="aura-unit">Aura</span></div>
-      <div class="aura-level">Уровень ${li.level} · до следующего ${li.need-li.into} Aura</div>
-      <div class="aura-bar"><div class="aura-bar-fill" style="width:${Math.round(100*li.into/li.need)}%"></div></div>
-      <div class="streak-row">Серия дней подряд: <b>${STORE.streak||0}</b></div>
-    </div>
-
-    <h3 style="margin-top:26px">План на сегодня</h3>
-    <div class="checklist">
-      <div class="check-item ${p.learned>=DAILY_GOALS.learned?'done':''}">
-        <div class="check-box">✓</div>
-        <div class="check-body">
-          <div class="check-top"><span>Выучить карточки (уровень ≥ 3)</span><span>${p.learned}/${DAILY_GOALS.learned}</span></div>
-          <div class="check-bar"><div class="check-bar-fill" style="width:${pct(p.learned,DAILY_GOALS.learned)}%"></div></div>
-        </div>
-      </div>
-      <div class="check-item ${p.tasks>=DAILY_GOALS.tasks?'done':''}">
-        <div class="check-box">✓</div>
-        <div class="check-body">
-          <div class="check-top"><span>Пройти заданий в практике</span><span>${p.tasks}/${DAILY_GOALS.tasks}</span></div>
-          <div class="check-bar"><div class="check-bar-fill" style="width:${pct(p.tasks,DAILY_GOALS.tasks)}%"></div></div>
-        </div>
-      </div>
-      <div class="check-item ${p.rno>=DAILY_GOALS.rno?'done':''}">
-        <div class="check-box">✓</div>
-        <div class="check-body">
-          <div class="check-top"><span>WON — work on mistakes</span><span>${p.rno}/${DAILY_GOALS.rno}</span></div>
-          <div class="check-bar"><div class="check-bar-fill" style="width:${pct(p.rno,DAILY_GOALS.rno)}%"></div></div>
-        </div>
-      </div>
-    </div>
-    ${p.bonusGiven?'<div class="bonus-banner">План на сегодня выполнен — начислен бонус +30 Aura, день в календаре закрашен</div>':'<div class="bonus-hint">Выполни все три пункта — получишь +30 Aura, а день в календаре закрасится</div>'}
-
-    <div class="home-grid">
-      <div class="home-card" id="goReview">
-        <div class="home-card-num">${due.length}</div>
-        <div class="home-card-label">карточек ждут повторения (из уже пройденного)</div>
-      </div>
-      <div class="home-card rno-card" id="goRno">
-        <div class="home-card-num">${mistakes.length}</div>
-        <div class="home-card-label">ошибок в WON — 5–10 минут в день решают многое</div>
-      </div>
-    </div>
-
-    <h3 style="margin-top:28px">Календарь</h3>
-    <div class="cal-wrap" id="calWrap"></div>
-
-    <h3 style="margin-top:28px">Прогресс по темам</h3>
-    <div class="prog-grid" id="progGrid"></div>
-  `;
-  document.getElementById("goReview").onclick=()=>{ VIEW="review"; renderAll(); };
-  document.getElementById("goRno").onclick=()=>{ VIEW="rno"; renderAll(); };
-  renderCalendarInto(document.getElementById("calWrap"));
-  renderProgressRingsInto(document.getElementById("progGrid"));
-
-  const backupWrap = document.createElement('div');
-  backupWrap.innerHTML = `
-    <h3 style="margin-top:28px">Перенос на другое устройство</h3>
+    <div class="topbar"><div><h2>Storage</h2><div class="desc">Перенос на другое устройство</div></div></div>
     <div class="desc" style="margin-bottom:12px">localStorage не синхронизируется между телефоном и компьютером сам по себе — прогресс переносится вручную через файл</div>
     <div class="btn-row">
       <button class="btn btn-primary" id="btnExportData">Экспорт моего прогресса</button>
@@ -1608,13 +1784,174 @@ function renderProgressPage(main){
       <input type="file" id="importDataFile" accept="application/json" style="display:none">
     </div>
   `;
-  main.appendChild(backupWrap);
   document.getElementById('btnExportData').onclick=exportStoreJSON;
   document.getElementById('btnImportData').onclick=()=>document.getElementById('importDataFile').click();
   document.getElementById('importDataFile').onchange=(e)=>{
     const file = e.target.files[0];
     if(file) importStoreJSON(file);
   };
+}
+
+/* ==========================================================================
+   11. PROGRESS — Aura + планер (Эйзенхауэр) + календарь + кольца
+   ========================================================================== */
+
+/* ---------- Progress: Aura + планер + матрица + календарь + кольца ---------- */
+let PLAN_WEEK_OFFSET = 0;
+let PLAN_SELECTED_DATE = todayISO();
+
+function weekStart(offsetWeeks){
+  const d = new Date(todayISO()+"T00:00:00");
+  let dow = d.getDay(); dow = dow===0?6:dow-1; // Пн=0
+  d.setDate(d.getDate() - dow + offsetWeeks*7);
+  return d.toISOString().slice(0,10);
+}
+function fmtPlanDate(iso){
+  if(iso===todayISO()) return 'сегодня';
+  const d = new Date(iso+"T00:00:00");
+  return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'});
+}
+function checkPlanDayBonus(dateIso){
+  const dayTasks = STORE.planTasks.filter(t=>t.date===dateIso);
+  if(dayTasks.length===0) return;
+  if(!dayTasks.every(t=>t.done)) return;
+  if(!STORE.dailyProgress[dateIso]) STORE.dailyProgress[dateIso]={};
+  if(!STORE.dailyProgress[dateIso].bonusGiven){
+    STORE.dailyProgress[dateIso].bonusGiven = true;
+    awardAura(30);
+    bumpStreak();
+  }
+}
+
+function renderProgressPage(main){
+  const li = getLevelInfo();
+  main.innerHTML = `
+    <div class="topbar"><div><h2>Progress</h2><div class="desc">Aura, планер, матрица Эйзенхауэра, календарь и прогресс по предметам</div></div></div>
+    <div class="aura-hero aura-hero-sm">
+      <div class="aura-num">${li.aura}<span class="aura-unit">Aura</span></div>
+      <div class="aura-level">Уровень ${li.level} · до следующего ${li.need-li.into} Aura · серия ${STORE.streak||0} дн.</div>
+      <div class="aura-bar"><div class="aura-bar-fill" style="width:${Math.round(100*li.into/li.need)}%"></div></div>
+    </div>
+
+    <h3 style="margin-top:24px">Планер</h3>
+    <div class="plan-grid">
+      <div>
+        <div class="week-strip" id="weekStrip"></div>
+        <div class="plan-tier-label">Базовый минимум</div>
+        <div id="planMin"></div>
+        <button class="plan-add-btn" id="addMin">+ Добавить задачу</button>
+
+        <div class="plan-tier-label">Роскошный максимум</div>
+        <div id="planMax"></div>
+        <button class="plan-add-btn" id="addMax">+ Добавить задачу</button>
+      </div>
+      <div class="eis-wrap">
+        <div class="eis-title">Матрица Эйзенхауэра</div>
+        <div class="eis-grid" id="eisGrid"></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">Календарь</h3>
+    <div class="cal-wrap" id="calWrap"></div>
+
+    <h3 style="margin-top:28px">Прогресс по предметам</h3>
+    <div class="prog-grid" id="progGrid"></div>
+  `;
+  renderWeekStrip();
+  renderPlanLists();
+  renderEisGrid();
+  renderCalendarInto(document.getElementById("calWrap"));
+  renderProgressRingsInto(document.getElementById("progGrid"));
+}
+
+function renderWeekStrip(){
+  const wrap = document.getElementById('weekStrip');
+  if(!wrap) return;
+  const start = weekStart(PLAN_WEEK_OFFSET);
+  const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  let html = `<button class="mini-btn" id="weekPrev">‹</button><div class="week-days">`;
+  for(let i=0;i<7;i++){
+    const iso = addDays(start,i);
+    const dp = STORE.dailyProgress[iso];
+    const done = dp && dp.bonusGiven;
+    const isSel = iso===PLAN_SELECTED_DATE;
+    const d = new Date(iso+"T00:00:00");
+    html += `<div class="week-day-pick ${isSel?'active':''} ${done?'done':''}" data-date="${iso}">
+      <div class="wd-label">${days[i]}</div><div class="wd-num">${d.getDate()}</div>
+    </div>`;
+  }
+  html += `</div><button class="mini-btn" id="weekNext">›</button>`;
+  wrap.innerHTML = html;
+  document.getElementById('weekPrev').onclick=()=>{ PLAN_WEEK_OFFSET--; renderWeekStrip(); };
+  document.getElementById('weekNext').onclick=()=>{ PLAN_WEEK_OFFSET++; renderWeekStrip(); };
+  wrap.querySelectorAll('.week-day-pick').forEach(el=>el.onclick=()=>{
+    PLAN_SELECTED_DATE = el.dataset.date;
+    renderWeekStrip(); renderPlanLists();
+  });
+}
+
+function renderPlanLists(){
+  const minWrap = document.getElementById('planMin');
+  const maxWrap = document.getElementById('planMax');
+  if(!minWrap) return;
+  const dayTasks = STORE.planTasks.filter(t=>t.date===PLAN_SELECTED_DATE);
+  const minTasks = dayTasks.filter(t=>t.tier==='min');
+  const maxTasks = dayTasks.filter(t=>t.tier==='max');
+  function taskRow(t){
+    const quad = EIS_QUADS.find(q=>q.id===t.quadrant);
+    return `<div class="plan-task ${t.done?'done':''}" data-id="${t.id}">
+      <span class="pt-check" data-toggle="${t.id}">✓</span>
+      ${quad?`<span class="pt-quad" style="background:var(--eis-${quad.cls})"></span>`:''}
+      <span class="pt-text" data-edit="${t.id}">${esc(t.text)}</span>
+      ${t.deadline?`<span class="pt-deadline">${fmtDeadline(t.deadline)}</span>`:''}
+      <button class="pt-del" data-del="${t.id}">✕</button>
+    </div>`;
+  }
+  minWrap.innerHTML = minTasks.map(taskRow).join('') || `<div style="font-size:12px;color:var(--text-faint)">На ${esc(fmtPlanDate(PLAN_SELECTED_DATE))} пока пусто</div>`;
+  maxWrap.innerHTML = maxTasks.map(taskRow).join('') || `<div style="font-size:12px;color:var(--text-faint)">На ${esc(fmtPlanDate(PLAN_SELECTED_DATE))} пока пусто</div>`;
+  document.getElementById('addMin').onclick=()=>openPlanTaskModal('min', null, null);
+  document.getElementById('addMax').onclick=()=>openPlanTaskModal('max', null, null);
+  [minWrap,maxWrap].forEach(w=>{
+    w.querySelectorAll('[data-toggle]').forEach(el=>el.onclick=()=>{
+      const t = STORE.planTasks.find(x=>x.id===el.dataset.toggle);
+      if(t){ t.done=!t.done; checkPlanDayBonus(t.date); saveStore(); renderPlanLists(); renderEisGrid(); }
+    });
+    w.querySelectorAll('[data-del]').forEach(el=>el.onclick=()=>{
+      STORE.planTasks = STORE.planTasks.filter(x=>x.id!==el.dataset.del);
+      saveStore(); renderPlanLists(); renderEisGrid();
+    });
+    w.querySelectorAll('[data-edit]').forEach(el=>el.onclick=()=>{
+      const t = STORE.planTasks.find(x=>x.id===el.dataset.edit);
+      if(t) openPlanTaskModal(t.tier, t.id, null);
+    });
+  });
+}
+
+function renderEisGrid(){
+  const eisGrid = document.getElementById('eisGrid');
+  if(!eisGrid) return;
+  eisGrid.innerHTML = EIS_QUADS.map(q=>{
+    const items = STORE.planTasks.filter(t=>t.quadrant===q.id && !t.done);
+    const chips = items.slice(0,6).map(t=>`<div class="eq-chip" data-edit2="${t.id}"><span class="eq-chip-toggle" data-toggle2="${t.id}">✓</span>${esc(t.text)}${t.date?`<span class="eq-chip-date">${esc(fmtPlanDate(t.date))}</span>`:''}</div>`).join('');
+    return `<div class="eis-cell ${q.cls}" data-quad="${q.id}">
+      <button class="ec-add" data-quadadd="${q.id}">+</button>
+      <div class="ec-label">${q.label}</div>
+      <div class="ec-chips">${chips || '<div class="eq-empty">Пусто</div>'}</div>
+    </div>`;
+  }).join('');
+  eisGrid.querySelectorAll('[data-quadadd]').forEach(btn=>btn.onclick=(e)=>{
+    e.stopPropagation();
+    openPlanTaskModal('min', null, null, btn.dataset.quadadd);
+  });
+  eisGrid.querySelectorAll('[data-toggle2]').forEach(el=>el.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    const t = STORE.planTasks.find(x=>x.id===el.dataset.toggle2);
+    if(t){ t.done=true; checkPlanDayBonus(t.date); saveStore(); renderPlanLists(); renderEisGrid(); }
+  }));
+  eisGrid.querySelectorAll('[data-edit2]').forEach(el=>el.addEventListener('click',()=>{
+    const t = STORE.planTasks.find(x=>x.id===el.dataset.edit2);
+    if(t) openPlanTaskModal(t.tier, t.id, null);
+  }));
 }
 
 /* ---------- Экспорт / импорт всего прогресса (перенос между устройствами) ---------- */
@@ -1639,31 +1976,362 @@ function importStoreJSON(file){
       renderAll();
       openInfoModal('Готово', 'Прогресс успешно импортирован.');
     }catch(e){
-      openInfoModal('Ошибка', 'Не удалось прочитать файл — убедись, что это экспорт из PRIMUS.STUD.');
+      openInfoModal('Ошибка', 'Не удалось прочитать файл — убедись, что это экспорт из PRIMUS.');
     }
   };
   reader.readAsText(file);
 }
 
-/* ---------- Календарь (компактный, встроен в Progress) ---------- */
-function renderCalendarInto(wrap){
-  let html = '';
-  [{y:2026,m:8,name:"Август 2026"},{y:2026,m:9,name:"Сентябрь 2026"}].forEach(({y,m,name})=>{
-    html += `<div class="cal-month-title">${name}</div><div class="cal-grid">`;
-    ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>html+=`<div class="cal-dow">${d}</div>`);
-    const first = new Date(y,m-1,1);
-    let startDow = first.getDay(); startDow = startDow===0?6:startDow-1;
-    for(let i=0;i<startDow;i++) html += '<div class="cal-cell empty"></div>';
-    const daysInMonth = new Date(y,m,0).getDate();
-    for(let d=1; d<=daysInMonth; d++){
-      const iso = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-      const dp = STORE.dailyProgress[iso];
-      const filled = !!(dp && dp.bonusGiven);
-      html += `<div class="cal-cell ${filled?'filled':''}" data-date="${iso}"><span class="n">${d}</span></div>`;
-    }
-    html += '</div>';
+/* ---------- План: базовый минимум / роскошный максимум + матрица Эйзенхауэра ---------- */
+const EIS_QUADS = [
+  {id:'uiq', label:'Срочно + Важно', cls:'uiq'},
+  {id:'inq', label:'Важно, не срочно', cls:'inq'},
+  {id:'uniq', label:'Срочно, не важно', cls:'uniq'},
+  {id:'ninq', label:'Не срочно, не важно', cls:'ninq'}
+];
+function daysUntil(iso){
+  if(!iso) return null;
+  const diff = Math.ceil((new Date(iso+"T00:00:00") - new Date(todayISO()+"T00:00:00")) / 86400000);
+  return diff;
+}
+function fmtDeadline(iso){
+  const d = daysUntil(iso);
+  if(d===null) return '';
+  if(d<0) return `просрочено на ${Math.abs(d)} дн.`;
+  if(d===0) return 'сегодня';
+  if(d<31) return `через ${d} дн.`;
+  const months = Math.round(d/30.4);
+  return `через ~${months} мес.`;
+}
+function openPlanTaskModal(tier, taskId, _unused, presetQuad){
+  const editing = taskId ? STORE.planTasks.find(t=>t.id===taskId) : null;
+  document.getElementById('modalBody').innerHTML = `
+    <h3>${editing?'Изменить задачу':'Новая задача'}</h3>
+    <div class="field"><label>Что нужно сделать</label><input id="ptText" value="${editing?esc(editing.text):''}" placeholder="Например: повторить латынь тему Право"></div>
+    <div class="field"><label>День</label><input type="date" id="ptDate" value="${editing?(editing.date||todayISO()):PLAN_SELECTED_DATE}"></div>
+    <div class="field"><label>Уровень</label><select id="ptTier">
+      <option value="min" ${((editing?editing.tier:tier)==='min')?'selected':''}>Базовый минимум</option>
+      <option value="max" ${((editing?editing.tier:tier)==='max')?'selected':''}>Роскошный максимум</option>
+    </select></div>
+    <div class="field"><label>Квадрат матрицы Эйзенхауэра</label><select id="ptQuad">
+      <option value="">Без квадрата</option>
+      ${EIS_QUADS.map(q=>`<option value="${q.id}" ${((editing?editing.quadrant:presetQuad)===q.id)?'selected':''}>${q.label}</option>`).join('')}
+    </select></div>
+    <div class="field"><label>Дедлайн (необязательно, для долгосрочных задач)</label><input type="date" id="ptDeadline" value="${editing&&editing.deadline?editing.deadline:''}"></div>
+    <div class="modal-actions">
+      ${editing?'<button class="btn" id="mDelPt" style="margin-right:auto;color:var(--bad)">Удалить</button>':''}
+      <button class="btn" id="mCancelPt">Отмена</button><button class="btn btn-primary" id="mSavePt">Сохранить</button>
+    </div>
+  `;
+  document.getElementById('mCancelPt').onclick=closeOverlay;
+  if(editing){
+    document.getElementById('mDelPt').onclick=()=>{
+      STORE.planTasks = STORE.planTasks.filter(x=>x.id!==editing.id);
+      saveStore(); closeOverlay(); renderPlanLists(); renderEisGrid();
+    };
+  }
+  document.getElementById('mSavePt').onclick=()=>{
+    const text = document.getElementById('ptText').value.trim();
+    if(!text) return;
+    const vals = {
+      text, tier: document.getElementById('ptTier').value,
+      date: document.getElementById('ptDate').value || todayISO(),
+      quadrant: document.getElementById('ptQuad').value || null,
+      deadline: document.getElementById('ptDeadline').value || null
+    };
+    if(editing){ Object.assign(editing, vals); }
+    else { STORE.planTasks.push(Object.assign({id:uid('plan'), done:false, createdDate:todayISO()}, vals)); }
+    saveStore();
+    closeOverlay();
+    renderPlanLists();
+    renderEisGrid();
+  };
+  openOverlay();
+  document.getElementById('modalBody').classList.add('smoky-modal');
+}
+
+/* ---------- Заметки (как в iPhone Notes: заголовки, форматирование) ---------- */
+function renderOvNotes(body){
+  body.innerHTML = `<div class="btn-row" style="margin-bottom:16px"><button class="btn btn-primary" id="btnAddNote">+ Новая заметка</button></div><div class="notes-grid" id="notesGrid"></div>`;
+  const grid = document.getElementById('notesGrid');
+  if(STORE.notes.length===0){
+    grid.innerHTML = `<div class="empty-state">Заметок пока нет.</div>`;
+  } else {
+    grid.innerHTML = STORE.notes.slice().reverse().map(n=>`
+      <div class="note-card">
+        <div class="n-title">${esc(n.title||'Без названия')}</div>
+        <div class="n-body">${n.body||''}</div>
+        <div class="n-date">${fmtDate(n.date)}</div>
+        <div class="n-actions">
+          <button class="btn btn-sm" data-editnote="${n.id}">Изменить</button>
+          <button class="btn btn-sm" data-sharenote="${n.id}">Поделиться</button>
+          <button class="btn btn-sm" data-delnote="${n.id}">Удалить</button>
+        </div>
+      </div>`).join('');
+  }
+  document.getElementById('btnAddNote').onclick=()=>openNoteModal(body);
+  grid.querySelectorAll('[data-editnote]').forEach(b=>b.onclick=()=>openNoteModal(body, b.dataset.editnote));
+  grid.querySelectorAll('[data-delnote]').forEach(b=>b.onclick=()=>{
+    STORE.notes = STORE.notes.filter(n=>n.id!==b.dataset.delnote);
+    saveStore(); renderOvNotes(body);
   });
+  grid.querySelectorAll('[data-sharenote]').forEach(b=>b.onclick=()=>shareNote(b.dataset.sharenote));
+}
+function openNoteModal(body, noteId){
+  const editing = noteId ? STORE.notes.find(n=>n.id===noteId) : null;
+  document.getElementById('modalBody').innerHTML = `
+    <h3>${editing?'Изменить заметку':'Новая заметка'}</h3>
+    <div class="field"><label>Заголовок</label><input id="noteTitle" value="${editing?esc(editing.title):''}"></div>
+    <div class="field">
+      <label>Текст</label>
+      <div class="rt-toolbar">
+        <button type="button" class="rt-btn" data-cmd="formatBlock" data-val="h2" title="Заголовок">H1</button>
+        <button type="button" class="rt-btn" data-cmd="formatBlock" data-val="h3" title="Подзаголовок">H2</button>
+        <button type="button" class="rt-btn" data-cmd="formatBlock" data-val="p" title="Обычный текст">Т</button>
+        <button type="button" class="rt-btn b" data-cmd="bold" title="Жирный">B</button>
+        <button type="button" class="rt-btn i" data-cmd="italic" title="Курсив">I</button>
+        <button type="button" class="rt-btn s" data-cmd="strikeThrough" title="Зачёркнутый">S</button>
+        <button type="button" class="rt-btn u" data-cmd="underline" title="Подчёркнутый">U</button>
+        <button type="button" class="rt-btn" data-cmd="insertUnorderedList" title="Список">•</button>
+      </div>
+      <div class="rt-editable note-editable" contenteditable="true" id="noteBody">${editing?(editing.body||''):''}</div>
+    </div>
+    <div class="modal-actions"><button class="btn" id="mCancelNote">Отмена</button><button class="btn btn-primary" id="mSaveNote">Сохранить</button></div>
+  `;
+  document.getElementById('modalBody').classList.add('modal-lg');
+  document.querySelectorAll('.rt-toolbar .rt-btn').forEach(btn=>{
+    btn.addEventListener('mousedown',(e)=>e.preventDefault());
+    btn.addEventListener('click',()=>{
+      const editable = document.getElementById('noteBody');
+      editable.focus();
+      try{ document.execCommand(btn.dataset.cmd, false, btn.dataset.val||null); }catch(err){}
+    });
+  });
+  document.getElementById('mCancelNote').onclick=closeOverlay;
+  document.getElementById('mSaveNote').onclick=()=>{
+    const vals = { title: document.getElementById('noteTitle').value.trim(), body: document.getElementById('noteBody').innerHTML.trim() };
+    if(editing){ Object.assign(editing, vals); }
+    else { STORE.notes.push(Object.assign({id:uid('note'), date:todayISO()}, vals)); }
+    saveStore(); closeOverlay(); renderOvNotes(body);
+  };
+  openOverlay();
+}
+function shareNote(noteId){
+  const n = STORE.notes.find(x=>x.id===noteId);
+  if(!n) return;
+  const text = `${n.title}\n\n${stripHtml(n.body)}`;
+  if(navigator.share){
+    navigator.share({title:n.title, text}).catch(()=>{});
+  } else {
+    const blob = new Blob([text], {type:"text/plain"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href=url; a.download=`${(n.title||'note').replace(/[^a-zа-я0-9]+/gi,'_')}.txt`;
+    document.body.appendChild(a); a.click(); a.remove();
+    try{ URL.revokeObjectURL(url); }catch(e){}
+  }
+}
+
+/* ---------- Таймер: Pomodoro + Stopwatch ---------- */
+let TIMER_MODE = "pomodoro";
+let TIMER_STATE = { running:false, seconds:25*60, intervalId:null, subject:"", isBreak:false, stopwatchSeconds:0 };
+function renderOvTimer(body){
+  body.innerHTML = `
+    <div class="timer-tabs">
+      <button class="ov-tab ${TIMER_MODE==='pomodoro'?'active':''}" id="tPomodoro">Pomodoro</button>
+      <button class="ov-tab ${TIMER_MODE==='stopwatch'?'active':''}" id="tStopwatch">Секундомер</button>
+    </div>
+    <input class="timer-subject-input" id="timerSubject" placeholder="Над чем работаешь?" value="${esc(TIMER_STATE.subject)}">
+    <div class="timer-display" id="timerDisplay">${fmtSeconds2(TIMER_MODE==='pomodoro'?TIMER_STATE.seconds:TIMER_STATE.stopwatchSeconds)}</div>
+    ${TIMER_MODE==='pomodoro'?'<div class="pomo-progress"><div class="pomo-progress-fill" id="pomoFill" style="width:0%"></div></div>':''}
+    <div class="timer-controls">
+      <button class="btn btn-timer-primary" id="timerStartPause">${TIMER_STATE.running?'Пауза':'Старт'}</button>
+      <button class="btn btn-timer-secondary" id="timerReset">Сброс</button>
+      ${TIMER_MODE==='pomodoro'?'<button class="btn btn-timer-ghost" id="pomoSkip">Пропустить</button>':''}
+    </div>
+    <div class="time-records">
+      <h3>Последние записи</h3>
+      <div id="recordsList"></div>
+    </div>
+  `;
+  document.getElementById('timerSubject').addEventListener('input',(e)=>{ TIMER_STATE.subject=e.target.value; });
+  document.getElementById('tPomodoro').onclick=()=>{ if(TIMER_STATE.running) return; TIMER_MODE='pomodoro'; TIMER_STATE.seconds=25*60; renderOvTimer(body); };
+  document.getElementById('tStopwatch').onclick=()=>{ if(TIMER_STATE.running) return; TIMER_MODE='stopwatch'; renderOvTimer(body); };
+  document.getElementById('timerStartPause').onclick=()=>toggleTimer(body);
+  document.getElementById('timerReset').onclick=()=>resetTimer(body);
+  const skip = document.getElementById('pomoSkip');
+  if(skip) skip.onclick=()=>{ finishPomodoroSession(body); };
+  renderRecordsList();
+}
+function fmtSeconds2(s){ s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600); const m=Math.floor((s%3600)/60); const r=s%60;
+  return h>0? `${h}:${String(m).padStart(2,'0')}:${String(r).padStart(2,'0')}` : `${m}:${String(r).padStart(2,'0')}`; }
+function toggleTimer(body){
+  if(TIMER_STATE.running){
+    clearInterval(TIMER_STATE.intervalId); TIMER_STATE.running=false; renderOvTimer(body); return;
+  }
+  TIMER_STATE.running = true;
+  TIMER_STATE.intervalId = setInterval(()=>{
+    if(TIMER_MODE==='pomodoro'){
+      TIMER_STATE.seconds--;
+      const disp = document.getElementById('timerDisplay');
+      if(disp) disp.textContent = fmtSeconds2(TIMER_STATE.seconds);
+      const totalLen = TIMER_STATE.isBreak?5*60:25*60;
+      const fill = document.getElementById('pomoFill');
+      if(fill) fill.style.width = Math.round(100*(1-TIMER_STATE.seconds/totalLen))+'%';
+      if(TIMER_STATE.seconds<=0) finishPomodoroSession(body);
+    } else {
+      TIMER_STATE.stopwatchSeconds++;
+      const disp = document.getElementById('timerDisplay');
+      if(disp) disp.textContent = fmtSeconds2(TIMER_STATE.stopwatchSeconds);
+    }
+  },1000);
+  const btn = document.getElementById('timerStartPause'); if(btn) btn.textContent='Пауза';
+}
+function finishPomodoroSession(body){
+  clearInterval(TIMER_STATE.intervalId); TIMER_STATE.running=false;
+  if(!TIMER_STATE.isBreak){
+    const dur = 25*60 - Math.max(0,TIMER_STATE.seconds);
+    if(dur>10) addTimeRecord(TIMER_STATE.subject||'Без темы', dur, 'pomodoro');
+  }
+  TIMER_STATE.isBreak = !TIMER_STATE.isBreak;
+  TIMER_STATE.seconds = TIMER_STATE.isBreak? 5*60 : 25*60;
+  renderOvTimer(body);
+}
+function resetTimer(body){
+  clearInterval(TIMER_STATE.intervalId);
+  TIMER_STATE.running=false;
+  if(TIMER_MODE==='pomodoro'){ TIMER_STATE.seconds=25*60; TIMER_STATE.isBreak=false; }
+  else {
+    if(TIMER_STATE.stopwatchSeconds>10) addTimeRecord(TIMER_STATE.subject||'Без темы', TIMER_STATE.stopwatchSeconds, 'stopwatch');
+    TIMER_STATE.stopwatchSeconds=0;
+  }
+  renderOvTimer(body);
+}
+function addTimeRecord(subject, seconds, type){
+  STORE.timeRecords.push({id:uid('rec'), subject, seconds, date:todayISO(), type});
+  saveStore();
+}
+function renderRecordsList(){
+  const list = document.getElementById('recordsList');
+  if(!list) return;
+  const recent = STORE.timeRecords.slice().reverse().slice(0,15);
+  list.innerHTML = recent.length ? recent.map(r=>`
+    <div class="time-record-row"><span class="tr-subject">${esc(r.subject)} <span style="color:var(--text-faint);font-size:10px">(${r.type==='pomodoro'?'Pomodoro':'Секундомер'})</span></span><span class="tr-dur">${fmtSeconds2(r.seconds)} · ${fmtDate(r.date)}</span></div>
+  `).join('') : `<div style="font-size:12px;color:var(--text-faint)">Записей пока нет</div>`;
+}
+
+/* ---------- Расписание ---------- */
+const SCHED_DAYS = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+function renderOvSchedule(body){
+  let html = `<div class="btn-row" style="margin-bottom:18px">
+    <button class="btn btn-primary" id="btnAddSched">+ Добавить пару</button>
+    <button class="btn" id="btnImportSched">Импортировать из файла</button>
+    <input type="file" id="importSchedFile" accept="application/json" style="display:none">
+  </div>
+  <div style="font-size:11.5px;color:var(--text-faint);margin-bottom:16px;line-height:1.6">
+    Пришли расписание (pdf/docx) мне в чат — я извлеку кабинеты, этажи и преподавателей и соберу файл вида
+    <code>{"schedule":[{"day","time","subject","room","professor"}]}</code>, который импортируется сюда одной кнопкой.
+  </div>`;
+  if(STORE.schedule.length===0){
+    html += `<div class="empty-state">Расписание пока пустое.</div>`;
+  } else {
+    SCHED_DAYS.forEach(day=>{
+      const items = STORE.schedule.filter(s=>s.day===day).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+      if(items.length===0) return;
+      html += `<div class="sched-day"><div class="sched-day-title">${day}</div>`;
+      items.forEach(s=>{
+        html += `<div class="sched-item">
+          <div class="si-time">${esc(s.time||'')}</div>
+          <div><div class="si-main">${esc(s.subject||'')}</div><div class="si-meta">${[s.room?`ауд. ${esc(s.room)}`:'', s.professor?esc(s.professor):''].filter(Boolean).join(' · ')}</div></div>
+          <button class="si-del" data-delsched="${s.id}">✕</button>
+        </div>`;
+      });
+      html += `</div>`;
+    });
+  }
+  body.innerHTML = html;
+  document.getElementById('btnAddSched').onclick=()=>openScheduleModal(body);
+  document.getElementById('btnImportSched').onclick=()=>document.getElementById('importSchedFile').click();
+  document.getElementById('importSchedFile').onchange=(e)=>{
+    const file = e.target.files[0]; if(file) importScheduleJSON(file, body);
+  };
+  body.querySelectorAll('[data-delsched]').forEach(b=>b.onclick=()=>{
+    STORE.schedule = STORE.schedule.filter(s=>s.id!==b.dataset.delsched);
+    saveStore(); renderOvSchedule(body);
+  });
+}
+function openScheduleModal(body){
+  document.getElementById('modalBody').innerHTML = `
+    <h3>Новая пара</h3>
+    <div class="field"><label>День недели</label><select id="schDay">${SCHED_DAYS.map(d=>`<option>${d}</option>`).join('')}</select></div>
+    <div class="field"><label>Время</label><input id="schTime" placeholder="09:00–10:30"></div>
+    <div class="field"><label>Предмет</label><input id="schSubject"></div>
+    <div class="field"><label>Аудитория / этаж</label><input id="schRoom" placeholder="Например: 315, 3 этаж"></div>
+    <div class="field"><label>Преподаватель</label><input id="schProf"></div>
+    <div class="modal-actions"><button class="btn" id="mCancelSch">Отмена</button><button class="btn btn-primary" id="mSaveSch">Сохранить</button></div>
+  `;
+  document.getElementById('mCancelSch').onclick=closeOverlay;
+  document.getElementById('mSaveSch').onclick=()=>{
+    const subject = document.getElementById('schSubject').value.trim();
+    if(!subject) return;
+    STORE.schedule.push({
+      id:uid('sch'), day:document.getElementById('schDay').value, time:document.getElementById('schTime').value.trim(),
+      subject, room:document.getElementById('schRoom').value.trim(), professor:document.getElementById('schProf').value.trim()
+    });
+    saveStore(); closeOverlay(); renderOvSchedule(body);
+  };
+  openOverlay();
+}
+function importScheduleJSON(file, body){
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      const parsed = JSON.parse(reader.result);
+      (parsed.schedule||[]).forEach(s=>{
+        STORE.schedule.push(Object.assign({id:uid('sch')}, s));
+      });
+      saveStore(); renderOvSchedule(body);
+      openInfoModal('Готово', `Импортировано пар: <b>${(parsed.schedule||[]).length}</b>.`);
+    }catch(e){ openInfoModal('Ошибка', 'Не удалось прочитать файл.'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ---------- Календарь (компактный, с навигацией Авг 2026 → Дек 2027) ---------- */
+const CAL_MONTHS = (()=>{
+  const arr = [];
+  const names = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  for(let y=2026;y<=2027;y++){
+    for(let m=1;m<=12;m++){
+      if(y===2026 && m<8) continue;
+      arr.push({y,m,name:`${names[m-1]} ${y}`});
+    }
+  }
+  return arr;
+})();
+let CAL_MONTH_IDX = 0;
+function renderCalendarInto(wrap){
+  const {y,m,name} = CAL_MONTHS[CAL_MONTH_IDX];
+  let html = `<div class="btn-row" style="align-items:center;margin-bottom:4px">
+    <button class="mini-btn" id="calPrev" ${CAL_MONTH_IDX===0?'disabled':''}>‹</button>
+    <span class="cal-month-title" style="margin:0">${name}</span>
+    <button class="mini-btn" id="calNext" ${CAL_MONTH_IDX===CAL_MONTHS.length-1?'disabled':''}>›</button>
+  </div><div class="cal-grid">`;
+  ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>html+=`<div class="cal-dow">${d}</div>`);
+  const first = new Date(y,m-1,1);
+  let startDow = first.getDay(); startDow = startDow===0?6:startDow-1;
+  for(let i=0;i<startDow;i++) html += '<div class="cal-cell empty"></div>';
+  const daysInMonth = new Date(y,m,0).getDate();
+  for(let d=1; d<=daysInMonth; d++){
+    const iso = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dp = STORE.dailyProgress[iso];
+    const filled = !!(dp && dp.bonusGiven);
+    html += `<div class="cal-cell ${filled?'filled':''}" data-date="${iso}"><span class="n">${d}</span></div>`;
+  }
+  html += '</div>';
   wrap.innerHTML = html;
+  document.getElementById('calPrev').onclick=()=>{ if(CAL_MONTH_IDX>0){ CAL_MONTH_IDX--; renderCalendarInto(wrap); } };
+  document.getElementById('calNext').onclick=()=>{ if(CAL_MONTH_IDX<CAL_MONTHS.length-1){ CAL_MONTH_IDX++; renderCalendarInto(wrap); } };
   wrap.querySelectorAll('.cal-cell[data-date]').forEach(cell=>{
     cell.onclick=()=>{
       const iso = cell.dataset.date;
@@ -1673,7 +2341,7 @@ function renderCalendarInto(wrap){
       const names = ids.map(id=>{
         const c = allCards().find(x=>x.id===id);
         if(!c) return id;
-        const face = renderCardFace((APP_DATA[c.catKey]||{}).meta ? APP_DATA[c.catKey].meta.type : "custom", c);
+        const face = renderCardFacePlain((APP_DATA[c.catKey]||{}).meta ? APP_DATA[c.catKey].meta.type : "custom", c);
         return face.top;
       });
       openInfoModal(`${fmtDate(iso)}`, `${planDone}<br><br>` + (names.length? names.map(n=>`• ${esc(n)}`).join('<br>') : 'Карточки в этот день не выучивались.'));
@@ -1681,7 +2349,7 @@ function renderCalendarInto(wrap){
   });
 }
 
-/* ---------- Кольца прогресса ---------- */
+/* ---------- Кольца прогресса по предметам (с раскрытием по темам) ---------- */
 function renderProgressRingsInto(grid){
   let html='';
   allCategoryKeys().forEach(key=>{
@@ -1689,12 +2357,25 @@ function renderProgressRingsInto(grid){
     const total = data.cards.length;
     const learned = data.cards.filter(c=>c.level>=3).length;
     const pct = total? Math.round(100*learned/total) : 0;
-    html += `<div class="prog-card">
-      ${donutSVG(pct)}
-      <div class="p-info"><h4>${esc(getCategoryDisplayName(key))}</h4><div class="p-sub">${learned} из ${total} · ${pct}%</div></div>
+    const topics = getCategoryTopicsOrdered(key);
+    let topicsHtml = '';
+    topics.forEach(t=>{
+      const tCards = data.cards.filter(c=>getCardTopicId(key,c)===t.id);
+      if(tCards.length===0) return;
+      const tLearned = tCards.filter(c=>c.level>=3).length;
+      const tPct = Math.round(100*tLearned/tCards.length);
+      topicsHtml += `<div class="subj-topic-row"><span class="stn">${esc(t.name)}</span><span class="stb"><span class="stb-fill" style="width:${tPct}%"></span></span><span class="stp">${tPct}%</span></div>`;
+    });
+    html += `<div class="subj-card" data-subj="${key}">
+      <div class="subj-card-top">
+        ${donutSVG(pct)}
+        <div class="p-info"><h4>${esc(getCategoryDisplayName(key))}</h4><div class="p-sub">${learned} из ${total} · ${pct}% · нажми, чтобы раскрыть темы</div></div>
+      </div>
+      <div class="subj-topics">${topicsHtml || '<div style="font-size:11.5px;color:var(--text-faint)">Нет тем с карточками</div>'}</div>
     </div>`;
   });
   grid.innerHTML = html;
+  grid.querySelectorAll('.subj-card').forEach(card=>card.addEventListener('click',()=>card.classList.toggle('expanded')));
 }
 function donutSVG(pct){
   const r=26, c=2*Math.PI*r, off=c*(1-pct/100);
@@ -1710,30 +2391,132 @@ function donutSVG(pct){
    ========================================================================== */
 function renderCategoryView(main, key){
   const data = APP_DATA[key];
-  const sub = CAT_SUBVIEW[key] || "cards";
+  const sub = CAT_SUBVIEW[key] || "topics";
   main.innerHTML = `
     <div class="topbar">
       <div><h2>${esc(getCategoryDisplayName(key))}</h2>
         <div class="desc">${data.cards.length} карточек · ${getCategoryTopics(key).length-1} тем · ${data.tasks.length} заданий</div></div>
       <div class="btn-row">
-        <button class="btn ${sub==='cards'?'btn-primary':''}" id="tabCards">Карточки</button>
+        <button class="btn ${sub==='topics'?'btn-primary':''}" id="tabTopics">Темы</button>
         <button class="btn ${sub==='theory'?'btn-primary':''}" id="tabTheory">Теория</button>
+        <button class="btn ${sub==='cards'?'btn-primary':''}" id="tabCards">Карточки</button>
+        <button class="btn ${sub==='notebook'?'btn-primary':''}" id="tabNotebook">Тетрадь</button>
         <button class="btn ${sub==='practice'?'btn-primary':''}" id="tabPractice">Практика</button>
-        <button class="btn" id="btnManageTopics">Темы</button>
-        <button class="btn btn-primary" id="btnAddCard">Добавить карточку</button>
       </div>
     </div>
     <div id="catBody"></div>
   `;
-  document.getElementById("tabCards").onclick=()=>{ CAT_SUBVIEW[key]='cards'; renderAll(); };
+  document.getElementById("tabTopics").onclick=()=>{ CAT_SUBVIEW[key]='topics'; renderAll(); };
   document.getElementById("tabTheory").onclick=()=>{ CAT_SUBVIEW[key]='theory'; renderAll(); };
+  document.getElementById("tabCards").onclick=()=>{ CAT_SUBVIEW[key]='cards'; renderAll(); };
+  document.getElementById("tabNotebook").onclick=()=>{ CAT_SUBVIEW[key]='notebook'; renderAll(); };
   document.getElementById("tabPractice").onclick=()=>{ CAT_SUBVIEW[key]='practice'; renderAll(); };
-  document.getElementById("btnManageTopics").onclick=()=>openTopicsModal(key);
-  document.getElementById("btnAddCard").onclick=()=>openCardModal(key);
   const body = document.getElementById("catBody");
-  if(sub==='cards') renderCardsGrid(body,key);
+  if(sub==='topics') renderTopicsTab(body,key);
   else if(sub==='theory') renderTheory(body,key);
+  else if(sub==='cards') renderCardsGrid(body,key);
+  else if(sub==='notebook') renderNotebookTab(body,key);
   else renderPractice(body,key);
+}
+
+/* ---------- Вкладка «Темы» ---------- */
+function renderTopicsTab(body, key){
+  function draw(){
+    const topics = getCategoryTopicsOrdered(key).filter(t=>t.id!=='general');
+    const pinned = STORE.pinnedTopics[key]||[];
+    let html = `<div class="topics-tab-list" id="topicsList">`;
+    topics.forEach((t)=>{
+      const isPinned = pinned.includes(t.id);
+      const cnt = APP_DATA[key].cards.filter(c=>getCardTopicId(key,c)===t.id).length;
+      html += `<div class="topic-row" data-id="${t.id}">
+        <span class="drag-handle" data-drag="${t.id}" title="Перетащи, чтобы изменить порядок">≡</span>
+        <button class="mini-btn ${isPinned?'pin-on':''}" data-pin-topic="${t.id}" title="Закрепить">•</button>
+        <input class="topic-name-input" data-id="${t.id}" value="${esc(t.name)}">
+        <span style="font-size:11px;color:var(--text-faint);font-family:var(--font-mono);min-width:52px;text-align:right">${cnt} карт.</span>
+        <button class="icon-btn" data-del-topic="${t.id}">Удал.</button>
+      </div>`;
+    });
+    html += `</div>
+      <div class="field" style="margin-top:14px;max-width:400px"><label>Новая тема</label><input id="newTopicName" placeholder="Например: Судебные прецеденты"></div>
+      <button class="btn btn-primary" id="mAddTopic" style="margin-top:8px">Добавить тему</button>`;
+    body.innerHTML = html;
+    document.getElementById('mAddTopic').onclick=()=>{
+      const name = document.getElementById('newTopicName').value.trim();
+      if(!name) return;
+      addTopic(key,name);
+      draw();
+    };
+    body.querySelectorAll('.topic-name-input').forEach(inp=>{
+      inp.addEventListener('change',()=>{ renameTopic(key, inp.dataset.id, inp.value.trim()||'Без названия'); draw(); });
+    });
+    body.querySelectorAll('[data-del-topic]').forEach(btn=>{ btn.onclick=()=>{ deleteTopic(key, btn.dataset.delTopic); draw(); }; });
+    body.querySelectorAll('[data-pin-topic]').forEach(btn=>{ btn.onclick=()=>{ toggleTopicPin(key, btn.dataset.pinTopic); draw(); }; });
+    initTopicDrag(document.getElementById('topicsList'), key, draw);
+  }
+  draw();
+}
+
+/* ---------- Перетаскивание тем пальцем/мышью вместо стрелочек ---------- */
+function initTopicDrag(container, key, onCommit){
+  if(!container) return;
+  let dragEl = null, dragId = null, startY = 0, startTop = 0, rows = [];
+
+  function rowsInfo(){
+    return [...container.querySelectorAll('.topic-row')].map(el=>({el, id:el.dataset.id, rect:el.getBoundingClientRect()}));
+  }
+  container.querySelectorAll('[data-drag]').forEach(handle=>{
+    handle.addEventListener('pointerdown',(e)=>{
+      dragEl = handle.closest('.topic-row');
+      dragId = handle.dataset.drag;
+      startY = e.clientY;
+      startTop = dragEl.offsetTop;
+      rows = rowsInfo();
+      dragEl.classList.add('dragging');
+      dragEl.style.zIndex = 5;
+      try{ handle.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    handle.addEventListener('pointermove',(e)=>{
+      if(!dragEl) return;
+      const delta = e.clientY - startY;
+      dragEl.style.transform = `translateY(${delta}px)`;
+      dragEl.style.position = 'relative';
+      const dragCenter = startTop + delta + dragEl.offsetHeight/2;
+      const others = rows.filter(r=>r.id!==dragId);
+      let targetIndex = others.length;
+      for(let i=0;i<others.length;i++){
+        const rowMidOffset = others[i].el.offsetTop + others[i].el.offsetHeight/2;
+        if(dragCenter < rowMidOffset){ targetIndex = i; break; }
+      }
+      const currentOrder = [...container.querySelectorAll('.topic-row')].map(el=>el.dataset.id);
+      const withoutDrag = currentOrder.filter(id=>id!==dragId);
+      withoutDrag.splice(targetIndex, 0, dragId);
+      if(withoutDrag.join(',') !== currentOrder.join(',')){
+        withoutDrag.forEach(id=>{
+          if(id===dragId) return;
+          const el = container.querySelector(`.topic-row[data-id="${id}"]`);
+          if(el) container.insertBefore(el, null);
+        });
+        // переставляем DOM в новом порядке (кроме перетаскиваемого, который визуально смещён transform'ом)
+        const orderedEls = withoutDrag.map(id=>container.querySelector(`.topic-row[data-id="${id}"]`)).filter(Boolean);
+        orderedEls.forEach(el=>container.appendChild(el));
+        rows = rowsInfo();
+      }
+    });
+    const end = (e)=>{
+      if(!dragEl) return;
+      dragEl.classList.remove('dragging');
+      dragEl.style.transform = '';
+      dragEl.style.position = '';
+      dragEl.style.zIndex = '';
+      const finalOrder = [...container.querySelectorAll('.topic-row')].map(el=>el.dataset.id);
+      STORE.topicOrder[key] = finalOrder;
+      saveStore();
+      dragEl = null; dragId = null;
+      onCommit();
+    };
+    handle.addEventListener('pointerup', end);
+    handle.addEventListener('pointercancel', end);
+  });
 }
 
 function renderCardsGrid(body,key){
@@ -1755,17 +2538,18 @@ function renderCardsGrid(body,key){
 
   const type = data.meta.type || "custom";
   const shown = filter==='all' ? data.cards : data.cards.filter(c=>getCardTopicId(key,c)===filter);
-  let html = filterHtml + `<div class="btn-row" style="margin-bottom:14px"><button class="btn btn-primary" id="btnStudy">Изучить (${shown.length})</button></div><div class="grid">`;
+  let html = filterHtml + `<div class="btn-row" style="margin-bottom:14px"><button class="btn btn-primary" id="btnStudy">Изучить (${shown.length})</button><button class="btn" id="btnAddCard2">Добавить карточку</button></div><div class="grid">`;
   shown.forEach(c=>{
     const {top,sub,body:cardBody,usage} = renderCardFace(type,c);
     const badgeClass = c.level>=3?'mastered':'';
     html += `<div class="flashcard" data-open="${c.id}">
       <div class="level-badge ${badgeClass}">ур. ${c.level}</div>
       <div class="fc-topic">${esc(topicName(key,getCardTopicId(key,c)))}</div>
-      <div class="fc-top">${esc(top)}</div>
-      <div class="fc-sub">${esc(sub)}</div>
-      <div class="fc-body">${esc(cardBody)}</div>
-      ${usage?`<div class="fc-usage">Perfect Usage: ${esc(usage)}</div>`:''}
+      <div class="fc-top">${top}</div>
+      <div class="fc-sub">${sub}</div>
+      <div class="fc-body">${cardBody}</div>
+      ${usage?`<div class="fc-usage">Perfect Usage: ${usage}</div>`:''}
+      ${c.attachmentData?(c.attachmentType&&c.attachmentType.startsWith('image')?`<img class="fc-attach" src="${c.attachmentData}">`:`<div class="rt-attach-chip">Файл: ${esc(c.attachmentName||'вложение')}</div>`):''}
       <div class="fc-actions">
         <button class="icon-btn edit" data-edit="${c.id}" title="Изменить">Ред.</button>
         <button class="icon-btn" data-del="${c.id}" title="Удалить">Удал.</button>
@@ -1782,9 +2566,358 @@ function renderCardsGrid(body,key){
     startStudySession(key, shown.map(c=>c.id), card.dataset.open);
   }));
   document.getElementById('btnStudy').onclick=()=>startStudySession(key, shown.map(c=>c.id));
+  document.getElementById('btnAddCard2').onclick=()=>openCardModal(key);
+}
+
+/* ==========================================================================
+   ТЕТРАДЬ (рисование стилусом/пальцем/мышью — Pointer Events + canvas)
+   ========================================================================== */
+let NOTEBOOK_STATE = null; // {catKey, notebookId, tool, color, width, opacity, redoStacks:{pageId:[strokes]}}
+const NB_PAPER_COLORS = { cream:'#F4ECD8', white:'#FFFFFF', black:'#1B1B1B' };
+const NB_LINE_COLORS  = { cream:'#B9AD8C', white:'#D8D8D8', black:'#3A3A3A' };
+const NB_COLORS = [
+  '#1B1B1B','#FFFFFF','#8A8A8A',
+  '#5C3418','#6B3F1F','#5E2430','#2F3B2E','#26415C',
+  '#F4B8C6','#B8D4F4','#F4E8B8','#C6E8C6'
+];
+const NB_TOOL_DEFAULTS = {
+  pen:{width:3, opacity:1},
+  highlighter:{width:18, opacity:0.32}
+};
+const NB_STRAIGHTEN_DELAY = 420; // мс задержки стилуса для выпрямления линии
+const NB_STRAIGHTEN_MOVE_TOLERANCE = 4; // px — почти неподвижен
+
+function renderNotebookTab(body, key){
+  const notebooks = STORE.notebooks[key] || [];
+  if(NOTEBOOK_STATE && NOTEBOOK_STATE.catKey===key && notebooks.find(n=>n.id===NOTEBOOK_STATE.notebookId)){
+    renderNotebookEditor(body, key);
+    return;
+  }
+  let html = `<div class="btn-row" style="margin-bottom:16px"><button class="btn btn-primary" id="btnNewNotebook">Создать тетрадь</button></div>`;
+  if(notebooks.length===0){
+    html += `<div class="empty-state">Пока нет тетрадей. Создай тетрадь и пиши от руки стилусом или пальцем — линейка, клетка, точка или пустой лист.</div>`;
+  } else {
+    html += `<div class="grid">`;
+    notebooks.forEach(nb=>{
+      html += `<div class="flashcard nb-card" data-open-nb="${nb.id}">
+        <div class="fc-top">${esc(nb.name)}</div>
+        <div class="fc-body">${nb.pages.length} стр.</div>
+        <div class="fc-actions">
+          <button class="icon-btn" data-del-nb="${nb.id}">Удал.</button>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  body.innerHTML = html;
+  document.getElementById('btnNewNotebook').onclick=()=>{
+    const name = prompt('Название тетради:', 'Новая тетрадь');
+    if(!name) return;
+    if(!STORE.notebooks[key]) STORE.notebooks[key]=[];
+    const nb = { id:uid('nb'), name, pages:[{ id:uid('pg'), bg:'lined', paper:'cream', strokes:[] }] };
+    STORE.notebooks[key].push(nb);
+    saveStore();
+    NOTEBOOK_STATE = { catKey:key, notebookId:nb.id, tool:'pen', color:NB_COLORS[0], width:NB_TOOL_DEFAULTS.pen.width, opacity:NB_TOOL_DEFAULTS.pen.opacity, redoStacks:{}, newPageBg:'lined', newPagePaper:'cream' };
+    renderNotebookTab(body,key);
+  };
+  body.querySelectorAll('[data-open-nb]').forEach(el=>el.addEventListener('click',(e)=>{
+    if(e.target.closest('[data-del-nb]')) return;
+    NOTEBOOK_STATE = { catKey:key, notebookId:el.dataset.openNb, tool:'pen', color:NB_COLORS[0], width:NB_TOOL_DEFAULTS.pen.width, opacity:NB_TOOL_DEFAULTS.pen.opacity, redoStacks:{}, newPageBg:'lined', newPagePaper:'cream' };
+    renderNotebookTab(body,key);
+  }));
+  body.querySelectorAll('[data-del-nb]').forEach(el=>el.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    STORE.notebooks[key] = (STORE.notebooks[key]||[]).filter(n=>n.id!==el.dataset.delNb);
+    saveStore();
+    renderNotebookTab(body,key);
+  }));
+}
+
+function renderNotebookEditor(body, key){
+  const nb = (STORE.notebooks[key]||[]).find(n=>n.id===NOTEBOOK_STATE.notebookId);
+  if(!nb){ NOTEBOOK_STATE=null; renderNotebookTab(body,key); return; }
+  const s = NOTEBOOK_STATE;
+
+  body.innerHTML = `
+    <div class="nb-toolbar">
+      <button class="btn" id="nbBack">← Все тетради</button>
+      <span class="nb-title">${esc(nb.name)}</span>
+      <span class="nb-page-nav">${nb.pages.length} стр. · листай вниз</span>
+    </div>
+    <div class="nb-controls">
+      <div class="nb-group">
+        <button class="mini-btn ${s.tool==='pen'?'pin-on':''}" id="nbToolPen">Перо</button>
+        <button class="mini-btn ${s.tool==='highlighter'?'pin-on':''}" id="nbToolHi">Маркер</button>
+        <button class="mini-btn ${s.tool==='eraser'?'pin-on':''}" id="nbToolEraser">Ластик</button>
+      </div>
+      <div class="nb-group nb-colors">
+        ${NB_COLORS.map(c=>`<button class="nb-swatch ${s.color===c?'active':''}" data-color="${c}" style="background:${c}"></button>`).join('')}
+      </div>
+      <div class="nb-group nb-slider-group">
+        <span class="nb-group-label">Толщина</span>
+        <input type="range" id="nbWidth" min="1" max="40" value="${s.width}">
+      </div>
+      <div class="nb-group nb-slider-group">
+        <span class="nb-group-label">Прозрачность</span>
+        <input type="range" id="nbOpacity" min="10" max="100" value="${Math.round(s.opacity*100)}">
+      </div>
+      <div class="nb-group">
+        <button class="mini-btn" id="nbUndo" title="Назад">‹ Назад</button>
+        <button class="mini-btn" id="nbRedo" title="Вперёд">Вперёд ›</button>
+        <button class="mini-btn" id="nbClear">Очистить страницу</button>
+      </div>
+      <div class="nb-group">
+        <span class="nb-group-label">Новая стр.: фон</span>
+        <select id="nbNewBg">
+          <option value="lined" ${s.newPageBg==='lined'?'selected':''}>Линейка</option>
+          <option value="grid" ${s.newPageBg==='grid'?'selected':''}>Клетка</option>
+          <option value="dot" ${s.newPageBg==='dot'?'selected':''}>Точка</option>
+          <option value="blank" ${s.newPageBg==='blank'?'selected':''}>Пусто</option>
+        </select>
+        <select id="nbNewPaper">
+          <option value="cream" ${s.newPagePaper==='cream'?'selected':''}>Пергамент</option>
+          <option value="white" ${s.newPagePaper==='white'?'selected':''}>Белый</option>
+          <option value="black" ${s.newPagePaper==='black'?'selected':''}>Чёрный</option>
+        </select>
+      </div>
+    </div>
+    <div class="nb-scroll" id="nbScroll"></div>
+    <div class="btn-row" style="margin-top:10px"><button class="btn" id="nbAddPage">+ Добавить страницу</button></div>
+  `;
+  document.getElementById('nbBack').onclick=()=>{ NOTEBOOK_STATE=null; renderNotebookTab(body,key); };
+
+  document.getElementById('nbToolPen').onclick=()=>{ setTool('pen'); };
+  document.getElementById('nbToolHi').onclick=()=>{ setTool('highlighter'); };
+  document.getElementById('nbToolEraser').onclick=()=>{ setTool('eraser'); };
+  function setTool(tool){
+    s.tool = tool;
+    if(NB_TOOL_DEFAULTS[tool]){ s.width = NB_TOOL_DEFAULTS[tool].width; s.opacity = NB_TOOL_DEFAULTS[tool].opacity; }
+    renderNotebookEditor(body,key);
+  }
+  document.querySelectorAll('.nb-swatch').forEach(sw=>sw.onclick=()=>{
+    s.color = sw.dataset.color;
+    if(s.tool==='eraser') s.tool='pen';
+    document.querySelectorAll('.nb-swatch').forEach(x=>x.classList.remove('active'));
+    sw.classList.add('active');
+    document.getElementById('nbToolPen').classList.add('pin-on');
+    document.getElementById('nbToolHi').classList.remove('pin-on');
+    document.getElementById('nbToolEraser').classList.remove('pin-on');
+  });
+  document.getElementById('nbWidth').oninput=(e)=>{ s.width = +e.target.value; };
+  document.getElementById('nbOpacity').oninput=(e)=>{ s.opacity = (+e.target.value)/100; };
+  document.getElementById('nbNewBg').onchange=(e)=>{ s.newPageBg = e.target.value; };
+  document.getElementById('nbNewPaper').onchange=(e)=>{ s.newPagePaper = e.target.value; };
+
+  document.getElementById('nbAddPage').onclick=()=>{
+    nb.pages.push({ id:uid('pg'), bg:s.newPageBg, paper:s.newPagePaper, strokes:[] });
+    saveStore();
+    renderNotebookEditor(body,key);
+    requestAnimationFrame(()=>{
+      const scroll = document.getElementById('nbScroll');
+      if(scroll) scroll.scrollTop = scroll.scrollHeight;
+    });
+  };
+
+  const scrollWrap = document.getElementById('nbScroll');
+  const pageCtxs = {}; // pageId -> {canvas, ctx}
+
+  nb.pages.forEach(page=>{
+    const pageDiv = document.createElement('div');
+    pageDiv.className = `nb-page paper-${page.paper} bg-${page.bg}`;
+    pageDiv.dataset.pageId = page.id;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'nb-canvas';
+    pageDiv.appendChild(canvas);
+    const delBtn = document.createElement('button');
+    delBtn.className = 'nb-page-del';
+    delBtn.textContent = 'Удалить страницу';
+    delBtn.style.display = nb.pages.length>1 ? '' : 'none';
+    delBtn.onclick = ()=>{
+      if(!confirm('Удалить эту страницу?')) return;
+      nb.pages = nb.pages.filter(p=>p.id!==page.id);
+      saveStore();
+      renderNotebookEditor(body,key);
+    };
+    pageDiv.appendChild(delBtn);
+    scrollWrap.appendChild(pageDiv);
+
+    const ctx = canvas.getContext('2d');
+    pageCtxs[page.id] = {canvas, ctx, page};
+    setupPageDrawing(canvas, ctx, page, s);
+  });
+
+  function sizeAll(){
+    Object.values(pageCtxs).forEach(({canvas,ctx,page})=>{
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const w = rect.width || 700, h = 900;
+      canvas.width = Math.max(1, Math.round(w*dpr));
+      canvas.height = Math.max(1, Math.round(h*dpr));
+      canvas.style.width = w+'px';
+      canvas.style.height = h+'px';
+      if(ctx) ctx.setTransform(dpr,0,0,dpr,0,0);
+      redrawCanvas(canvas, ctx, page);
+    });
+  }
+  sizeAll();
+  window.addEventListener('resize', sizeAll, {once:false});
+
+  document.getElementById('nbUndo').onclick=()=>{
+    // отменяем последний штрих на последней активной странице (той, где рисовали)
+    const targetPageId = s.lastActivePageId || (nb.pages[nb.pages.length-1] && nb.pages[nb.pages.length-1].id);
+    const target = pageCtxs[targetPageId];
+    if(!target || target.page.strokes.length===0) return;
+    const stroke = target.page.strokes.pop();
+    if(!s.redoStacks[targetPageId]) s.redoStacks[targetPageId]=[];
+    s.redoStacks[targetPageId].push(stroke);
+    saveStore();
+    redrawCanvas(target.canvas, target.ctx, target.page);
+  };
+  document.getElementById('nbRedo').onclick=()=>{
+    const targetPageId = s.lastActivePageId || (nb.pages[nb.pages.length-1] && nb.pages[nb.pages.length-1].id);
+    const target = pageCtxs[targetPageId];
+    const stack = s.redoStacks[targetPageId];
+    if(!target || !stack || stack.length===0) return;
+    const stroke = stack.pop();
+    target.page.strokes.push(stroke);
+    saveStore();
+    redrawCanvas(target.canvas, target.ctx, target.page);
+  };
+  document.getElementById('nbClear').onclick=()=>{
+    const targetPageId = s.lastActivePageId || (nb.pages[nb.pages.length-1] && nb.pages[nb.pages.length-1].id);
+    const target = pageCtxs[targetPageId];
+    if(!target) return;
+    if(!confirm('Очистить эту страницу?')) return;
+    target.page.strokes = [];
+    s.redoStacks[targetPageId] = [];
+    saveStore();
+    redrawCanvas(target.canvas, target.ctx, target.page);
+  };
+
+  function setupPageDrawing(canvas, ctx, page, s){
+    canvas.style.touchAction = 'none';
+    let drawing = false;
+    let currentStroke = null;
+    let holdTimer = null;
+    let startPoint = null;
+
+    function posFromEvent(e){
+      const rect = canvas.getBoundingClientRect();
+      return { x: e.clientX-rect.left, y: e.clientY-rect.top, pressure: (e.pressure && e.pressure>0)? e.pressure : 0.5 };
+    }
+    function clearHoldTimer(){ if(holdTimer){ clearTimeout(holdTimer); holdTimer=null; } }
+    function armHoldTimer(){
+      clearHoldTimer();
+      holdTimer = setTimeout(()=>{
+        if(!drawing || !currentStroke || currentStroke.points.length<2) return;
+        const last = currentStroke.points[currentStroke.points.length-1];
+        currentStroke.points = [startPoint, last];
+        redrawCanvas(canvas, ctx, page);
+        redrawLivePreview(ctx, currentStroke);
+      }, NB_STRAIGHTEN_DELAY);
+    }
+
+    canvas.addEventListener('pointerdown',(e)=>{
+      if(!ctx) return;
+      drawing = true;
+      s.lastActivePageId = page.id;
+      s.redoStacks[page.id] = []; // новый штрих обнуляет "вперёд"
+      try{ canvas.setPointerCapture(e.pointerId); }catch(err){}
+      const p = posFromEvent(e);
+      startPoint = p;
+      const isEraser = s.tool==='eraser';
+      currentStroke = {
+        color: isEraser ? NB_PAPER_COLORS[page.paper] : s.color,
+        width: isEraser ? 22 : s.width,
+        opacity: isEraser ? 1 : s.opacity,
+        tool: s.tool,
+        points: [p]
+      };
+      armHoldTimer();
+    });
+    canvas.addEventListener('pointermove',(e)=>{
+      if(!drawing || !currentStroke) return;
+      const p = posFromEvent(e);
+      const last = currentStroke.points[currentStroke.points.length-1];
+      const moved = Math.hypot(p.x-last.x, p.y-last.y);
+      currentStroke.points.push(p);
+      drawStrokeSegment(ctx, currentStroke);
+      if(moved > NB_STRAIGHTEN_MOVE_TOLERANCE) armHoldTimer();
+    });
+    function endStroke(){
+      if(!drawing) return;
+      drawing = false;
+      clearHoldTimer();
+      if(currentStroke && currentStroke.points.length>1){
+        page.strokes.push(currentStroke);
+        saveStore();
+      }
+      currentStroke = null;
+    }
+    canvas.addEventListener('pointerup', endStroke);
+    canvas.addEventListener('pointercancel', endStroke);
+    canvas.addEventListener('pointerleave', endStroke);
+  }
+}
+
+function redrawLivePreview(ctx, stroke){
+  if(!ctx) return;
+  const pts = stroke.points;
+  if(pts.length<2) return;
+  ctx.save();
+  ctx.globalAlpha = stroke.opacity!=null?stroke.opacity:1;
+  ctx.strokeStyle = stroke.color;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = stroke.width;
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x, pts[i].y);
+  ctx.stroke();
+  ctx.restore();
+}
+function drawStrokeSegment(ctx, stroke){
+  if(!ctx) return;
+  const pts = stroke.points;
+  if(pts.length<2) return;
+  const a = pts[pts.length-2], b = pts[pts.length-1];
+  ctx.save();
+  ctx.globalAlpha = stroke.opacity!=null?stroke.opacity:1;
+  ctx.strokeStyle = stroke.color;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = stroke.width * (stroke.tool==='highlighter' ? 1 : (0.5 + (b.pressure||0.5)));
+  ctx.beginPath();
+  ctx.moveTo(a.x,a.y);
+  ctx.lineTo(b.x,b.y);
+  ctx.stroke();
+  ctx.restore();
+}
+function redrawCanvas(canvas, ctx, page){
+  if(!ctx) return;
+  const dpr = window.devicePixelRatio || 1;
+  ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
+  (page.strokes||[]).forEach(stroke=>{
+    const pts = stroke.points;
+    if(pts.length<2) return;
+    ctx.save();
+    ctx.globalAlpha = stroke.opacity!=null?stroke.opacity:1;
+    ctx.strokeStyle = stroke.color;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for(let i=1;i<pts.length;i++){
+      ctx.lineWidth = stroke.width * (stroke.tool==='highlighter' ? 1 : (0.5 + (pts[i].pressure||0.5)));
+      ctx.beginPath();
+      ctx.moveTo(pts[i-1].x, pts[i-1].y);
+      ctx.lineTo(pts[i].x, pts[i].y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  });
 }
 
 /* ---------- Изучение карточек в стиле Quizlet: флип + Знаю/Не знаю/Повторю ещё ---------- */
+
 function startStudySession(catKey, cardIds, startId){
   if(cardIds.length===0) return;
   let ids = cardIds.slice();
@@ -1815,8 +2948,8 @@ function renderStudyModal(){
       <div class="study-card" id="studyCard">
         <span class="sc-topic">${esc(topicName(s.catKey,getCardTopicId(s.catKey,card)))}</span>
         ${s.flipped
-          ? `<div><div class="sc-main">${esc(sub)}</div><div class="sc-sub">${esc(body)}${usage?`<br><br>Perfect Usage: ${esc(usage)}`:''}</div></div>`
-          : `<div class="sc-main">${esc(top)}</div>`}
+          ? `<div><div class="sc-main">${sub}</div><div class="sc-sub">${body}${usage?`<br><br>Perfect Usage: ${usage}`:''}</div></div>`
+          : `<div class="sc-main">${top}</div>`}
         <span class="sc-hint">${s.flipped?'Нажми, чтобы увидеть вопрос':'Нажми, чтобы увидеть ответ'}</span>
       </div>
     </div>
@@ -1867,10 +3000,10 @@ function renderTheory(body,key){
         <div class="theory-topic">${esc(topicName(key,m.topicId))}</div>
         <div class="theory-title">${esc(m.title)}</div>
         <div class="theory-block"><div class="tb-label">Главный вопрос</div><div class="tb-body">${esc(m.mainQuestion)}</div></div>
-        <div class="theory-block"><div class="tb-label">Объяснение простыми словами</div><div class="tb-body">${esc(m.explanation)}</div></div>
-        ${m.facts?`<div class="theory-block"><div class="tb-label">Интересные факты — копнуть глубже</div><div class="tb-body">${esc(m.facts)}</div></div>`:''}
-        ${m.connections?`<div class="theory-block"><div class="tb-label">Связь с другими темами</div><div class="tb-body">${esc(m.connections)}</div></div>`:''}
-        ${m.application?`<div class="theory-block"><div class="tb-label">Как использовать</div><div class="tb-body">${esc(m.application)}</div></div>`:''}
+        <div class="theory-block"><div class="tb-label">Объяснение простыми словами</div><div class="tb-body">${m.explanation}</div></div>
+        ${m.facts?`<div class="theory-block"><div class="tb-label">Интересные факты — копнуть глубже</div><div class="tb-body">${m.facts}</div></div>`:''}
+        ${m.connections?`<div class="theory-block"><div class="tb-label">Связь с другими темами</div><div class="tb-body">${m.connections}</div></div>`:''}
+        ${m.application?`<div class="theory-block"><div class="tb-label">Как использовать</div><div class="tb-body">${m.application}</div></div>`:''}
         <div class="theory-actions">
           <button class="btn btn-primary" data-mkcard="${m.id}">Сделать карточку</button>
           <button class="btn" data-edittheory="${m.id}">Изменить</button>
@@ -1926,6 +3059,7 @@ function renderPractice(body,key){
   body.innerHTML = `
     <div class="practice-wrap">
       ${tabsHtml}
+      <div class="btn-row" style="margin-bottom:10px"><button class="btn" id="btnAddTasks">Добавить задания по теме</button></div>
       <div class="stat-row">
         <div class="stat-box"><div class="num">${PRACTICE_STATE.total}</div><div class="lbl">пройдено</div></div>
         <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">правильных</div></div>
@@ -1935,6 +3069,7 @@ function renderPractice(body,key){
       <div class="task-card" id="taskCard"></div>
     </div>
   `;
+  document.getElementById('btnAddTasks').onclick=()=>openAddTasksModal(key,body);
   body.querySelectorAll('.mode-tab').forEach(tab=>tab.onclick=()=>{
     PRACTICE_STATE.mode = tab.dataset.mode; PRACTICE_STATE.idx=0; PRACTICE_STATE.revealed=false; PRACTICE_STATE.matchLeft=null; PRACTICE_STATE.matchDone=[];
     renderPractice(body,key);
@@ -1949,6 +3084,43 @@ function renderPractice(body,key){
   }
   const task = pool[PRACTICE_STATE.idx % pool.length];
   renderTaskCard(document.getElementById("taskCard"), task, key, pool, body);
+}
+
+function openAddTasksModal(key, body){
+  document.getElementById('modalBody').innerHTML = `
+    <h3>Добавить задания по теме</h3>
+    <div style="font-size:11.5px;color:var(--text-faint);margin-bottom:12px;line-height:1.6">
+      Вставь сюда практику, оформленную Claude в чате из твоего материала, в формате JSON-массива:<br>
+      <code>[{"topic":"Название темы","mode":"task","prompt":"...","options":["...","...","...","..."],"answer":"...","explanation":"..."}]</code><br>
+      Режимы: task, case, fill, open (нужны prompt/answer/explanation), match (вместо этого — "pairs":[{"left":"...","right":"..."}]).
+    </div>
+    <div class="field"><textarea id="tasksJson" style="min-height:180px" placeholder="Вставь готовый JSON сюда"></textarea></div>
+    <div class="modal-actions"><button class="btn" id="mCancelTasks">Отмена</button><button class="btn btn-primary" id="mSaveTasks">Добавить</button></div>
+  `;
+  document.getElementById('mCancelTasks').onclick=closeOverlay;
+  document.getElementById('mSaveTasks').onclick=()=>{
+    let parsed;
+    try{ parsed = JSON.parse(document.getElementById('tasksJson').value); }
+    catch(e){ openInfoModal('Ошибка', 'Не получилось прочитать JSON — проверь, что скобки и кавычки на месте.'); return; }
+    if(!Array.isArray(parsed)){ openInfoModal('Ошибка', 'Ожидается массив заданий в квадратных скобках — [ ... ].'); return; }
+    if(!STORE.customTasks[key]) STORE.customTasks[key]=[];
+    let count = 0;
+    parsed.forEach(t=>{
+      const topicId = resolveTopicByName(key, t.topic);
+      STORE.customTasks[key].push({
+        id: uid('ct'), topicId, mode: t.mode||'task',
+        prompt: t.prompt||'', options: t.options||null, pairs: t.pairs||null,
+        answer: t.answer||'', explanation: t.explanation||'', olympiad: !!t.olympiad
+      });
+      count++;
+    });
+    saveStore();
+    buildAllData();
+    closeOverlay();
+    renderAll();
+    openInfoModal('Готово', `Добавлено заданий: <b>${count}</b>.`);
+  };
+  openOverlay();
 }
 
 function gradeAndAdvance(key, task, correct){
@@ -2072,7 +3244,9 @@ function renderMatchTask(el, task, key, body){
    ========================================================================== */
 function renderReview(main){
   const due = reviewDueCards();
-  main.innerHTML = `<div class="topbar"><div><h2>Spaced Repetition</h2><div class="desc">Карточки, срок повторения которых наступил</div></div></div><div id="reviewBody"></div>`;
+  main.innerHTML = `<div class="topbar"><div><h2>Spaced Repetition</h2><div class="desc">Карточки, срок повторения которых наступил</div></div>
+    <button class="btn btn-primary" id="btnAddToReview">Добавить карточку на повторение</button></div><div id="reviewBody"></div>`;
+  document.getElementById('btnAddToReview').onclick=()=>openAddToReviewModal(main);
   const rb = document.getElementById("reviewBody");
   if(due.length===0){ rb.innerHTML = `<div class="empty-state">Все карточки повторены. Загляни завтра!</div>`; return; }
 
@@ -2121,10 +3295,10 @@ function runReviewSession(container, queue, isRno){
       <div class="stat-row"><div class="stat-box"><div class="num">${idx+1}/${queue.length}</div><div class="lbl">карточек в очереди</div></div></div>
       <div class="task-card">
         <div class="task-type">${meta?esc(meta.name):''} ${isRno?'· WON':''}</div>
-        <div class="task-prompt">${esc(top)}</div>
-        <div style="color:var(--accent-strong);font-weight:600;margin-bottom:8px">${esc(sub)}</div>
+        <div class="task-prompt">${top}</div>
+        <div style="color:var(--accent-strong);font-weight:600;margin-bottom:8px">${sub}</div>
         <button class="btn" id="btnRevealRev">Показать ответ</button>
-        <div class="answer-box" id="answerBoxRev"><div class="a-label">Детали</div><div>${esc(body)}</div>${usage?`<div class="fc-usage" style="margin-top:8px">Perfect Usage: ${esc(usage)}</div>`:''}</div>
+        <div class="answer-box" id="answerBoxRev"><div class="a-label">Детали</div><div>${body}</div>${usage?`<div class="fc-usage" style="margin-top:8px">Perfect Usage: ${usage}</div>`:''}</div>
         <div class="grade-row" id="gradeRowRev" style="display:none">
           <button class="btn btn-good" id="btnGoodRev">Помню</button>
           <button class="btn btn-bad" id="btnBadRev">Забыл(а)</button>
@@ -2150,6 +3324,11 @@ function renderRno(main){
   main.innerHTML = `
     <div class="topbar"><div><h2>WON <span style="font-size:14px;color:var(--text-faint);font-weight:400">(Work On mistakes)</span></h2><div class="desc">Все ошибки из практики попадают сюда и повторяются по интервалам (1 → 3 → 7 → 14 → 30 дней)</div></div></div>
     <div class="rno-banner">5–10 минут в день на WON — и ошибки перестанут повторяться</div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="num">${mistakeCards.length}</div><div class="lbl">в работе сейчас</div></div>
+      <div class="stat-box"><div class="num">${due.length}</div><div class="lbl">на сегодня</div></div>
+      <div class="stat-box"><div class="num">${STORE.fixedMistakes||0}</div><div class="lbl">исправлено всего</div></div>
+    </div>
     <div id="rnoBody"></div>
   `;
   const body = document.getElementById("rnoBody");
@@ -2158,7 +3337,7 @@ function renderRno(main){
     return;
   }
   if(due.length===0){
-    body.innerHTML = `<div class="empty-state">На сегодня в РНО ничего не осталось. Всего в работе: ${mistakeCards.length} карточек.</div>`;
+    body.innerHTML = `<div class="empty-state">На сегодня в WON ничего не осталось. Всего в работе: ${mistakeCards.length} карточек.</div>`;
     return;
   }
   const groups = {};
@@ -2168,7 +3347,7 @@ function renderRno(main){
     if(!groups[gKey]) groups[gKey]={catKey:c.catKey,topicId,cards:[]};
     groups[gKey].cards.push(c);
   });
-  let html = `<div class="review-summary">Сегодня в РНО: <b>${due.length} карточек</b></div><div class="review-groups">`;
+  let html = `<div class="review-summary">Сегодня в WON: <b>${due.length} карточек</b></div><div class="review-groups">`;
   Object.values(groups).forEach(g=>{
     const catName = APP_DATA[g.catKey] ? APP_DATA[g.catKey].meta.name : g.catKey;
     html += `<div class="review-group"><span class="rg-mark rno-mark"></span><span class="rg-text"><b>${esc(catName)}</b> (тема: ${esc(topicName(g.catKey,g.topicId))})</span><span class="rg-count">${g.cards.length}</span></div>`;
@@ -2179,43 +3358,54 @@ function renderRno(main){
 }
 
 /* ==========================================================================
-   17. PERFECT USAGE (бывшее «Где блеснуть»)
-   ========================================================================== */
-function renderPerfectUsage(main){
-  main.innerHTML = `<div class="topbar"><div><h2>Perfect Usage</h2><div class="desc">Все карточки, сгруппированные по темам — с указанием, где именно это пригодится</div></div></div>
-    <div class="filters" id="peFilters"></div><div id="peBody"></div>`;
-  const filters = document.getElementById("peFilters");
-  let fhtml = `<div class="chip active" data-f="all">Все</div>`;
-  allCategoryKeys().forEach(k=>fhtml+=`<div class="chip" data-f="${k}">${esc(APP_DATA[k].meta.name)}</div>`);
-  filters.innerHTML = fhtml;
-  function draw(filterKey){
-    const body = document.getElementById("peBody");
-    let html='';
-    allCategoryKeys().forEach(key=>{
-      if(filterKey!=='all' && filterKey!==key) return;
-      const data = APP_DATA[key];
-      const type = data.meta.type||"custom";
-      data.cards.forEach(c=>{
-        const {top,usage} = renderCardFace(type,c);
-        if(!usage) return;
-        html += `<div class="shine-item"><div class="s-top"><span>${esc(top)}</span><span class="s-cat">${esc(data.meta.name)}</span></div><div class="s-usage">Perfect Usage: ${esc(usage)}</div></div>`;
-      });
-    });
-    body.innerHTML = html || `<div class="empty-state">Нет карточек с примерами использования.</div>`;
-  }
-  filters.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{
-    filters.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-    chip.classList.add('active'); draw(chip.dataset.f);
-  });
-  draw('all');
-}
-
-/* ==========================================================================
    18. МОДАЛКИ: карточка / категория / темы / инфо
    ========================================================================== */
 function openOverlay(){ document.getElementById('overlay').classList.add('show'); }
 function closeOverlay(){ document.getElementById('overlay').classList.remove('show'); document.getElementById('modalBody').classList.remove('modal-lg'); }
 document.getElementById('overlay').addEventListener('click',(e)=>{ if(e.target.id==='overlay'){ STUDY_SESSION=null; closeOverlay(); } });
+
+function openAddToReviewModal(main){
+  document.getElementById('modalBody').innerHTML = `
+    <h3>Добавить карточку на повторение</h3>
+    <div class="field"><input id="artSearch" placeholder="Начни печатать название карточки..." autofocus></div>
+    <div id="artResults" style="max-height:320px;overflow-y:auto;"></div>
+    <div class="modal-actions"><button class="btn" id="mCancelArt">Закрыть</button></div>
+  `;
+  document.getElementById('mCancelArt').onclick=closeOverlay;
+  const resultsEl = document.getElementById('artResults');
+  function draw(query){
+    const q = query.trim().toLowerCase();
+    if(q.length<2){ resultsEl.innerHTML = '<div class="empty-state" style="padding:20px">Введи хотя бы 2 буквы</div>'; return; }
+    const matches = [];
+    allCategoryKeys().forEach(key=>{
+      const type = APP_DATA[key].meta.type||"custom";
+      APP_DATA[key].cards.forEach(c=>{
+        const face = renderCardFacePlain(type,c);
+        if(face.top.toLowerCase().includes(q) || face.sub.toLowerCase().includes(q)){
+          matches.push({key, card:c, face});
+        }
+      });
+    });
+    if(matches.length===0){ resultsEl.innerHTML = '<div class="empty-state" style="padding:20px">Ничего не найдено</div>'; return; }
+    resultsEl.innerHTML = matches.slice(0,30).map(m=>`<div class="art-row" data-key="${m.key}" data-id="${m.card.id}">
+      <span class="art-top">${esc(m.face.top)}</span><span class="art-sub">${esc(m.face.sub)}</span>
+      <span class="art-cat">${esc(getCategoryDisplayName(m.key))}</span>
+    </div>`).join('');
+    resultsEl.querySelectorAll('.art-row').forEach(row=>row.onclick=()=>{
+      const card = findCard(row.dataset.key, row.dataset.id);
+      if(card){
+        STORE.cardProgress[card.id] = { level: card.level||0, next_review: todayISO() };
+        saveStore();
+        buildAllData();
+        closeOverlay();
+        renderAll();
+        openInfoModal('Добавлено', `«${esc(row.querySelector('.art-top').textContent)}» теперь в списке на повторение сегодня.`);
+      }
+    });
+  }
+  document.getElementById('artSearch').addEventListener('input',(e)=>draw(e.target.value));
+  openOverlay();
+}
 
 function openInfoModal(title, html){
   document.getElementById('modalBody').innerHTML = `<h3>${esc(title)}</h3><div style="font-size:13px;line-height:1.7">${html}</div><div class="modal-actions"><button class="btn" id="mClose">Закрыть</button></div>`;
@@ -2304,21 +3494,23 @@ function openTheoryModal(key, materialId){
     <div class="field"><label>Название (тема лекции)</label><input id="thTitle" value="${editing?esc(editing.title):''}"></div>
     ${topicSelect}
     <div class="field"><label>Главный вопрос</label><textarea id="thQuestion" placeholder="На какой вопрос отвечает этот материал?">${editing?esc(editing.mainQuestion):''}</textarea></div>
-    <div class="field"><label>Объяснение простыми словами</label><textarea id="thExplain" placeholder="Как бы ты объяснила это другу, не используя термины?">${editing?esc(editing.explanation):''}</textarea></div>
-    <div class="field"><label>Интересные факты (копнуть глубже)</label><textarea id="thFacts" placeholder="Пара фактов сверх программы">${editing?esc(editing.facts||''):''}</textarea></div>
-    <div class="field"><label>Связь с другими темами</label><textarea id="thConn" placeholder="Как это соединяется с другими предметами?">${editing?esc(editing.connections||''):''}</textarea></div>
-    <div class="field"><label>Как использовать</label><textarea id="thApp" placeholder="Где и как это применить?">${editing?esc(editing.application||''):''}</textarea></div>
+    ${richField('thExplain','Объяснение простыми словами', editing?editing.explanation:'', 'Как бы ты объяснила это другу, не используя термины?')}
+    ${richField('thFacts','Интересные факты (копнуть глубже)', editing?(editing.facts||''):'', 'Пара фактов сверх программы')}
+    ${richField('thConn','Связь с другими темами', editing?(editing.connections||''):'', 'Как это соединяется с другими предметами?')}
+    ${richField('thApp','Как использовать', editing?(editing.application||''):'', 'Где и как это применить?')}
     <div class="modal-actions"><button class="btn" id="mCancelTh">Отмена</button><button class="btn btn-primary" id="mSaveTh">Сохранить</button></div>`;
+  document.getElementById('modalBody').classList.add('modal-lg');
+  wireRichToolbars();
   document.getElementById('mCancelTh').onclick=closeOverlay;
   document.getElementById('mSaveTh').onclick=()=>{
     const vals = {
       title: document.getElementById('thTitle').value.trim() || 'Без названия',
       topicId: document.getElementById('theoryTopicSelect').value,
       mainQuestion: document.getElementById('thQuestion').value.trim(),
-      explanation: document.getElementById('thExplain').value.trim(),
-      facts: document.getElementById('thFacts').value.trim(),
-      connections: document.getElementById('thConn').value.trim(),
-      application: document.getElementById('thApp').value.trim(),
+      explanation: document.getElementById('thExplain').innerHTML.trim(),
+      facts: document.getElementById('thFacts').innerHTML.trim(),
+      connections: document.getElementById('thConn').innerHTML.trim(),
+      application: document.getElementById('thApp').innerHTML.trim(),
       date: editing ? editing.date : todayISO()
     };
     if(!STORE.materials[key]) STORE.materials[key]=[];
@@ -2329,6 +3521,32 @@ function openTheoryModal(key, materialId){
     renderAll();
   };
   openOverlay();
+}
+
+/* ---------- Общий помощник: rich-text поле (жирный/курсив/зачёркнутый/подчёркнутый) ---------- */
+function richField(id, label, html, placeholder){
+  return `<div class="field">
+    <label>${esc(label)}</label>
+    <div class="rt-toolbar" data-for="${id}">
+      <button type="button" class="rt-btn b" data-cmd="bold" title="Жирный">B</button>
+      <button type="button" class="rt-btn i" data-cmd="italic" title="Курсив">I</button>
+      <button type="button" class="rt-btn s" data-cmd="strikeThrough" title="Зачёркнутый">S</button>
+      <button type="button" class="rt-btn u" data-cmd="underline" title="Подчёркнутый">U</button>
+    </div>
+    <div class="rt-editable" contenteditable="true" id="${id}" data-f="${id}" data-placeholder="${esc(placeholder||'')}">${html||''}</div>
+  </div>`;
+}
+function wireRichToolbars(){
+  document.querySelectorAll('.rt-toolbar .rt-btn').forEach(btn=>{
+    btn.addEventListener('mousedown',(e)=>e.preventDefault());
+    btn.addEventListener('click',()=>{
+      const targetField = btn.closest('.rt-toolbar').dataset.for;
+      const editable = document.getElementById(targetField) || document.querySelector(`.rt-editable[data-f="${targetField}"]`);
+      if(!editable) return;
+      editable.focus();
+      try{ document.execCommand(btn.dataset.cmd, false, null); }catch(err){}
+    });
+  });
 }
 
 function resolveTopicByName(catKey, name){
@@ -2472,8 +3690,16 @@ function openCardModal(key, cardId, fromMaterial){
   let fieldsHtml = '';
   fieldDefs.forEach(([f,label])=>{
     const val = editing ? (editing[f]||'') : (prefill[f]||'');
-    fieldsHtml += `<div class="field"><label>${esc(label)}</label><textarea data-f="${f}">${esc(val)}</textarea></div>`;
+    fieldsHtml += richField(f, label, val);
   });
+  const attachHtml = `<div class="field">
+    <label>Вложение (картинка, скрин, документ)</label>
+    <div class="rt-attach-row">
+      <button type="button" class="btn" id="btnAttach">Прикрепить файл</button>
+      <input type="file" id="attachInput" accept="image/*,.pdf,.doc,.docx" style="display:none">
+      <span id="attachPreview"></span>
+    </div>
+  </div>`;
   let topicSelect = `<div class="field"><label>Тема</label><select id="cardTopicSelect">`;
   topics.forEach(t=>{
     const selected = editing ? (getCardTopicId(key,editing)===t.id) : (fromMaterial ? fromMaterial.topicId===t.id : t.id==='general');
@@ -2483,15 +3709,48 @@ function openCardModal(key, cardId, fromMaterial){
 
   document.getElementById('modalBody').innerHTML = `
     <h3>${editing?'Изменить карточку':'Добавить карточку'}</h3>
-    <div id="cardFields">${fieldsHtml}${topicSelect}</div>
+    <div id="cardFields">${fieldsHtml}${attachHtml}${topicSelect}</div>
     <div class="modal-actions">
       <button class="btn" id="mCancel">Отмена</button>
       <button class="btn btn-primary" id="mSave">Сохранить</button>
     </div>`;
+  document.getElementById('modalBody').classList.add('modal-lg');
+
+  // Тулбар форматирования: bold/italic/strikethrough/underline через execCommand
+  wireRichToolbars();
+
+  // Вложение
+  let attachment = editing ? {data:editing.attachmentData, type:editing.attachmentType, name:editing.attachmentName} : {};
+  function renderAttachPreview(){
+    const el = document.getElementById('attachPreview');
+    if(!attachment.data){ el.innerHTML=''; return; }
+    if(attachment.type && attachment.type.startsWith('image')){
+      el.innerHTML = `<img class="rt-attach-thumb" src="${attachment.data}"><button type="button" class="mini-btn" id="btnAttachRemove">Убрать</button>`;
+    } else {
+      el.innerHTML = `<span class="rt-attach-chip">Файл: ${esc(attachment.name||'вложение')}</span><button type="button" class="mini-btn" id="btnAttachRemove">Убрать</button>`;
+    }
+    document.getElementById('btnAttachRemove').onclick=()=>{ attachment={}; renderAttachPreview(); };
+  }
+  renderAttachPreview();
+  document.getElementById('btnAttach').onclick=()=>document.getElementById('attachInput').click();
+  document.getElementById('attachInput').onchange=(e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      attachment = { data: reader.result, type: file.type, name: file.name };
+      renderAttachPreview();
+    };
+    reader.readAsDataURL(file);
+  };
+
   document.getElementById('mCancel').onclick=closeOverlay;
   document.getElementById('mSave').onclick=()=>{
     const vals = {};
-    document.querySelectorAll('#cardFields textarea[data-f]').forEach(inp=>{ vals[inp.dataset.f]=inp.value.trim(); });
+    document.querySelectorAll('#cardFields .rt-editable[data-f]').forEach(inp=>{ vals[inp.dataset.f]=inp.innerHTML.trim(); });
+    vals.attachmentData = attachment.data || null;
+    vals.attachmentType = attachment.type || null;
+    vals.attachmentName = attachment.name || null;
     const topicId = document.getElementById('cardTopicSelect').value;
     if(editing){
       Object.assign(editing, vals);
