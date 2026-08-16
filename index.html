@@ -42,10 +42,10 @@ html[data-theme="dark"]{
   --shadow:0 10px 30px rgba(0,0,0,.38);
   --wine:#5E2430;
   --wine-soft:rgba(94,36,48,.20);
-  --eis-uiq:#5E2430;
-  --eis-inq:#6E3F3C;
-  --eis-uniq:#5C5230;
-  --eis-ninq:#625A34;
+  --eis-uiq:rgba(94,36,48,.32);
+  --eis-inq:rgba(110,63,60,.30);
+  --eis-uniq:rgba(92,82,48,.28);
+  --eis-ninq:rgba(98,90,52,.24);
   --choc-bitter:#2A1710;
   --modal-smoky:#3A3833;
 }
@@ -69,10 +69,10 @@ html[data-theme="light"]{
   --shadow:0 10px 26px rgba(50,45,35,.08);
   --wine:#7A3540;
   --wine-soft:rgba(122,53,64,.10);
-  --eis-uiq:#7A3540;
-  --eis-inq:#87524A;
-  --eis-uniq:#726842;
-  --eis-ninq:#6E6440;
+  --eis-uiq:rgba(122,53,64,.22);
+  --eis-inq:rgba(135,82,74,.20);
+  --eis-uniq:rgba(114,104,66,.18);
+  --eis-ninq:rgba(110,100,64,.15);
   --choc-bitter:#2E1C10;
   --modal-smoky:#E9E6DF;
 }
@@ -127,7 +127,7 @@ textarea,input,select{border-radius:var(--radius-s);}
 }
 .sidebar-resizer:hover,.sidebar-resizer.dragging{background:var(--accent-soft);}
 .brand{padding:4px 8px 6px;}
-.brand h1{font-size:19px;letter-spacing:2.5px;transform:scaleX(1.55) scaleY(0.8);transform-origin:left center;font-weight:800;display:inline-block;white-space:nowrap;}
+.brand h1{font-size:26px;letter-spacing:3px;transform:scaleX(1.45) scaleY(0.85);transform-origin:left center;font-weight:800;display:inline-block;white-space:nowrap;}
 .brand .sub{font-size:11.5px;color:var(--text-dim);margin-top:3px;letter-spacing:.2px;}
 .aura-badge{margin:10px 8px 16px;padding:8px 12px;border-radius:var(--radius-s);background:var(--accent-soft);color:var(--accent-strong);font-family:var(--font-mono);font-size:11.5px;font-weight:600;text-align:center;}
 
@@ -365,6 +365,32 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
 .theory-block .tb-label{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:3px;}
 .theory-block .tb-body{font-size:13px;color:var(--text-dim);line-height:1.6;}
 .theory-actions{display:flex;gap:8px;margin-top:12px;}
+.theory-title-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px;}
+.theory-title-row .theory-title{margin-bottom:0;}
+.theory-date{font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint);white-space:nowrap;opacity:.7;}
+.theory-keywords{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.kw-chip{display:inline-flex;align-items:center;gap:5px;background:var(--accent-soft);color:var(--accent-strong);border-radius:12px;padding:3px 9px;font-size:11px;font-weight:500;}
+.kw-chip.editable button{background:none;border:none;color:inherit;opacity:.6;cursor:pointer;padding:0;font-size:10px;}
+.kw-chip.editable button:hover{opacity:1;}
+.theory-material-preview{max-height:140px;overflow:hidden;position:relative;}
+
+/* ---------- Полноэкранный редактор теории ---------- */
+.theory-editor{max-width:820px;}
+.te-header{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);padding:20px 22px;margin-bottom:20px;}
+.te-title-input{width:100%;border:none;background:transparent;font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--text);padding:0 0 10px;outline:none;}
+.te-meta-row{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--text-faint);align-items:center;padding-top:10px;border-top:1px dashed var(--border);}
+.te-meta-row label{display:flex;align-items:center;gap:6px;}
+.te-meta-row select,.te-meta-row input[type=date]{padding:5px 8px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);border-radius:6px;font-size:12px;}
+.te-section{margin-bottom:26px;}
+.te-section-title{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.te-section-later{opacity:.92;}
+.te-material-box{min-height:260px;}
+.te-notes-box{min-height:110px;background:var(--bg-soft);}
+.rt-btn.hl{width:20px;height:20px;border-radius:4px;padding:0;border:1px solid var(--border);}
+.kw-editor{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;min-height:26px;}
+.te-ai-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--accent-soft);border:1px dashed var(--accent);border-radius:var(--radius-m);padding:14px 16px;margin-bottom:20px;}
+.te-ai-hint{font-size:11.5px;color:var(--text-dim);flex:1;min-width:200px;}
+.te-footer{display:flex;justify-content:flex-end;gap:10px;padding-bottom:30px;}
 
 .empty-state{padding:50px 20px;text-align:center;color:var(--text-faint);}
 
@@ -408,20 +434,20 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
 .eis-wrap{border:1px solid var(--border);border-radius:var(--radius-l);padding:18px;background:var(--surface);}
 .eis-title{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--khaki);margin-bottom:14px;text-align:center;letter-spacing:3.5px;text-transform:uppercase;opacity:.55;transform:scaleX(1.15);}
 .eis-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;min-height:340px;}
-.eis-cell{border-radius:var(--radius-m);padding:10px;display:flex;flex-direction:column;color:rgba(255,255,255,.92);position:relative;overflow:hidden;}
+.eis-cell{border-radius:var(--radius-m);padding:10px;display:flex;flex-direction:column;color:var(--text);position:relative;overflow:hidden;border:1px solid var(--border);}
 .eis-cell .ec-label{font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.4px;opacity:.75;line-height:1.4;margin-bottom:6px;}
-.eis-cell .ec-add{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.14);
-  border:none;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
-.eis-cell .ec-add:hover{background:rgba(255,255,255,.28);}
+.eis-cell .ec-add{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--surface);border:1px solid var(--border);
+  color:var(--text);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.eis-cell .ec-add:hover{background:var(--accent-soft);border-color:var(--accent);}
 .eis-cell.uiq{background:var(--eis-uiq);}
 .eis-cell.inq{background:var(--eis-inq);}
 .eis-cell.uniq{background:var(--eis-uniq);}
 .eis-cell.ninq{background:var(--eis-ninq);}
 .ec-chips{display:flex;flex-direction:column;gap:4px;overflow-y:auto;flex:1;}
-.eq-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.10);border-radius:6px;padding:5px 7px;font-size:11px;cursor:pointer;line-height:1.3;}
-.eq-chip:hover{background:rgba(255,255,255,.18);}
-.eq-chip-toggle{width:14px;height:14px;border-radius:4px;border:1.5px solid rgba(255,255,255,.5);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;}
-.eq-chip-toggle:hover{color:#fff;background:rgba(255,255,255,.2);}
+.eq-chip{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 7px;font-size:11px;cursor:pointer;line-height:1.3;}
+.eq-chip:hover{border-color:var(--accent);}
+.eq-chip-toggle{width:14px;height:14px;border-radius:4px;border:1.5px solid var(--text-faint);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;}
+.eq-chip-toggle:hover{color:var(--good);border-color:var(--good);}
 .eq-chip-date{margin-left:auto;font-family:var(--font-mono);font-size:9px;opacity:.7;white-space:nowrap;}
 .eq-empty{font-size:10.5px;opacity:.5;padding:4px 0;}
 
@@ -524,11 +550,14 @@ html[data-theme="dark"] .timer-display{color:#E8D9C5;}
 .nb-slider-group{gap:8px;}
 .nb-slider-group input[type=range]{width:90px;accent-color:var(--accent);}
 .nb-scroll{
-  max-height:72vh;overflow-y:auto;border-radius:var(--radius-m);border:1px solid var(--border);
-  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;padding:14px;background:var(--bg-soft);
+  max-height:72vh;overflow-y:auto;overflow-x:hidden;border-radius:var(--radius-m);border:1px solid var(--border);
+  box-shadow:var(--shadow);padding:14px;background:var(--bg-soft);
+  -webkit-user-select:none;user-select:none;touch-action:pan-y;
 }
-.nb-page{position:relative;width:100%;height:900px;border-radius:var(--radius-s);overflow:hidden;flex-shrink:0;touch-action:none;}
-.nb-canvas{position:absolute;top:0;left:0;width:100%;height:100%;cursor:crosshair;touch-action:none;}
+.nb-scroll-inner{display:flex;flex-direction:column;gap:14px;transition:transform .08s ease-out;}
+.nb-page{position:relative;width:100%;height:900px;border-radius:var(--radius-s);overflow:hidden;flex-shrink:0;-webkit-user-select:none;user-select:none;}
+.nb-canvas{position:absolute;top:0;left:0;width:100%;height:100%;cursor:crosshair;touch-action:pan-y;-webkit-user-select:none;user-select:none;}
+.nb-canvas-live{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
 .nb-page-del{position:absolute;bottom:8px;right:8px;font-size:10.5px;padding:4px 9px;border-radius:12px;border:1px solid rgba(0,0,0,.15);background:rgba(255,255,255,.7);color:#5a5044;cursor:pointer;}
 .nb-page.paper-cream{background-color:#F4ECD8;}
 .nb-page.paper-white{background-color:#FFFFFF;}
@@ -1292,6 +1321,7 @@ function defaultStore(){
     materials:{},
     sidebarWidth:256, coverImage:null,
     fixedMistakes:0,
+    hiddenCategories:[],
     dailyGoals:{learned:10, tasks:15, rno:5},
     planTasks:[], // {id,text,tier:'min'|'max',quadrant:'uiq'|'inq'|'uniq'|'ninq',done,deadline,createdDate}
     notes:[], // {id,title,body,date}
@@ -1415,13 +1445,35 @@ function renameCategory(catKey, newName){
   saveStore(); buildAllData();
 }
 function getOrderedCategoryKeys(){
-  const allKeys = CATEGORY_META.map(m=>m.key).concat(STORE.customCategories.map(c=>c.key));
-  const pinned = STORE.pinnedCategories||[];
+  const hidden = STORE.hiddenCategories||[];
+  const allKeys = CATEGORY_META.map(m=>m.key).concat(STORE.customCategories.map(c=>c.key)).filter(id=>!hidden.includes(id));
+  const pinned = (STORE.pinnedCategories||[]).filter(id=>!hidden.includes(id));
   const order = STORE.categoryOrder.length ? STORE.categoryOrder : allKeys;
   let ids = order.filter(id=>allKeys.includes(id));
   allKeys.forEach(id=>{ if(!ids.includes(id)) ids.push(id); });
   ids = ids.filter(id=>!pinned.includes(id));
   return pinned.filter(id=>allKeys.includes(id)).concat(ids);
+}
+function deleteCategory(catKey){
+  const isCustom = !CATEGORY_META.find(m=>m.key===catKey);
+  if(isCustom){
+    STORE.customCategories = STORE.customCategories.filter(c=>c.key!==catKey);
+    delete STORE.customCards[catKey];
+    delete STORE.materials[catKey];
+    delete STORE.notebooks[catKey];
+    delete STORE.customTasks[catKey];
+    delete STORE.customTopics[catKey];
+    delete STORE.topicRenames[catKey];
+    delete STORE.deletedTopics[catKey];
+    delete STORE.topicOrder[catKey];
+    delete STORE.pinnedTopics[catKey];
+  } else {
+    if(!STORE.hiddenCategories) STORE.hiddenCategories=[];
+    if(!STORE.hiddenCategories.includes(catKey)) STORE.hiddenCategories.push(catKey);
+  }
+  if(VIEW===catKey) VIEW='progress';
+  saveStore();
+  buildAllData();
 }
 function moveCategory(catKey, dir){
   const ids = getOrderedCategoryKeys();
@@ -1917,6 +1969,7 @@ function renderPlanLists(){
       if(t){ t.done=!t.done; checkPlanDayBonus(t.date); saveStore(); renderPlanLists(); renderEisGrid(); }
     });
     w.querySelectorAll('[data-del]').forEach(el=>el.onclick=()=>{
+      if(!confirm('Точно удалить? Это безвозвратно.')) return;
       STORE.planTasks = STORE.planTasks.filter(x=>x.id!==el.dataset.del);
       saveStore(); renderPlanLists(); renderEisGrid();
     });
@@ -2072,6 +2125,7 @@ function renderOvNotes(body){
   document.getElementById('btnAddNote').onclick=()=>openNoteModal(body);
   grid.querySelectorAll('[data-editnote]').forEach(b=>b.onclick=()=>openNoteModal(body, b.dataset.editnote));
   grid.querySelectorAll('[data-delnote]').forEach(b=>b.onclick=()=>{
+    if(!confirm('Точно удалить заметку? Это безвозвратно.')) return;
     STORE.notes = STORE.notes.filter(n=>n.id!==b.dataset.delnote);
     saveStore(); renderOvNotes(body);
   });
@@ -2449,7 +2503,7 @@ function renderTopicsTab(body, key){
     body.querySelectorAll('.topic-name-input').forEach(inp=>{
       inp.addEventListener('change',()=>{ renameTopic(key, inp.dataset.id, inp.value.trim()||'Без названия'); draw(); });
     });
-    body.querySelectorAll('[data-del-topic]').forEach(btn=>{ btn.onclick=()=>{ deleteTopic(key, btn.dataset.delTopic); draw(); }; });
+    body.querySelectorAll('[data-del-topic]').forEach(btn=>{ btn.onclick=()=>{ if(!confirm('Удалить тему? Карточки в ней не удалятся, но потеряют привязку к теме. Это безвозвратно.')) return; deleteTopic(key, btn.dataset.delTopic); draw(); }; });
     body.querySelectorAll('[data-pin-topic]').forEach(btn=>{ btn.onclick=()=>{ toggleTopicPin(key, btn.dataset.pinTopic); draw(); }; });
     initTopicDrag(document.getElementById('topicsList'), key, draw);
   }
@@ -2560,7 +2614,7 @@ function renderCardsGrid(body,key){
   body.innerHTML = html;
   body.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{ CAT_TOPIC_FILTER[key]=chip.dataset.t; renderCardsGrid(body,key); });
   body.querySelectorAll('[data-edit]').forEach(el=>el.onclick=(e)=>{ e.stopPropagation(); openCardModal(key, el.dataset.edit); });
-  body.querySelectorAll('[data-del]').forEach(el=>el.onclick=(e)=>{ e.stopPropagation(); deleteCard(key, el.dataset.del); });
+  body.querySelectorAll('[data-del]').forEach(el=>el.onclick=(e)=>{ e.stopPropagation(); if(!confirm('Точно удалить карточку? Это безвозвратно.')) return; deleteCard(key, el.dataset.del); });
   body.querySelectorAll('.flashcard').forEach(card=>card.addEventListener('click',(e)=>{
     if(e.target.closest('.icon-btn')) return;
     startStudySession(key, shown.map(c=>c.id), card.dataset.open);
@@ -2582,10 +2636,12 @@ const NB_COLORS = [
 ];
 const NB_TOOL_DEFAULTS = {
   pen:{width:3, opacity:1},
+  pencil:{width:2, opacity:0.8},
   highlighter:{width:18, opacity:0.32}
 };
-const NB_STRAIGHTEN_DELAY = 420; // мс задержки стилуса для выпрямления линии
-const NB_STRAIGHTEN_MOVE_TOLERANCE = 4; // px — почти неподвижен
+const NB_STRAIGHTEN_DELAY = 600; // мс — долгое удержание, чтобы не мешать обычному письму
+const NB_STRAIGHTEN_MOVE_TOLERANCE = 7; // px — почти неподвижен
+const NB_MIN_POINT_DIST = 2; // px — интерполяция при редких точках (палец), чтобы линия не "полосила"
 
 function renderNotebookTab(body, key){
   const notebooks = STORE.notebooks[key] || [];
@@ -2595,7 +2651,7 @@ function renderNotebookTab(body, key){
   }
   let html = `<div class="btn-row" style="margin-bottom:16px"><button class="btn btn-primary" id="btnNewNotebook">Создать тетрадь</button></div>`;
   if(notebooks.length===0){
-    html += `<div class="empty-state">Пока нет тетрадей. Создай тетрадь и пиши от руки стилусом или пальцем — линейка, клетка, точка или пустой лист.</div>`;
+    html += `<div class="empty-state">Пока нет тетрадей. Создай тетрадь и пиши от руки стилусом — линейка, клетка, точка или пустой лист.</div>`;
   } else {
     html += `<div class="grid">`;
     notebooks.forEach(nb=>{
@@ -2617,16 +2673,17 @@ function renderNotebookTab(body, key){
     const nb = { id:uid('nb'), name, pages:[{ id:uid('pg'), bg:'lined', paper:'cream', strokes:[] }] };
     STORE.notebooks[key].push(nb);
     saveStore();
-    NOTEBOOK_STATE = { catKey:key, notebookId:nb.id, tool:'pen', color:NB_COLORS[0], width:NB_TOOL_DEFAULTS.pen.width, opacity:NB_TOOL_DEFAULTS.pen.opacity, redoStacks:{}, newPageBg:'lined', newPagePaper:'cream' };
+    NOTEBOOK_STATE = { catKey:key, notebookId:nb.id, tool:'pen', color:NB_COLORS[0], width:NB_TOOL_DEFAULTS.pen.width, opacity:NB_TOOL_DEFAULTS.pen.opacity, redoStacks:{}, newPageBg:'lined', newPagePaper:'cream', zoom:1 };
     renderNotebookTab(body,key);
   };
   body.querySelectorAll('[data-open-nb]').forEach(el=>el.addEventListener('click',(e)=>{
     if(e.target.closest('[data-del-nb]')) return;
-    NOTEBOOK_STATE = { catKey:key, notebookId:el.dataset.openNb, tool:'pen', color:NB_COLORS[0], width:NB_TOOL_DEFAULTS.pen.width, opacity:NB_TOOL_DEFAULTS.pen.opacity, redoStacks:{}, newPageBg:'lined', newPagePaper:'cream' };
+    NOTEBOOK_STATE = { catKey:key, notebookId:el.dataset.openNb, tool:'pen', color:NB_COLORS[0], width:NB_TOOL_DEFAULTS.pen.width, opacity:NB_TOOL_DEFAULTS.pen.opacity, redoStacks:{}, newPageBg:'lined', newPagePaper:'cream', zoom:1 };
     renderNotebookTab(body,key);
   }));
   body.querySelectorAll('[data-del-nb]').forEach(el=>el.addEventListener('click',(e)=>{
     e.stopPropagation();
+    if(!confirm('Точно удалить тетрадь целиком, со всеми страницами? Это безвозвратно.')) return;
     STORE.notebooks[key] = (STORE.notebooks[key]||[]).filter(n=>n.id!==el.dataset.delNb);
     saveStore();
     renderNotebookTab(body,key);
@@ -2642,11 +2699,12 @@ function renderNotebookEditor(body, key){
     <div class="nb-toolbar">
       <button class="btn" id="nbBack">← Все тетради</button>
       <span class="nb-title">${esc(nb.name)}</span>
-      <span class="nb-page-nav">${nb.pages.length} стр. · листай вниз</span>
+      <span class="nb-page-nav">${nb.pages.length} стр. · листай вниз · пишет только стилус, палец — для скролла/зума</span>
     </div>
     <div class="nb-controls">
       <div class="nb-group">
         <button class="mini-btn ${s.tool==='pen'?'pin-on':''}" id="nbToolPen">Перо</button>
+        <button class="mini-btn ${s.tool==='pencil'?'pin-on':''}" id="nbToolPencil">Карандаш</button>
         <button class="mini-btn ${s.tool==='highlighter'?'pin-on':''}" id="nbToolHi">Маркер</button>
         <button class="mini-btn ${s.tool==='eraser'?'pin-on':''}" id="nbToolEraser">Ластик</button>
       </div>
@@ -2667,6 +2725,12 @@ function renderNotebookEditor(body, key){
         <button class="mini-btn" id="nbClear">Очистить страницу</button>
       </div>
       <div class="nb-group">
+        <button class="mini-btn" id="nbZoomOut" title="Уменьшить">−</button>
+        <span class="nb-group-label" id="nbZoomLabel">${Math.round((s.zoom||1)*100)}%</span>
+        <button class="mini-btn" id="nbZoomIn" title="Увеличить">+</button>
+        <button class="mini-btn" id="nbZoomReset" title="Сбросить масштаб">100%</button>
+      </div>
+      <div class="nb-group">
         <span class="nb-group-label">Новая стр.: фон</span>
         <select id="nbNewBg">
           <option value="lined" ${s.newPageBg==='lined'?'selected':''}>Линейка</option>
@@ -2681,12 +2745,13 @@ function renderNotebookEditor(body, key){
         </select>
       </div>
     </div>
-    <div class="nb-scroll" id="nbScroll"></div>
+    <div class="nb-scroll" id="nbScroll"><div class="nb-scroll-inner" id="nbScrollInner"></div></div>
     <div class="btn-row" style="margin-top:10px"><button class="btn" id="nbAddPage">+ Добавить страницу</button></div>
   `;
   document.getElementById('nbBack').onclick=()=>{ NOTEBOOK_STATE=null; renderNotebookTab(body,key); };
 
   document.getElementById('nbToolPen').onclick=()=>{ setTool('pen'); };
+  document.getElementById('nbToolPencil').onclick=()=>{ setTool('pencil'); };
   document.getElementById('nbToolHi').onclick=()=>{ setTool('highlighter'); };
   document.getElementById('nbToolEraser').onclick=()=>{ setTool('eraser'); };
   function setTool(tool){
@@ -2700,6 +2765,7 @@ function renderNotebookEditor(body, key){
     document.querySelectorAll('.nb-swatch').forEach(x=>x.classList.remove('active'));
     sw.classList.add('active');
     document.getElementById('nbToolPen').classList.add('pin-on');
+    document.getElementById('nbToolPencil').classList.remove('pin-on');
     document.getElementById('nbToolHi').classList.remove('pin-on');
     document.getElementById('nbToolEraser').classList.remove('pin-on');
   });
@@ -2719,7 +2785,8 @@ function renderNotebookEditor(body, key){
   };
 
   const scrollWrap = document.getElementById('nbScroll');
-  const pageCtxs = {}; // pageId -> {canvas, ctx}
+  const scrollInner = document.getElementById('nbScrollInner');
+  const pageCtxs = {}; // pageId -> {canvas, ctx, liveCanvas, liveCtx, page}
 
   nb.pages.forEach(page=>{
     const pageDiv = document.createElement('div');
@@ -2727,35 +2794,42 @@ function renderNotebookEditor(body, key){
     pageDiv.dataset.pageId = page.id;
     const canvas = document.createElement('canvas');
     canvas.className = 'nb-canvas';
+    const liveCanvas = document.createElement('canvas');
+    liveCanvas.className = 'nb-canvas-live';
     pageDiv.appendChild(canvas);
+    pageDiv.appendChild(liveCanvas);
     const delBtn = document.createElement('button');
     delBtn.className = 'nb-page-del';
     delBtn.textContent = 'Удалить страницу';
     delBtn.style.display = nb.pages.length>1 ? '' : 'none';
     delBtn.onclick = ()=>{
-      if(!confirm('Удалить эту страницу?')) return;
+      if(!confirm('Удалить эту страницу вместе со всем, что на ней написано? Это безвозвратно.')) return;
       nb.pages = nb.pages.filter(p=>p.id!==page.id);
       saveStore();
       renderNotebookEditor(body,key);
     };
     pageDiv.appendChild(delBtn);
-    scrollWrap.appendChild(pageDiv);
+    scrollInner.appendChild(pageDiv);
 
     const ctx = canvas.getContext('2d');
-    pageCtxs[page.id] = {canvas, ctx, page};
-    setupPageDrawing(canvas, ctx, page, s);
+    const liveCtx = liveCanvas.getContext('2d');
+    pageCtxs[page.id] = {canvas, ctx, liveCanvas, liveCtx, page};
+    setupPageDrawing(canvas, ctx, liveCanvas, liveCtx, page, s);
   });
 
   function sizeAll(){
-    Object.values(pageCtxs).forEach(({canvas,ctx,page})=>{
+    Object.values(pageCtxs).forEach(({canvas,ctx,liveCanvas,liveCtx,page})=>{
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
       const w = rect.width || 700, h = 900;
-      canvas.width = Math.max(1, Math.round(w*dpr));
-      canvas.height = Math.max(1, Math.round(h*dpr));
-      canvas.style.width = w+'px';
-      canvas.style.height = h+'px';
+      [canvas, liveCanvas].forEach(c=>{
+        c.width = Math.max(1, Math.round(w*dpr));
+        c.height = Math.max(1, Math.round(h*dpr));
+        c.style.width = w+'px';
+        c.style.height = h+'px';
+      });
       if(ctx) ctx.setTransform(dpr,0,0,dpr,0,0);
+      if(liveCtx) liveCtx.setTransform(dpr,0,0,dpr,0,0);
       redrawCanvas(canvas, ctx, page);
     });
   }
@@ -2763,7 +2837,6 @@ function renderNotebookEditor(body, key){
   window.addEventListener('resize', sizeAll, {once:false});
 
   document.getElementById('nbUndo').onclick=()=>{
-    // отменяем последний штрих на последней активной странице (той, где рисовали)
     const targetPageId = s.lastActivePageId || (nb.pages[nb.pages.length-1] && nb.pages[nb.pages.length-1].id);
     const target = pageCtxs[targetPageId];
     if(!target || target.page.strokes.length===0) return;
@@ -2787,72 +2860,153 @@ function renderNotebookEditor(body, key){
     const targetPageId = s.lastActivePageId || (nb.pages[nb.pages.length-1] && nb.pages[nb.pages.length-1].id);
     const target = pageCtxs[targetPageId];
     if(!target) return;
-    if(!confirm('Очистить эту страницу?')) return;
+    if(!confirm('Очистить эту страницу? Все записи на ней исчезнут — это безвозвратно.')) return;
     target.page.strokes = [];
     s.redoStacks[targetPageId] = [];
     saveStore();
     redrawCanvas(target.canvas, target.ctx, target.page);
   };
 
-  function setupPageDrawing(canvas, ctx, page, s){
-    canvas.style.touchAction = 'none';
+  function applyZoom(){
+    scrollInner.style.transform = `scale(${s.zoom||1})`;
+    scrollInner.style.transformOrigin = 'top center';
+    document.getElementById('nbZoomLabel').textContent = Math.round((s.zoom||1)*100)+'%';
+  }
+  document.getElementById('nbZoomIn').onclick=()=>{ s.zoom = Math.min(2.2, (s.zoom||1)+0.1); applyZoom(); };
+  document.getElementById('nbZoomOut').onclick=()=>{ s.zoom = Math.max(0.6, (s.zoom||1)-0.1); applyZoom(); };
+  document.getElementById('nbZoomReset').onclick=()=>{ s.zoom = 1; applyZoom(); };
+  applyZoom();
+
+  /* ---------- Зум щипком двумя пальцами (палец не рисует — он свободен для жестов) ---------- */
+  (function initPinchZoom(){
+    const active = new Map(); // pointerId -> {x,y}
+    let pinchStartDist = null, pinchStartZoom = 1;
+    scrollWrap.addEventListener('pointerdown',(e)=>{
+      if(e.pointerType!=='touch') return;
+      active.set(e.pointerId, {x:e.clientX, y:e.clientY});
+      if(active.size===2){
+        const pts = [...active.values()];
+        pinchStartDist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
+        pinchStartZoom = s.zoom||1;
+      }
+    });
+    scrollWrap.addEventListener('pointermove',(e)=>{
+      if(e.pointerType!=='touch' || !active.has(e.pointerId)) return;
+      active.set(e.pointerId, {x:e.clientX, y:e.clientY});
+      if(active.size===2 && pinchStartDist){
+        e.preventDefault();
+        const pts = [...active.values()];
+        const dist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
+        s.zoom = Math.min(2.2, Math.max(0.6, pinchStartZoom * (dist/pinchStartDist)));
+        applyZoom();
+      }
+    }, {passive:false});
+    function releasePointer(e){ active.delete(e.pointerId); if(active.size<2) pinchStartDist=null; }
+    scrollWrap.addEventListener('pointerup', releasePointer);
+    scrollWrap.addEventListener('pointercancel', releasePointer);
+  })();
+
+  function setupPageDrawing(canvas, ctx, liveCanvas, liveCtx, page, s){
+    canvas.style.touchAction = 'pan-y';
+    liveCanvas.style.touchAction = 'pan-y';
     let drawing = false;
     let currentStroke = null;
     let holdTimer = null;
     let startPoint = null;
+    let activePointerId = null;
 
     function posFromEvent(e){
       const rect = canvas.getBoundingClientRect();
-      return { x: e.clientX-rect.left, y: e.clientY-rect.top, pressure: (e.pressure && e.pressure>0)? e.pressure : 0.5 };
+      const zoom = s.zoom||1;
+      return {
+        x: (e.clientX-rect.left)/zoom,
+        y: (e.clientY-rect.top)/zoom,
+        pressure: (e.pressure && e.pressure>0) ? e.pressure : 0.5,
+        t: Date.now()
+      };
     }
     function clearHoldTimer(){ if(holdTimer){ clearTimeout(holdTimer); holdTimer=null; } }
     function armHoldTimer(){
       clearHoldTimer();
       holdTimer = setTimeout(()=>{
         if(!drawing || !currentStroke || currentStroke.points.length<2) return;
+        // повторная проверка: точка ещё не сдвинулась значимо за время задержки
         const last = currentStroke.points[currentStroke.points.length-1];
+        const sinceLast = Date.now()-last.t;
+        if(sinceLast < NB_STRAIGHTEN_DELAY-60) return; // палец/перо уже снова в движении
+        currentStroke.straightened = true;
         currentStroke.points = [startPoint, last];
-        redrawCanvas(canvas, ctx, page);
-        redrawLivePreview(ctx, currentStroke);
+        liveCtx.clearRect(0,0,liveCanvas.width,liveCanvas.height);
+        paintSmoothPath(liveCtx, currentStroke.points, currentStroke.width, currentStroke.tool, currentStroke.color);
       }, NB_STRAIGHTEN_DELAY);
+    }
+    function isAllowedPointer(e){
+      // Пишет только стилус (Apple Pencil = pointerType 'pen'); мышь разрешена для теста на компьютере.
+      // Палец (touch) не рисует — освобождён для скролла и зума щипком.
+      return e.pointerType==='pen' || e.pointerType==='mouse';
     }
 
     canvas.addEventListener('pointerdown',(e)=>{
-      if(!ctx) return;
+      if(!ctx || !isAllowedPointer(e)) return;
       drawing = true;
+      activePointerId = e.pointerId;
       s.lastActivePageId = page.id;
-      s.redoStacks[page.id] = []; // новый штрих обнуляет "вперёд"
+      s.redoStacks[page.id] = [];
       try{ canvas.setPointerCapture(e.pointerId); }catch(err){}
       const p = posFromEvent(e);
       startPoint = p;
       const isEraser = s.tool==='eraser';
+      liveCanvas.style.opacity = isEraser ? 0 : (s.opacity!=null?s.opacity:1);
+      liveCtx.setTransform((window.devicePixelRatio||1),0,0,(window.devicePixelRatio||1),0,0);
+      liveCtx.clearRect(0,0,liveCanvas.width,liveCanvas.height);
       currentStroke = {
-        color: isEraser ? NB_PAPER_COLORS[page.paper] : s.color,
+        color: isEraser ? '#000000' : s.color,
         width: isEraser ? 22 : s.width,
         opacity: isEraser ? 1 : s.opacity,
         tool: s.tool,
         points: [p]
       };
+      if(isEraser) eraseSegment(ctx, currentStroke);
+      else paintSmoothPath(liveCtx, currentStroke.points, currentStroke.width, currentStroke.tool, currentStroke.color);
       armHoldTimer();
     });
     canvas.addEventListener('pointermove',(e)=>{
-      if(!drawing || !currentStroke) return;
+      if(!drawing || !currentStroke || e.pointerId!==activePointerId) return;
+      if(!isAllowedPointer(e)) return;
       const p = posFromEvent(e);
       const last = currentStroke.points[currentStroke.points.length-1];
-      const moved = Math.hypot(p.x-last.x, p.y-last.y);
-      currentStroke.points.push(p);
-      drawStrokeSegment(ctx, currentStroke);
-      if(moved > NB_STRAIGHTEN_MOVE_TOLERANCE) armHoldTimer();
+      const dist = Math.hypot(p.x-last.x, p.y-last.y);
+      if(dist < 0.4) return; // игнорируем дрожание меньше субпикселя
+      // интерполяция промежуточных точек при редких событиях (палец/медленная связь), чтобы линия не "полосила"
+      const steps = Math.min(8, Math.max(1, Math.round(dist / NB_MIN_POINT_DIST)));
+      for(let i=1;i<=steps;i++){
+        const t = i/steps;
+        currentStroke.points.push({
+          x: last.x + (p.x-last.x)*t,
+          y: last.y + (p.y-last.y)*t,
+          pressure: (last.pressure||0.5) + ((p.pressure||0.5)-(last.pressure||0.5))*t,
+          t: p.t
+        });
+      }
+      if(currentStroke.tool==='eraser') eraseSegment(ctx, currentStroke);
+      else {
+        liveCtx.clearRect(0,0,liveCanvas.width,liveCanvas.height);
+        paintSmoothPath(liveCtx, currentStroke.points, currentStroke.width, currentStroke.tool, currentStroke.color);
+      }
+      if(dist > NB_STRAIGHTEN_MOVE_TOLERANCE) armHoldTimer();
     });
-    function endStroke(){
-      if(!drawing) return;
+    function endStroke(e){
+      if(!drawing || (e && e.pointerId!==activePointerId)) return;
       drawing = false;
       clearHoldTimer();
+      liveCtx.clearRect(0,0,liveCanvas.width,liveCanvas.height);
       if(currentStroke && currentStroke.points.length>1){
         page.strokes.push(currentStroke);
         saveStore();
+        redrawCanvas(canvas, ctx, page); // авторитетная перерисовка без полос поверх live-слоя
       }
       currentStroke = null;
+      activePointerId = null;
     }
     canvas.addEventListener('pointerup', endStroke);
     canvas.addEventListener('pointercancel', endStroke);
@@ -2860,59 +3014,77 @@ function renderNotebookEditor(body, key){
   }
 }
 
-function redrawLivePreview(ctx, stroke){
-  if(!ctx) return;
-  const pts = stroke.points;
-  if(pts.length<2) return;
-  ctx.save();
-  ctx.globalAlpha = stroke.opacity!=null?stroke.opacity:1;
-  ctx.strokeStyle = stroke.color;
+/* ---------- Рисование без полос: константная толщина — единый плавный путь;
+   переменная толщина (нажим пера) — по сегментам с квадратичным сглаживанием ---------- */
+function paintSmoothPath(ctx, pts, baseWidth, tool, color){
+  if(!ctx || pts.length<2) return;
+  ctx.strokeStyle = color;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
-  ctx.lineWidth = stroke.width;
-  ctx.beginPath();
-  ctx.moveTo(pts[0].x, pts[0].y);
-  for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x, pts[i].y);
-  ctx.stroke();
-  ctx.restore();
-}
-function drawStrokeSegment(ctx, stroke){
-  if(!ctx) return;
-  const pts = stroke.points;
-  if(pts.length<2) return;
-  const a = pts[pts.length-2], b = pts[pts.length-1];
-  ctx.save();
-  ctx.globalAlpha = stroke.opacity!=null?stroke.opacity:1;
-  ctx.strokeStyle = stroke.color;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  ctx.lineWidth = stroke.width * (stroke.tool==='highlighter' ? 1 : (0.5 + (b.pressure||0.5)));
-  ctx.beginPath();
-  ctx.moveTo(a.x,a.y);
-  ctx.lineTo(b.x,b.y);
-  ctx.stroke();
-  ctx.restore();
-}
-function redrawCanvas(canvas, ctx, page){
-  if(!ctx) return;
-  const dpr = window.devicePixelRatio || 1;
-  ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
-  (page.strokes||[]).forEach(stroke=>{
-    const pts = stroke.points;
-    if(pts.length<2) return;
-    ctx.save();
-    ctx.globalAlpha = stroke.opacity!=null?stroke.opacity:1;
-    ctx.strokeStyle = stroke.color;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+  const constWidth = (tool==='highlighter' || tool==='pencil' || tool==='eraser' || pts.length===2);
+  if(constWidth){
+    ctx.lineWidth = baseWidth;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for(let i=1;i<pts.length-1;i++){
+      const mx=(pts[i].x+pts[i+1].x)/2, my=(pts[i].y+pts[i+1].y)/2;
+      ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+    }
+    ctx.lineTo(pts[pts.length-1].x, pts[pts.length-1].y);
+    ctx.stroke();
+  } else {
     for(let i=1;i<pts.length;i++){
-      ctx.lineWidth = stroke.width * (stroke.tool==='highlighter' ? 1 : (0.5 + (pts[i].pressure||0.5)));
+      ctx.lineWidth = baseWidth * (0.5 + (pts[i].pressure||0.5));
       ctx.beginPath();
       ctx.moveTo(pts[i-1].x, pts[i-1].y);
       ctx.lineTo(pts[i].x, pts[i].y);
       ctx.stroke();
     }
-    ctx.restore();
+  }
+}
+/* Ластик реально стирает пиксели (destination-out) — фон страницы (линейка/клетка) не трогается,
+   потому что это CSS-разметка ПОД прозрачным канвасом, а не нарисованные пиксели. */
+function eraseSegment(ctx, stroke){
+  if(!ctx) return;
+  ctx.save();
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.globalAlpha = 1;
+  paintSmoothPath(ctx, stroke.points, stroke.width, 'eraser', '#000');
+  ctx.restore();
+}
+function redrawCanvas(canvas, ctx, page){
+  if(!ctx) return;
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.width/dpr, h = canvas.height/dpr;
+  ctx.clearRect(0,0,w,h);
+  (page.strokes||[]).forEach(stroke=>{
+    const pts = stroke.points;
+    if(!pts || pts.length<2) return;
+    if(stroke.tool==='eraser'){
+      eraseSegment(ctx, stroke);
+      return;
+    }
+    const opacity = stroke.opacity!=null ? stroke.opacity : 1;
+    if(opacity>=0.98){
+      ctx.save();
+      ctx.globalAlpha = 1;
+      paintSmoothPath(ctx, pts, stroke.width, stroke.tool, stroke.color);
+      ctx.restore();
+    } else {
+      // офф-скрин буфер: рисуем штрих непрозрачно один раз, затем накладываем целиком —
+      // так пересечения самого штриха с собой не дают полосатости
+      const off = document.createElement('canvas');
+      off.width = canvas.width; off.height = canvas.height;
+      const octx = off.getContext('2d');
+      if(!octx){ paintSmoothPath(ctx, pts, stroke.width, stroke.tool, stroke.color); return; }
+      octx.setTransform(dpr,0,0,dpr,0,0);
+      paintSmoothPath(octx, pts, stroke.width, stroke.tool, stroke.color);
+      ctx.save();
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.globalAlpha = opacity;
+      ctx.drawImage(off, 0, 0);
+      ctx.restore();
+    }
   });
 }
 
@@ -2980,9 +3152,14 @@ function renderStudyModal(){
 }
 
 /* ---------- Теория (Feynman): главный вопрос + факты + связи ---------- */
+let THEORY_EDIT_STATE = null; // {catKey, materialId} — полноэкранный редактор (не модалка!)
+
 function renderTheory(body,key){
+  if(THEORY_EDIT_STATE && THEORY_EDIT_STATE.catKey===key){
+    renderTheoryEditor(body,key);
+    return;
+  }
   const materials = (STORE.materials[key]||[]);
-  const topics = getCategoryTopicsOrdered(key);
   let html = `<div class="btn-row" style="margin-bottom:10px">
     <button class="btn btn-primary" id="btnAddTheory">Добавить материал</button>
     <button class="btn" id="btnQuickAdd">Быстрое добавление карточек текстом</button>
@@ -2990,17 +3167,21 @@ function renderTheory(body,key){
     <input type="file" id="importTheoryFile" accept="application/json" style="display:none">
   </div>
   <div style="font-size:11.5px;color:var(--text-faint);margin-bottom:16px;line-height:1.6">
-    Импорт ждёт JSON вида <code>{"materials":[{"topic","title","mainQuestion","explanation","facts","connections","application"}],"cards":[{"topic","fields":{...}}]}</code> — такой файл готовит Claude в чате из твоей лекции.
+    Импорт ждёт JSON вида <code>{"materials":[{"topic","title","mainQuestions","explanation","facts","connections","application"}],"cards":[{"topic","fields":{...}}]}</code> — такой файл готовит Claude в чате из твоей лекции.
   </div>`;
   if(materials.length===0){
-    html += `<div class="empty-state">Пока нет конспектов. После лекции запиши сюда главный вопрос, объяснение простыми словами и пару интересных фактов — по технике Фейнмана. Из каждого материала потом можно сразу сделать карточку.</div>`;
+    html += `<div class="empty-state">Пока нет конспектов. Открой лекцию, запиши тему и дату, а материал и остальное — по шагам.</div>`;
   } else {
-    materials.forEach(m=>{
+    materials.slice().reverse().forEach(m=>{
+      const dateLabel = m.dateEnd && m.dateEnd!==m.dateStart ? `${fmtDate(m.dateStart)} — ${fmtDate(m.dateEnd)}` : fmtDate(m.dateStart||m.date);
       html += `<div class="theory-item">
         <div class="theory-topic">${esc(topicName(key,m.topicId))}</div>
-        <div class="theory-title">${esc(m.title)}</div>
-        <div class="theory-block"><div class="tb-label">Главный вопрос</div><div class="tb-body">${esc(m.mainQuestion)}</div></div>
-        <div class="theory-block"><div class="tb-label">Объяснение простыми словами</div><div class="tb-body">${m.explanation}</div></div>
+        <div class="theory-title-row"><div class="theory-title">${esc(m.title)}</div><div class="theory-date">${dateLabel}</div></div>
+        ${m.keywords&&m.keywords.length?`<div class="theory-keywords">${m.keywords.map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}</div>`:''}
+        <div class="theory-block"><div class="tb-label">Главные вопросы</div><div class="tb-body">${m.mainQuestions||'<span style="opacity:.5">пока не заполнено</span>'}</div></div>
+        <div class="theory-block"><div class="tb-label">Материал лекции</div><div class="tb-body theory-material-preview">${m.materialText||'<span style="opacity:.5">пусто</span>'}</div></div>
+        ${m.notes?`<div class="theory-block"><div class="tb-label">Заметки</div><div class="tb-body">${m.notes}</div></div>`:''}
+        ${m.explanation?`<div class="theory-block"><div class="tb-label">Выжимка простыми словами</div><div class="tb-body">${m.explanation}</div></div>`:''}
         ${m.facts?`<div class="theory-block"><div class="tb-label">Интересные факты — копнуть глубже</div><div class="tb-body">${m.facts}</div></div>`:''}
         ${m.connections?`<div class="theory-block"><div class="tb-label">Связь с другими темами</div><div class="tb-body">${m.connections}</div></div>`:''}
         ${m.application?`<div class="theory-block"><div class="tb-label">Как использовать</div><div class="tb-body">${m.application}</div></div>`:''}
@@ -3013,7 +3194,7 @@ function renderTheory(body,key){
     });
   }
   body.innerHTML = html;
-  document.getElementById('btnAddTheory').onclick=()=>openTheoryModal(key);
+  document.getElementById('btnAddTheory').onclick=()=>{ THEORY_EDIT_STATE={catKey:key, materialId:null}; renderTheory(body,key); };
   document.getElementById('btnQuickAdd').onclick=()=>openQuickAddModal(key);
   document.getElementById('btnImportTheory').onclick=()=>document.getElementById('importTheoryFile').click();
   document.getElementById('importTheoryFile').onchange=(e)=>{
@@ -3024,11 +3205,244 @@ function renderTheory(body,key){
     const m = materials.find(x=>x.id===btn.dataset.mkcard);
     if(m) openCardModal(key, null, m);
   });
-  body.querySelectorAll('[data-edittheory]').forEach(btn=>btn.onclick=()=>openTheoryModal(key, btn.dataset.edittheory));
+  body.querySelectorAll('[data-edittheory]').forEach(btn=>btn.onclick=()=>{ THEORY_EDIT_STATE={catKey:key, materialId:btn.dataset.edittheory}; renderTheory(body,key); });
   body.querySelectorAll('[data-deltheory]').forEach(btn=>btn.onclick=()=>{
+    if(!confirm('Точно удалить материал лекции? Это безвозвратно.')) return;
     STORE.materials[key] = (STORE.materials[key]||[]).filter(x=>x.id!==btn.dataset.deltheory);
     saveStore(); renderTheory(body,key);
   });
+}
+
+/* ---------- Полноэкранный редактор материала лекции («как новый файл в Ворде») ---------- */
+function extractKeywordsFromHtml(html){
+  if(!html) return [];
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  const found = [];
+  div.querySelectorAll('b,strong').forEach(el=>{
+    const t = el.textContent.trim();
+    if(t && t.length<60 && !found.includes(t)) found.push(t);
+  });
+  return found;
+}
+
+function renderTheoryEditor(body, key){
+  const editing = THEORY_EDIT_STATE.materialId ? (STORE.materials[key]||[]).find(m=>m.id===THEORY_EDIT_STATE.materialId) : null;
+  const topics = getCategoryTopics(key);
+  const draft = editing || { title:'', dateStart:todayISO(), dateEnd:'', topicId:'general', mainQuestions:'', keywords:[], materialText:'', notes:'', explanation:'', facts:'', connections:'', application:'' };
+
+  let topicSelect = `<select id="theoryTopicSelect">`;
+  topics.forEach(t=>{ topicSelect += `<option value="${t.id}" ${draft.topicId===t.id?'selected':''}>${esc(t.name)}</option>`; });
+  topicSelect += `</select>`;
+
+  body.innerHTML = `
+    <div class="theory-editor">
+      <div class="te-header">
+        <input id="theTitle" class="te-title-input" placeholder="Тема лекции" value="${esc(draft.title)}">
+        <div class="te-meta-row">
+          <label>Тема курса: ${topicSelect}</label>
+          <label>Дата: <input type="date" id="theDateStart" value="${draft.dateStart||todayISO()}"></label>
+          <label>по (если несколько дней): <input type="date" id="theDateEnd" value="${draft.dateEnd||''}"></label>
+        </div>
+      </div>
+
+      <div class="te-section">
+        <div class="te-section-title">2 · Главные вопросы и ключевые слова</div>
+        <div class="field"><label>Главные вопросы (можно заполнить после лекции)</label><textarea id="theQuestions" placeholder="На какие вопросы отвечает лекция? Можно списком.">${stripHtml(draft.mainQuestions||'')}</textarea></div>
+        <div class="field"><label>Ключевые слова — берутся из <b>жирного</b> текста материала ниже, можно править</label>
+          <div class="kw-editor" id="kwEditor"></div>
+          <input id="kwAddInput" placeholder="Добавить своё ключевое слово и нажать Enter">
+        </div>
+      </div>
+
+      <div class="te-section">
+        <div class="te-section-title">3 · Материал лекции</div>
+        ${richFieldFull('theMaterial','Текст лекции — выделяй жирным или маркером то, что должно стать ключевыми словами и карточками', draft.materialText, true)}
+        ${richFieldFull('theNotes','Заметки и идеи по ходу лекции', draft.notes, false)}
+      </div>
+
+      <div class="te-section te-section-later">
+        <div class="te-section-title">4 · Осмысление — заполняется вручную или через ИИ после лекции</div>
+        ${richFieldFull('theExplain','Выжимка простыми словами', draft.explanation, false)}
+        ${richFieldFull('theFacts','Интересные факты — копнуть глубже', draft.facts, false)}
+        ${richFieldFull('theConn','Связь с другими темами', draft.connections, false)}
+        ${richFieldFull('theApp','Как и где использовать', draft.application, false)}
+      </div>
+
+      <div class="te-ai-row">
+        <button class="btn" id="btnCopyForAi">Скопировать для ИИ</button>
+        <button class="btn" id="btnImportAi">Вставить обработку от ИИ</button>
+        <span class="te-ai-hint">Скопируй, вставь в чат с Claude, попроси обработать по шаблону PRIMUS. — получишь готовый JSON для вставки обратно</span>
+      </div>
+
+      <div class="te-footer">
+        <button class="btn" id="teCancel">Отмена</button>
+        <button class="btn btn-primary" id="teSave">Сохранить материал</button>
+      </div>
+    </div>
+  `;
+  wireRichToolbars();
+
+  let keywords = (draft.keywords||[]).slice();
+  function drawKeywords(){
+    document.getElementById('kwEditor').innerHTML = keywords.map((k,i)=>`<span class="kw-chip editable">${esc(k)}<button data-kwdel="${i}">✕</button></span>`).join('') || '<span style="font-size:11.5px;color:var(--text-faint)">Пока нет — начни выделять текст жирным ниже</span>';
+    document.querySelectorAll('[data-kwdel]').forEach(btn=>btn.onclick=()=>{ keywords.splice(+btn.dataset.kwdel,1); drawKeywords(); });
+  }
+  drawKeywords();
+  document.getElementById('kwAddInput').addEventListener('keydown',(e)=>{
+    if(e.key==='Enter'){
+      e.preventDefault();
+      const v = e.target.value.trim();
+      if(v && !keywords.includes(v)) keywords.push(v);
+      e.target.value='';
+      drawKeywords();
+    }
+  });
+  // автообновление ключевых слов при вводе жирного текста в материале
+  document.getElementById('theMaterial').addEventListener('blur',()=>{
+    const found = extractKeywordsFromHtml(document.getElementById('theMaterial').innerHTML);
+    found.forEach(k=>{ if(!keywords.includes(k)) keywords.push(k); });
+    drawKeywords();
+  });
+
+  document.getElementById('teCancel').onclick=()=>{
+    if(!confirm('Закрыть без сохранения? Несохранённые изменения потеряются.')) return;
+    THEORY_EDIT_STATE=null; renderTheory(body,key);
+  };
+  document.getElementById('teSave').onclick=()=>{
+    const vals = {
+      title: document.getElementById('theTitle').value.trim() || 'Без названия',
+      topicId: document.getElementById('theoryTopicSelect').value,
+      dateStart: document.getElementById('theDateStart').value || todayISO(),
+      dateEnd: document.getElementById('theDateEnd').value || '',
+      mainQuestions: esc(document.getElementById('theQuestions').value.trim()).replace(/\n/g,'<br>'),
+      keywords: keywords,
+      materialText: document.getElementById('theMaterial').innerHTML.trim(),
+      notes: document.getElementById('theNotes').innerHTML.trim(),
+      explanation: document.getElementById('theExplain').innerHTML.trim(),
+      facts: document.getElementById('theFacts').innerHTML.trim(),
+      connections: document.getElementById('theConn').innerHTML.trim(),
+      application: document.getElementById('theApp').innerHTML.trim(),
+      date: draft.dateStart || todayISO()
+    };
+    if(!STORE.materials[key]) STORE.materials[key]=[];
+    if(editing){ Object.assign(editing, vals); }
+    else { STORE.materials[key].push(Object.assign({id:uid('mat')}, vals)); }
+    saveStore();
+    THEORY_EDIT_STATE=null;
+    renderTheory(body,key);
+  };
+
+  document.getElementById('btnCopyForAi').onclick=()=>{
+    const text = buildTheoryAiExport(key, {
+      title: document.getElementById('theTitle').value.trim(),
+      dateStart: document.getElementById('theDateStart').value,
+      dateEnd: document.getElementById('theDateEnd').value,
+      mainQuestions: document.getElementById('theQuestions').value.trim(),
+      keywords,
+      materialText: document.getElementById('theMaterial').innerHTML,
+      notes: document.getElementById('theNotes').innerHTML
+    });
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(()=>openInfoModal('Скопировано','Текст лекции скопирован — вставь его в чат с Claude.'))
+        .catch(()=>showCopyFallback(text));
+    } else showCopyFallback(text);
+  };
+  document.getElementById('btnImportAi').onclick=()=>openTheoryAiImportModal(key, body);
+}
+
+function showCopyFallback(text){
+  document.getElementById('modalBody').innerHTML = `<h3>Скопируй вручную</h3><textarea style="min-height:260px;width:100%" readonly>${esc(text)}</textarea><div class="modal-actions"><button class="btn btn-primary" id="mCloseCopy">Готово</button></div>`;
+  document.getElementById('mCloseCopy').onclick=closeOverlay;
+  openOverlay();
+}
+function buildTheoryAiExport(key, d){
+  const catName = APP_DATA[key] ? APP_DATA[key].meta.name : key;
+  const dateStr = d.dateEnd && d.dateEnd!==d.dateStart ? `${d.dateStart} — ${d.dateEnd}` : d.dateStart;
+  return `ПРЕДМЕТ: ${catName}
+ТЕМА: ${d.title}
+ДАТА: ${dateStr}
+
+ГЛАВНЫЕ ВОПРОСЫ (черновик):
+${d.mainQuestions||'(не заполнено)'}
+
+КЛЮЧЕВЫЕ СЛОВА: ${d.keywords.join(', ')||'(пока нет)'}
+
+ТЕКСТ ЛЕКЦИИ:
+${stripHtml(d.materialText)}
+
+ЗАМЕТКИ:
+${stripHtml(d.notes)}
+
+---
+Обработай это по шаблону PRIMUS. и верни JSON вида:
+{"mainQuestions":"...", "keywords":["...","..."], "explanation":"...", "facts":"...", "connections":"...", "application":"...", "cards":[{"topic":"${'название темы'}", "fields":{...}}]}`;
+}
+function openTheoryAiImportModal(key, body){
+  document.getElementById('modalBody').innerHTML = `
+    <h3>Вставить обработку от ИИ</h3>
+    <div class="field"><textarea id="aiJson" style="min-height:200px" placeholder="Вставь сюда JSON, который тебе вернул Claude"></textarea></div>
+    <div class="modal-actions"><button class="btn" id="mCancelAi">Отмена</button><button class="btn btn-primary" id="mSaveAi">Применить</button></div>
+  `;
+  document.getElementById('mCancelAi').onclick=closeOverlay;
+  document.getElementById('mSaveAi').onclick=()=>{
+    let parsed;
+    try{ parsed = JSON.parse(document.getElementById('aiJson').value); }
+    catch(e){ openInfoModal('Ошибка','Не удалось прочитать JSON — проверь формат.'); return; }
+    if(parsed.mainQuestions) document.getElementById('theQuestions').value = stripHtml(parsed.mainQuestions);
+    if(parsed.explanation) document.getElementById('theExplain').innerHTML = parsed.explanation;
+    if(parsed.facts) document.getElementById('theFacts').innerHTML = parsed.facts;
+    if(parsed.connections) document.getElementById('theConn').innerHTML = parsed.connections;
+    if(parsed.application) document.getElementById('theApp').innerHTML = parsed.application;
+    if(Array.isArray(parsed.keywords)){
+      const kwEditor = document.getElementById('kwEditor');
+      if(kwEditor){
+        parsed.keywords.forEach(k=>{ if(k) kwEditor.insertAdjacentHTML('beforeend', `<span class="kw-chip">${esc(k)}</span>`); });
+      }
+    }
+    let cardCount = 0;
+    if(Array.isArray(parsed.cards) && parsed.cards.length){
+      const data = APP_DATA[key];
+      const isCustom = !CATEGORY_META.find(m=>m.key===key);
+      const fieldKeys = (data.meta.fields || (data.meta.type==='custom'?['front','back','note']:['front','back']));
+      parsed.cards.forEach(c=>{
+        const topicId = resolveTopicByName(key, c.topic);
+        const vals = {};
+        fieldKeys.forEach(f=>{ vals[f] = (c.fields && c.fields[f]) || ''; });
+        const id = uid(key);
+        const newCard = Object.assign({id, catKey:key, level:0, next_review:todayISO(), topicId}, vals);
+        if(isCustom){ if(!STORE.customCards[key]) STORE.customCards[key]=[]; STORE.customCards[key].push(newCard); }
+        else { if(!STORE.extraCards[key]) STORE.extraCards[key]=[]; STORE.extraCards[key].push(newCard); }
+        cardCount++;
+      });
+      saveStore();
+      buildAllData();
+    }
+    closeOverlay();
+    openInfoModal('Готово', `Поля заполнены${cardCount?`, создано карточек: <b>${cardCount}</b>`:''}. Не забудь нажать «Сохранить материал».`);
+  };
+  openOverlay();
+}
+
+/* ---------- richField с поддержкой маркера (highlighter) и большого размера для материала ---------- */
+function richFieldFull(id, label, html, withHighlight){
+  const highlightBtns = withHighlight ? `
+      <button type="button" class="rt-btn hl" data-cmd="hiliteColor" data-val="#F4E08A" style="background:#F4E08A" title="Жёлтый маркер"></button>
+      <button type="button" class="rt-btn hl" data-cmd="hiliteColor" data-val="#B7D8F0" style="background:#B7D8F0" title="Голубой маркер"></button>
+      <button type="button" class="rt-btn hl" data-cmd="hiliteColor" data-val="#F2B8C6" style="background:#F2B8C6" title="Розовый маркер"></button>
+      <button type="button" class="rt-btn" data-cmd="hiliteColor" data-val="transparent" title="Убрать маркер">✕</button>
+  ` : '';
+  return `<div class="field">
+    <label>${esc(label)}</label>
+    <div class="rt-toolbar" data-for="${id}">
+      <button type="button" class="rt-btn b" data-cmd="bold" title="Жирный">B</button>
+      <button type="button" class="rt-btn i" data-cmd="italic" title="Курсив">I</button>
+      <button type="button" class="rt-btn s" data-cmd="strikeThrough" title="Зачёркнутый">S</button>
+      <button type="button" class="rt-btn u" data-cmd="underline" title="Подчёркнутый">U</button>
+      ${highlightBtns}
+    </div>
+    <div class="rt-editable ${withHighlight?'te-material-box':'te-notes-box'}" contenteditable="true" id="${id}">${html||''}</div>
+  </div>`;
 }
 
 /* ---------- Практика: 5 режимов ---------- */
@@ -3442,7 +3856,7 @@ function openTopicsModal(key){
     document.querySelectorAll('.topic-name-input').forEach(inp=>{
       inp.addEventListener('change',()=>{ renameTopic(key, inp.dataset.id, inp.value.trim()||'Без названия'); });
     });
-    document.querySelectorAll('[data-del-topic]').forEach(btn=>{ btn.onclick=()=>{ deleteTopic(key, btn.dataset.delTopic); draw(); }; });
+    document.querySelectorAll('[data-del-topic]').forEach(btn=>{ btn.onclick=()=>{ if(!confirm('Удалить тему? Карточки в ней не удалятся, но потеряют привязку к теме. Это безвозвратно.')) return; deleteTopic(key, btn.dataset.delTopic); draw(); }; });
     document.querySelectorAll('[data-pin-topic]').forEach(btn=>{ btn.onclick=()=>{ toggleTopicPin(key, btn.dataset.pinTopic); draw(); }; });
     document.querySelectorAll('[data-up-topic]').forEach(btn=>{ btn.onclick=()=>{ moveTopic(key, btn.dataset.upTopic,-1); draw(); }; });
     document.querySelectorAll('[data-down-topic]').forEach(btn=>{ btn.onclick=()=>{ moveTopic(key, btn.dataset.downTopic,1); draw(); }; });
@@ -3455,6 +3869,7 @@ function openManageCategoriesModal(){
   function draw(){
     const keys = getOrderedCategoryKeys();
     const pinned = STORE.pinnedCategories||[];
+    const hidden = STORE.hiddenCategories||[];
     let html = `<h3>Управление категориями</h3><div id="catManageList">`;
     keys.forEach((key,i)=>{
       const isPinned = pinned.includes(key);
@@ -3463,9 +3878,19 @@ function openManageCategoriesModal(){
         <button class="mini-btn" data-up-cat="${key}" ${i===0?'disabled':''} title="Выше">▲</button>
         <button class="mini-btn" data-down-cat="${key}" ${i===keys.length-1?'disabled':''} title="Ниже">▼</button>
         <input class="manage-name-input" data-id="${key}" value="${esc(getCategoryDisplayName(key))}">
+        <button class="icon-btn" data-del-cat="${key}">Удал.</button>
       </div>`;
     });
-    html += `</div><div class="modal-actions"><button class="btn btn-primary" id="mCloseManageCat">Готово</button></div>`;
+    html += `</div>`;
+    if(hidden.length>0){
+      html += `<div class="field" style="margin-top:14px"><label>Скрытые встроенные предметы</label>`;
+      hidden.forEach(key=>{
+        const meta = CATEGORY_META.find(m=>m.key===key);
+        html += `<div class="manage-row"><span style="flex:1;font-size:12.5px;color:var(--text-dim)">${esc(meta?meta.name:key)}</span><button class="mini-btn" data-restore-cat="${key}">Вернуть</button></div>`;
+      });
+      html += `</div>`;
+    }
+    html += `<div class="modal-actions"><button class="btn btn-primary" id="mCloseManageCat">Готово</button></div>`;
     document.getElementById('modalBody').innerHTML = html;
     document.getElementById('mCloseManageCat').onclick=()=>{ closeOverlay(); buildAllData(); renderAll(); };
     document.querySelectorAll('.manage-name-input').forEach(inp=>{
@@ -3474,52 +3899,25 @@ function openManageCategoriesModal(){
     document.querySelectorAll('[data-pin-cat]').forEach(btn=>{ btn.onclick=()=>{ toggleCategoryPin(btn.dataset.pinCat); draw(); }; });
     document.querySelectorAll('[data-up-cat]').forEach(btn=>{ btn.onclick=()=>{ moveCategory(btn.dataset.upCat,-1); draw(); }; });
     document.querySelectorAll('[data-down-cat]').forEach(btn=>{ btn.onclick=()=>{ moveCategory(btn.dataset.downCat,1); draw(); }; });
+    document.querySelectorAll('[data-del-cat]').forEach(btn=>{
+      btn.onclick=()=>{
+        const isCustom = !CATEGORY_META.find(m=>m.key===btn.dataset.delCat);
+        const msg = isCustom
+          ? 'Точно удалить этот предмет со всеми карточками, темами и тетрадями? Это безвозвратно.'
+          : 'Скрыть этот предмет из списка? Данные сохранятся, его можно будет вернуть здесь же.';
+        if(!confirm(msg)) return;
+        deleteCategory(btn.dataset.delCat);
+        draw();
+      };
+    });
+    document.querySelectorAll('[data-restore-cat]').forEach(btn=>{
+      btn.onclick=()=>{
+        STORE.hiddenCategories = (STORE.hiddenCategories||[]).filter(k=>k!==btn.dataset.restoreCat);
+        saveStore(); buildAllData(); draw();
+      };
+    });
   }
   draw();
-  openOverlay();
-}
-
-/* ---------- Теория: модалка добавления/редактирования материала ---------- */
-function openTheoryModal(key, materialId){
-  const editing = materialId ? (STORE.materials[key]||[]).find(m=>m.id===materialId) : null;
-  const topics = getCategoryTopics(key);
-  let topicSelect = `<div class="field"><label>Тема</label><select id="theoryTopicSelect">`;
-  topics.forEach(t=>{
-    const selected = editing ? editing.topicId===t.id : t.id==='general';
-    topicSelect += `<option value="${t.id}" ${selected?'selected':''}>${esc(t.name)}</option>`;
-  });
-  topicSelect += `</select></div>`;
-  document.getElementById('modalBody').innerHTML = `
-    <h3>${editing?'Изменить материал':'Новый материал (Теория)'}</h3>
-    <div class="field"><label>Название (тема лекции)</label><input id="thTitle" value="${editing?esc(editing.title):''}"></div>
-    ${topicSelect}
-    <div class="field"><label>Главный вопрос</label><textarea id="thQuestion" placeholder="На какой вопрос отвечает этот материал?">${editing?esc(editing.mainQuestion):''}</textarea></div>
-    ${richField('thExplain','Объяснение простыми словами', editing?editing.explanation:'', 'Как бы ты объяснила это другу, не используя термины?')}
-    ${richField('thFacts','Интересные факты (копнуть глубже)', editing?(editing.facts||''):'', 'Пара фактов сверх программы')}
-    ${richField('thConn','Связь с другими темами', editing?(editing.connections||''):'', 'Как это соединяется с другими предметами?')}
-    ${richField('thApp','Как использовать', editing?(editing.application||''):'', 'Где и как это применить?')}
-    <div class="modal-actions"><button class="btn" id="mCancelTh">Отмена</button><button class="btn btn-primary" id="mSaveTh">Сохранить</button></div>`;
-  document.getElementById('modalBody').classList.add('modal-lg');
-  wireRichToolbars();
-  document.getElementById('mCancelTh').onclick=closeOverlay;
-  document.getElementById('mSaveTh').onclick=()=>{
-    const vals = {
-      title: document.getElementById('thTitle').value.trim() || 'Без названия',
-      topicId: document.getElementById('theoryTopicSelect').value,
-      mainQuestion: document.getElementById('thQuestion').value.trim(),
-      explanation: document.getElementById('thExplain').innerHTML.trim(),
-      facts: document.getElementById('thFacts').innerHTML.trim(),
-      connections: document.getElementById('thConn').innerHTML.trim(),
-      application: document.getElementById('thApp').innerHTML.trim(),
-      date: editing ? editing.date : todayISO()
-    };
-    if(!STORE.materials[key]) STORE.materials[key]=[];
-    if(editing){ Object.assign(editing, vals); }
-    else { STORE.materials[key].push(Object.assign({id:uid('mat')}, vals)); }
-    saveStore();
-    closeOverlay();
-    renderAll();
-  };
   openOverlay();
 }
 
