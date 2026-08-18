@@ -13,12 +13,12 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Unbounded:wght@900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ===================== ТОКЕНЫ ТЕМЫ ===================== */
 :root{
-  --font-display:'Onest',sans-serif;
-  --font-body:'Onest',sans-serif;
+  --font-display:'Montserrat',sans-serif;
+  --font-body:'Montserrat',sans-serif;
   --font-mono:'JetBrains Mono',monospace;
   --radius-s:8px; --radius-m:12px; --radius-l:18px;
 }
@@ -127,7 +127,14 @@ textarea,input,select{border-radius:var(--radius-s);}
 }
 .sidebar-resizer:hover,.sidebar-resizer.dragging{background:var(--accent-soft);}
 .brand{padding:10px 8px 6px;}
-.brand h1{font-size:30px;letter-spacing:3px;transform:scaleX(1.4) scaleY(0.88);transform-origin:left center;font-weight:800;display:inline-block;white-space:nowrap;}
+.brand h1{
+  font-family:'Unbounded',var(--font-display);font-weight:900;
+  font-size:26px;letter-spacing:2.6px;
+  transform:scaleX(1.15) scaleY(0.94);transform-origin:left center;
+  display:inline-block;white-space:nowrap;
+  color:var(--text);
+}
+html[data-theme="light"] .brand h1{ color:var(--choc-bitter); }
 .brand .sub{font-size:11.5px;color:var(--text-dim);margin-top:3px;letter-spacing:.2px;}
 .aura-badge{margin:10px 8px 16px;padding:8px 12px;border-radius:var(--radius-s);background:var(--accent-soft);color:var(--accent-strong);font-family:var(--font-mono);font-size:11.5px;font-weight:600;text-align:center;}
 
@@ -409,6 +416,7 @@ html[data-theme="light"] .switch::after{transform:translateX(16px);}
   .cover-banner{height:44px;}
   #app.sidebar-collapsed .sidebar{display:none;}
   .sidebar-toggle{position:fixed !important;top:10px !important;right:10px !important;left:auto !important;}
+  .brand{padding:30px 8px 10px;}
 }
 :root{ --sidebar-w:256px; }
 .sidebar-toggle{
@@ -2474,7 +2482,7 @@ function donutSVG(pct){
   return `<svg width="64" height="64" viewBox="0 0 64 64">
     <circle cx="32" cy="32" r="${r}" fill="none" style="stroke:var(--border)" stroke-width="7"/>
     <circle cx="32" cy="32" r="${r}" fill="none" style="stroke:var(--khaki-ring)" stroke-width="7" stroke-dasharray="${c}" stroke-dashoffset="${off}" stroke-linecap="round" transform="rotate(-90 32 32)"/>
-    <text x="32" y="37" text-anchor="middle" font-size="14" style="fill:var(--text)" font-family="Onest">${pct}%</text>
+    <text x="32" y="37" text-anchor="middle" font-size="14" style="fill:var(--text)" font-family="Montserrat">${pct}%</text>
   </svg>`;
 }
 
@@ -2678,7 +2686,7 @@ const NB_TOOL_DEFAULTS = {
   pencil:{width:2, opacity:0.8},
   highlighter:{width:18, opacity:0.32}
 };
-const NB_STRAIGHTEN_DELAY = 600; // мс — долгое удержание, чтобы не мешать обычному письму
+const NB_STRAIGHTEN_DELAY = 3500; // мс — держать неподвижно 3-4 секунды, чтобы не мешать письму прописью
 const NB_STRAIGHTEN_MOVE_TOLERANCE = 7; // px — почти неподвижен
 const NB_MIN_POINT_DIST = 2; // px — интерполяция при редких точках (палец), чтобы линия не "полосила"
 
